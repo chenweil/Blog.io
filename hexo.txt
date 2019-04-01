@@ -1,0 +1,55 @@
+node.js 安装与卸载
+1.官网    https://nodejs.org/en/download/
+2. 下载
+    复制对应的文件路径
+    wget https://nodejs.org/dist/v8.11.2/node-v8.11.2-linux-x64.tar.xz
+3. 解压安装
+    ***.tar.xz格式文件需要两部解压步骤
+
+1>xz -d node-v8.11.2-linux-x64.tar.xz
+
+2>tar -xvf node-v8.11.2-linux-x64.tar
+3.配置环境目录
+
+ln -s /usr/local/node/node-v8.11.2-linux-x64/bin/node /usr/local/bin/node
+
+ln -s /usr/local/node/node-v8.11.2-linux-x64/bin/npm /usr/local/bin/npm
+
+其中/usr/local/node为node安装目录
+
+node -v
+
+输出版本号即说明已完成
+4.卸载
+1.自带工具删除
+
+yum remove nodejs npm -y 
+
+2.手动删除残留
+进入 /usr/local/lib 删除所有 node 和 node_modules文件夹
+
+进入 /usr/local/include 删除所有 node 和  node_modules 文件夹
+
+进入 /usr/local/bin 删除 node 的可执行文件node和npm
+
+检查 ~ 文件夹里面的"local"   "lib"  "include"  文件夹，然后删除里面的所有  "node" 和  "node_modules" 文件夹
+
+
+
+安装hexo 
+ npm install -g hexo-cli  
+ 这种方法在国内无法正常安装 
+ 替换国内npm源
+ npm install -g cnpm --registry=https://registry.npm.taobao.org
+ linux 需要软链cnpm   ln -s /yourdir/bin/cnpm  /usr/local/npm
+cnpm安装hexo： cnpm install hexo-cli -g
+
+
+
+hexo 主题 git clone 到theme文件夹下 
+
+配置文件修改主题名称
+
+readme 解析错误问题  : skip_render: README.md
+ hexo d  提交 CName 问题： 需要把此文件房到sourse 文件夹下 再D 
+ 
