@@ -1,0 +1,75 @@
+---
+title: hexo博客安装与配置
+date: 2019-04-01 17:59:31
+categories:
+tags: hexo
+---
+
+### wordpress 之后
+
+wordpress 使用很方便，但是折腾几次之后。由于一次意外，导致管理者把我的vps被停掉。虽然有些文章还是保留了。但是这次之后感觉自己还是找一个稳妥的家。连接hexo搭建的博客之后，打算自己来折腾一下。
+<!--more-->
+------------
+
+
+### 记录笔记环境
+在windows上写笔记，环境目前是windows下操作。linux，mac系统中需要注意一些细节吧。存在提不到情况，先做好出现问题考虑自行排查。
+
+------------
+
+
+### 准备
+
+看下hexo的安装提示。
+![安装提示](http://t1.aixinxi.net/o_1d7c68cm911cu1p74qfa133ikh2a.jpg-w.jpg "前提")
+
+hexo 需要Node.js 和 Git 。
+* 安装 Node.js
+ 官网:  [官网](https://nodejs.org/en/download/)
+ widows，mac，linux 都有对应的安装方法。根据自己的环境来安装。
+* 安装 Git
+  官网:  [官网](https://git-scm.com/downloads/)
+  根据自己环境安装。
+* 安装Hexo
+  通过npm来安装 Hexo。
+  命令:  `npm install -g hexo-cli`
+  什么鬼，通过这个命令发现没有实现正常安装。理由，我们在天朝。
+  解决方式： 替换国内npm源。
+ 命令:   `npm install -g cnpm --registry=https://registry.npm.taobao.org`
+ 请注意不同系统在操作此命令时，需要一些设置。linux 如果使用下面命令需要自建软链。  `cnpm   ln -s /yourdir/bin/cnpm  /usr/local/npm`
+ 下一步用cnpm 来安装 Hexo： `cnpm install hexo-cli -g`
+ 验证hexo 是否安装： `hexo v`  会列出版本信息。
+
+------------
+
+
+### 下面使用Hexo来创建blog：
+* 创建项目文件夹。这里开始通过git bash来使用命令行操作。
+* 进入项目文件夹，初始化。 `hexo init` （这里也可以，通过 `hexo init 你的项目文件夹名` 结果一样）
+这里会看到目录有相关文件了。具体这些文件，看下 [手册](https://hexo.io/zh-cn/docs/setup) 是什么意思。
+这时候其实已经是一个博客站点了。
+* 命令 `hexo g`  , `hexo s`  得到信息：Hexo is running at http：//lcoalhost:4000` 注意4000端口需要未被占用。 访问地址就可以看到初始化的站点了。 *（不喜欢默认主题可以修改主题）*
+
+------------
+
+
+### 写文章
+写文章需要先创建文档，这个文档默认生成在_post 文件夹下。
+* 命令 `hexo new testdoc`  得到信息：  Created:···path/testdoc.md   文档的位置，需要编辑这个文档来写文章（Markdown文档）。
+文档写好保存之后。
+命令 `hexo g`  , ` hexo s`  之后我们访问之 localhost:4000 就能看到自己的新文章了。
+
+------------
+
+
+### 推送到Git仓库，在线访问。
+首先需要一个 [GitHub](https://github.com/) ，注册账号。
+创建一个与账户名一样的库， 用户名.github.io , 之后在项目文件夹中，编辑 _config.yml 配置文件。
+
+	deploy:
+    	type: git
+    	repo: https://github.com/用户名/用户名.github.io.git
+    	branch: master
+
+之前写过testdoc.md  这个文件。提交到git库上，命令： `hexo d` , 提交是，会弹出账号密码让你输入。接着得到提示： Deploy done: git。 这里我们就提交到库上了。   *（账号密码提交比较麻烦，可以通过配置公钥来解决）*
+这时候我们可以通过 用户名.github.io.git 这个地址访问到博客了。（不喜欢这个地址，可以通过域名来绑定）
