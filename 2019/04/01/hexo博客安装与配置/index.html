@@ -94,7 +94,8 @@
   <ol class="toc-list"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#wordpress-之后"><span class="toc-list-text">wordpress 之后</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#记录笔记环境"><span class="toc-list-text">记录笔记环境</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#准备"><span class="toc-list-text">准备</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#下面使用Hexo来创建blog："><span class="toc-list-text">下面使用Hexo来创建blog：</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#写文章"><span class="toc-list-text">写文章</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#推送到Git仓库，在线访问。"><span class="toc-list-text">推送到Git仓库，在线访问。</span></a></li></ol>
 </div>
             <div class="content">
-                <h3 id="wordpress-之后"><a href="#wordpress-之后" class="headerlink" title="wordpress 之后"></a>wordpress 之后</h3><p>wordpress 使用很方便，但是折腾几次之后。由于一次意外，倒是自己的vps被停掉。虽然有些文章还是保留了。但是这次之后感觉自己还是找一个稳妥的家。连接hexo搭建的博客之后，打算自己来折腾一下。</p>
+                <h3 id="wordpress-之后"><a href="#wordpress-之后" class="headerlink" title="wordpress 之后"></a>wordpress 之后</h3><p>wordpress 使用很方便，但是折腾几次之后。由于一次意外，导致管理者把我的vps被停掉。虽然有些文章还是保留了。但是这次之后感觉自己还是找一个稳妥的家。连接hexo搭建的博客之后，打算自己来折腾一下。</p>
+<a id="more"></a>
 <hr>
 <h3 id="记录笔记环境"><a href="#记录笔记环境" class="headerlink" title="记录笔记环境"></a>记录笔记环境</h3><p>在windows上写笔记，环境目前是windows下操作。linux，mac系统中需要注意一些细节吧。存在提不到情况，先做好出现问题考虑自行排查。</p>
 <hr>
@@ -109,12 +110,12 @@
 <h3 id="下面使用Hexo来创建blog："><a href="#下面使用Hexo来创建blog：" class="headerlink" title="下面使用Hexo来创建blog："></a>下面使用Hexo来创建blog：</h3><ul>
 <li>创建项目文件夹。这里开始通过git bash来使用命令行操作。</li>
 <li>进入项目文件夹，初始化。 <code>hexo init</code> （这里也可以，通过 <code>hexo init 你的项目文件夹名</code> 结果一样）<br>这里会看到目录有相关文件了。具体这些文件，看下 <a href="https://hexo.io/zh-cn/docs/setup" target="_blank" rel="noopener">手册</a> 是什么意思。<br>这时候其实已经是一个博客站点了。</li>
-<li>命令 <code>hexo g</code>  <code>hexo s</code>  得到信息：Hexo is running at http：//lcoalhost:4000` 注意4000端口需要未被占用。 访问地址就可以看到初始化的站点了。 <em>（不喜欢默认主题可以修改主题）</em></li>
+<li>命令 <code>hexo g</code>  , <code>hexo s</code>  得到信息：Hexo is running at http：//lcoalhost:4000` 注意4000端口需要未被占用。 访问地址就可以看到初始化的站点了。 <em>（不喜欢默认主题可以修改主题）</em></li>
 </ul>
 <hr>
 <h3 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h3><p>写文章需要先创建文档，这个文档默认生成在_post 文件夹下。</p>
 <ul>
-<li>命令 <code>hexo new testdoc</code>  得到信息：  Created:···path/testdoc.md   文档的位置，需要编辑这个文档来写文章（Markdown文档）。<br>文档写好保存之后。<br>命令 <code>hexo g</code> <code>hexo s</code>  之后我们访问之 localhost:4000 就能看到自己的新文章了。</li>
+<li>命令 <code>hexo new testdoc</code>  得到信息：  Created:···path/testdoc.md   文档的位置，需要编辑这个文档来写文章（Markdown文档）。<br>文档写好保存之后。<br>命令 <code>hexo g</code>  , <code>hexo s</code>  之后我们访问之 localhost:4000 就能看到自己的新文章了。</li>
 </ul>
 <hr>
 <h3 id="推送到Git仓库，在线访问。"><a href="#推送到Git仓库，在线访问。" class="headerlink" title="推送到Git仓库，在线访问。"></a>推送到Git仓库，在线访问。</h3><p>首先需要一个 <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a> ，注册账号。<br>创建一个与账户名一样的库， 用户名.github.io , 之后在项目文件夹中，编辑 _config.yml 配置文件。</p>
