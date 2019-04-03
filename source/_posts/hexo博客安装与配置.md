@@ -150,6 +150,11 @@ deploy:
     branch: master
   ```
 到这里我们已经配置好，我们下次写完文章是 hexo d 不会让你输入密码了。
+真的不用输入密码了吗? 你可能会遇到问题,怎么还需要认证?(因为我这环境出现了问题)
+看下错误 :
+`git push origin hexo`
+fatal: HttpRequestException encountered.
+如果你现者句话,那么需要你更新一下Windows的git凭证管理器.[管理器地址](https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/)
 
 --------
 
