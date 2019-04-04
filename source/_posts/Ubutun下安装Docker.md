@@ -9,7 +9,7 @@ tags: Docker
 > 一个能够把开发的应用程序自动部署到容器的开源引擎 
 > 三大概念：镜像（Image）容器（Container）仓库（Repository）
 
-<! --more-->
+<!--more-->
 具体信息请参考官方。[官方概述](https://docs.docker.com/engine/docker-overview/)（养成看文档习惯）
 
 ### 安装环境
