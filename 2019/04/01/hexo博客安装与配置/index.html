@@ -1,104 +1,433 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>
-        
-            hexo博客安装与配置
-        
-    </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="wordpress 之后wordpress 使用很方便，但是折腾几次之后。由于一次意外，导致管理者把我的vps被停掉。虽然有些文章还是保留了。但是这次之后感觉自己还是找一个稳妥的家。连接hexo搭建的博客之后，打算自己来折腾一下。 记录笔记环境在windows上写笔记，环境目前是windows下操作。linux，mac系统中需要注意一些细节吧。存在提不到情况，先做好出现问题考虑自行排查。 准备看下">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo博客安装与配置">
+<meta property="og:url" content="http://blog.51ai.vip/2019/04/01/hexo博客安装与配置/index.html">
+<meta property="og:site_name" content="aLong">
+<meta property="og:description" content="wordpress 之后wordpress 使用很方便，但是折腾几次之后。由于一次意外，导致管理者把我的vps被停掉。虽然有些文章还是保留了。但是这次之后感觉自己还是找一个稳妥的家。连接hexo搭建的博客之后，打算自己来折腾一下。 记录笔记环境在windows上写笔记，环境目前是windows下操作。linux，mac系统中需要注意一些细节吧。存在提不到情况，先做好出现问题考虑自行排查。 准备看下">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://t1.aixinxi.net/o_1d7c68cm911cu1p74qfa133ikh2a.jpg-w.jpg">
+<meta property="og:image" content="http://t1.aixinxi.net/o_1d7gmnnf81q5sl9n159g1osikh2a.png-w.jpg">
+<meta property="og:image" content="http://t1.aixinxi.net/o_1d7gn0s4a4bb1lau1qal8731m3ka.jpg-w.jpg">
+<meta property="og:image" content="http://t1.aixinxi.net/o_1d7gmqciljvsnfo10eb8hpinla.png-w.jpg">
+<meta property="og:image" content="http://t1.aixinxi.net/o_1d7gsgtpitdq195h1ettdim3i0a.png-w.jpg">
+<meta property="og:image" content="http://t1.aixinxi.net/o_1d7gscv061tfgbla1ahn86kti5a.jpg-w.jpg">
+<meta property="og:image" content="http://t1.aixinxi.net/o_1d7gsuim4ffkp72alt1qnlreea.png-w.jpg">
+<meta property="og:updated_time" content="2019-04-11T03:15:33.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo博客安装与配置">
+<meta name="twitter:description" content="wordpress 之后wordpress 使用很方便，但是折腾几次之后。由于一次意外，导致管理者把我的vps被停掉。虽然有些文章还是保留了。但是这次之后感觉自己还是找一个稳妥的家。连接hexo搭建的博客之后，打算自己来折腾一下。 记录笔记环境在windows上写笔记，环境目前是windows下操作。linux，mac系统中需要注意一些细节吧。存在提不到情况，先做好出现问题考虑自行排查。 准备看下">
+<meta name="twitter:image" content="http://t1.aixinxi.net/o_1d7c68cm911cu1p74qfa133ikh2a.jpg-w.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.51ai.vip/2019/04/01/hexo博客安装与配置/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>hexo博客安装与配置 | aLong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            aLong
-        </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            It is only shallow people who do not judge by appearances.
-        </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
-            
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="/about/" class="menu-item-link">
-                        About
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-                <li class="menu-item">
-                    <a class="menu-item-link search">
-                        Search                   
-                        <i class="fa fa-long-arrow-right search-icon" aria-hidden="true"></i>
-                    </a>
-                        <input placeholder="Search..." class="search-input" style="display:none;border:none!important;" onkeydown="onEnter(event)" onkeypress="onEnter(event)">
-                </li>
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/04/01/hexo博客安装与配置/"> 
-                    hexo博客安装与配置 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-04-01   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/note/">note</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#wordpress-之后"><span class="toc-list-text">wordpress 之后</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#记录笔记环境"><span class="toc-list-text">记录笔记环境</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#准备"><span class="toc-list-text">准备</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#下面使用Hexo来创建blog："><span class="toc-list-text">下面使用Hexo来创建blog：</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#写文章"><span class="toc-list-text">写文章</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#推送到Git仓库，在线访问。"><span class="toc-list-text">推送到Git仓库，在线访问。</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#主题更换"><span class="toc-list-text">主题更换</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#域名"><span class="toc-list-text">域名</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#通过分支来完善博客"><span class="toc-list-text">通过分支来完善博客</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#配置公钥"><span class="toc-list-text">配置公钥</span></a></li></ol>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aLong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
-            <div class="content">
-                <h3 id="wordpress-之后"><a href="#wordpress-之后" class="headerlink" title="wordpress 之后"></a>wordpress 之后</h3><p>wordpress 使用很方便，但是折腾几次之后。由于一次意外，导致管理者把我的vps被停掉。虽然有些文章还是保留了。但是这次之后感觉自己还是找一个稳妥的家。连接hexo搭建的博客之后，打算自己来折腾一下。<br><a id="more"></a></p>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/04/01/hexo博客安装与配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aLong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hexo博客安装与配置
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-01 17:59:31" itemprop="dateCreated datePublished" datetime="2019-04-01T17:59:31+08:00">2019-04-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-11 11:15:33" itemprop="dateModified" datetime="2019-04-11T11:15:33+08:00">2019-04-11</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="wordpress-之后"><a href="#wordpress-之后" class="headerlink" title="wordpress 之后"></a>wordpress 之后</h3><p>wordpress 使用很方便，但是折腾几次之后。由于一次意外，导致管理者把我的vps被停掉。虽然有些文章还是保留了。但是这次之后感觉自己还是找一个稳妥的家。连接hexo搭建的博客之后，打算自己来折腾一下。</p>
 <h3 id="记录笔记环境"><a href="#记录笔记环境" class="headerlink" title="记录笔记环境"></a>记录笔记环境</h3><p>在windows上写笔记，环境目前是windows下操作。linux，mac系统中需要注意一些细节吧。存在提不到情况，先做好出现问题考虑自行排查。</p>
 <h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>看下hexo的安装提示。<br><img src="http://t1.aixinxi.net/o_1d7c68cm911cu1p74qfa133ikh2a.jpg-w.jpg" alt="安装提示" title="前提"></p>
 <p>hexo 需要Node.js 和 Git 。</p>
@@ -162,106 +491,385 @@
 <hr>
 <p>到此基本的配置已经完成，文中只是简单的描述了基础工作。再哪方面出现问题需要通过文档和网络来查询问题。第一次接触此框架，还是好好看文档。你通过网络查询的很多结果存在一些问题。例如版本不同，环境不同等。最好的方法还是自己来分析，处理。养成好习惯，戒心浮气躁，坚持自己来解决问题。</p>
 
-            </div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
           
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>aLong</a>
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/04/Ubutun下安装Docker/" rel="prev" title="Ubutun下安装Docker">
+                Ubutun下安装Docker <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
                 </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://blog.51ai.vip/2019/04/01/hexo博客安装与配置/">http://blog.51ai.vip/2019/04/01/hexo博客安装与配置/</a>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
                 </div>
-                <div class="license">
-                    <a>版权声明:</a>
-                    <a>本博客所有文章除特别声明外，均采用许可协议 CC BY-NC-SA 3.0 CN。转载请注明出处！</a>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
                 </div>
-            </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
             
 
-          
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#wordpress-之后"><span class="nav-number">1.</span> <span class="nav-text">wordpress 之后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记录笔记环境"><span class="nav-number">2.</span> <span class="nav-text">记录笔记环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备"><span class="nav-number">3.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面使用Hexo来创建blog："><span class="nav-number">4.</span> <span class="nav-text">下面使用Hexo来创建blog：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写文章"><span class="nav-number">5.</span> <span class="nav-text">写文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送到Git仓库，在线访问。"><span class="nav-number">6.</span> <span class="nav-text">推送到Git仓库，在线访问。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题更换"><span class="nav-number">7.</span> <span class="nav-text">主题更换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域名"><span class="nav-number">8.</span> <span class="nav-text">域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过分支来完善博客"><span class="nav-number">9.</span> <span class="nav-text">通过分支来完善博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置公钥"><span class="nav-number">10.</span> <span class="nav-text">配置公钥</span></a></li></ol></div>
+            
 
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
-</article>
+      
 
-
-<div class="tip">
-<button class="tip-btn">
-    打赏
-</button>
-<div class="tip-img">
-<ul>
-    
-<li>
-    <img src="/img/ali.png">
-</li>
-
- 
-<li>
-    <img src="/img/wexin.png">
-</li>
-
-</ul>
-</div>
-</div>
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/04/04/Ubutun下安装Docker/">  Ubutun下安装Docker</a>
     </div>
+  </aside>
+  
 
-<div></div>
 
-</div>
-
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div>
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Mon Apr 01 2019 17:59:31 GMT+0800",
-    owner: "chenweil",
-    repo: "chenweil.github.io",
-    oauth: {
-      client_id:"df5b91b7991d0d784b99",
-      client_secret: "e2763468b87a8ab15b3ac56ded9e3d88bb1cded8",
-    }
-  })
-  gitment.render('comments')
-</script>
+        
+      </div>
     </main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
-    </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2017
-    <a href="//github.com/Vevlins/toki" class="link" target="_blank">Toki</a>  by Vevlins
-    </div>
-</footer>
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
