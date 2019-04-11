@@ -121,7 +121,7 @@
     type: git
     repo: https://github.com/用户名/用户名.github.io.git  (我相信你能知道这个地址在哪里)
     branch: master
-</code></pre><p>之前写过testdoc.md  这个文件。提交到git库上，命令： <code>hexo d</code> , 提交是，会弹出账号密码让你输入。接着得到提示： Deploy done: git。 这里我们就提交到库上了。   <em>（账号密码提交比较麻烦，可以通过配置公钥来解决）</em><br>这时候我们可以通过 用户名.github.io.git 这个地址访问到博客了。<em>（不喜欢这个地址，可以通过域名来绑定）</em></p>
+</code></pre><p>之前写过testdoc.md  这个文件。提交到git库上，命令： <code>hexo d</code> , 提交是，会弹出账号密码让你输入。接着得到提示： Deploy done: git。 这里我们就提交到库上了。   <em>（账号密码提交比较麻烦，可以通过配置公钥来解决）</em><br>这里如果出现错误 Deployer not found：git  ，需要安装一下。 命令  <code>npm install hexo-deployer-git --save</code><br>这时候我们可以通过 用户名.github.io.git 这个地址访问到博客了。<em>（不喜欢这个地址，可以通过域名来绑定）</em></p>
 <h3 id="主题更换"><a href="#主题更换" class="headerlink" title="主题更换"></a>主题更换</h3><p>默认的主题让我们觉得太不个性化了。还没有能力自己操刀编辑，怎么办？</p>
 <p>建议先看下<a href="https://hexo.io/zh-cn/docs/themes" target="_blank" rel="noopener">文档</a>.了解一下,培养看文档习惯.</p>
 <p>可以使用别人的主题，<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官网提供</a> 提供一些，也可以通过网上其他人的推荐来使用自己喜欢的主题。<br>例如在官网地址上看到有一个名字是 Next(很多人有这个,或基于此主题修改). 点击可以语言并且访问.<br><a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">地址</a> , 我们需要克隆到自己项目下 themes 文件下. 你可以下载zip到自己项目下解压,不过有些麻烦也不够B格.我们使用git操作.</p>
