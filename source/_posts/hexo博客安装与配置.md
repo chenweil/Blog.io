@@ -66,6 +66,7 @@ deploy:
     branch: master
 ```
 之前写过testdoc.md  这个文件。提交到git库上，命令： `hexo d` , 提交是，会弹出账号密码让你输入。接着得到提示： Deploy done: git。 这里我们就提交到库上了。   *（账号密码提交比较麻烦，可以通过配置公钥来解决）*
+这里如果出现错误 Deployer not found：git  ，需要安装一下。 命令  `npm install hexo-deployer-git --save`
 这时候我们可以通过 用户名.github.io.git 这个地址访问到博客了。*（不喜欢这个地址，可以通过域名来绑定）*
 
 
