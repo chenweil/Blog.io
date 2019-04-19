@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="Docker常用命令说常用不如说自己用到的命令。 容器相关学习了一下docker，基础常用命令记录下。 ####docker run/新建并启动容器这个run其实包含两个不走，先执行新建容器(docker create),接着启动容器(docker start)。敲两个是不是有点麻烦吧。 docker run  xx [COMMAND]  例子 docker run -it ubuntu:14.0">
-<meta name="keywords" content="docker">
+  <meta name="description" content="Centos7时间相关查看时间datehwclock 硬件时间timedatectl  各时间状态 设置&amp;amp;更新服务时间安装ntpdateyum install utp ntpdate 设置同步ntpdate cn.pool.ntp.org        (time.windows.com) 地址看喜好 设置硬件时间hwclock –systohc 设置时区timedatectl set-t">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker常用命令">
-<meta property="og:url" content="http://blog.51ai.vip/2019/04/11/Docker常用命令/index.html">
+<meta property="og:title" content="Centos7时间设置">
+<meta property="og:url" content="http://blog.51ai.vip/2019/04/19/Centos7时间设置/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="Docker常用命令说常用不如说自己用到的命令。 容器相关学习了一下docker，基础常用命令记录下。 ####docker run/新建并启动容器这个run其实包含两个不走，先执行新建容器(docker create),接着启动容器(docker start)。敲两个是不是有点麻烦吧。 docker run  xx [COMMAND]  例子 docker run -it ubuntu:14.0">
+<meta property="og:description" content="Centos7时间相关查看时间datehwclock 硬件时间timedatectl  各时间状态 设置&amp;amp;更新服务时间安装ntpdateyum install utp ntpdate 设置同步ntpdate cn.pool.ntp.org        (time.windows.com) 地址看喜好 设置硬件时间hwclock –systohc 设置时区timedatectl set-t">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-11T08:28:34.775Z">
+<meta property="og:updated_time" content="2019-04-19T03:54:26.520Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker常用命令">
-<meta name="twitter:description" content="Docker常用命令说常用不如说自己用到的命令。 容器相关学习了一下docker，基础常用命令记录下。 ####docker run/新建并启动容器这个run其实包含两个不走，先执行新建容器(docker create),接着启动容器(docker start)。敲两个是不是有点麻烦吧。 docker run  xx [COMMAND]  例子 docker run -it ubuntu:14.0">
+<meta name="twitter:title" content="Centos7时间设置">
+<meta name="twitter:description" content="Centos7时间相关查看时间datehwclock 硬件时间timedatectl  各时间状态 设置&amp;amp;更新服务时间安装ntpdateyum install utp ntpdate 设置同步ntpdate cn.pool.ntp.org        (time.windows.com) 地址看喜好 设置硬件时间hwclock –systohc 设置时区timedatectl set-t">
 
 
 
@@ -115,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.51ai.vip/2019/04/11/Docker常用命令/">
+  <link rel="canonical" href="http://blog.51ai.vip/2019/04/19/Centos7时间设置/">
 
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>Docker常用命令 | aLong</title>
+  <title>Centos7时间设置 | aLong</title>
   
 
 
@@ -311,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/04/11/Docker常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/04/19/Centos7时间设置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aLong">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Docker常用命令
+          <h1 class="post-title" itemprop="name headline">Centos7时间设置
 
               
             
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2019-04-11 15:09:19 / 修改时间：16:28:34" itemprop="dateCreated datePublished" datetime="2019-04-11T15:09:19+08:00">2019-04-11</time>
+              <time title="创建时间：2019-04-19 11:42:02 / 修改时间：11:54:26" itemprop="dateCreated datePublished" datetime="2019-04-19T11:42:02+08:00">2019-04-19</time>
             
 
             
@@ -405,7 +405,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.7k</span>
+                <span title="本文字数">256</span>
               
 
               
@@ -419,7 +419,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">1 分钟</span>
               
             </div>
           
@@ -439,30 +439,12 @@
       
 
       
-        <h2 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h2><p>说常用不如说自己用到的命令。</p>
-<h3 id="容器相关"><a href="#容器相关" class="headerlink" title="容器相关"></a>容器相关</h3><p>学习了一下docker，基础常用命令记录下。</p>
-<p>####docker run/新建并启动容器<br>这个run其实包含两个不走，先执行新建容器(docker create),接着启动容器(docker start)。敲两个是不是有点麻烦吧。</p>
-<p>docker run  xx [COMMAND] </p>
-<p>例子 <code>docker run -it ubuntu:14.04 /bin/bash</code></p>
-<p>这里希望启动一个基于 ubuntu 14.04镜像 来创建一个容器，-t选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上，-i则让容器的标准输入保持打开。更多的命令选项可以通过man docker-run命令来查看。之后命令还有一项，启动一个bash终端。 这条命令涉及到很多知识了。<br>-参数 常用 -i -d -t -p，   -d 是否在后台运行，-p 映射到本地主机端口。剩下的看手册来补下。  </p>
-<h4 id="docker-create-amp-amp-docker-start-amp-amp-docker-stop"><a href="#docker-create-amp-amp-docker-start-amp-amp-docker-stop" class="headerlink" title="docker create &amp;&amp; docker start &amp;&amp; docker stop"></a>docker create &amp;&amp; docker start &amp;&amp; docker stop</h4><p>创建，启动，停止。<br>有一个容易停止了，可以用 docker start  XX容器 启动。 XX 可以是容器的ID，也可以是name。</p>
-<h4 id="docker-rm"><a href="#docker-rm" class="headerlink" title="docker rm"></a>docker rm</h4><p>删除一个容器（最好先把这个容器停止了再删除）。<br>-f 可以强制删除。-v 删除与容器关联的卷（如果刚学习还真不知道什么是卷）。</p>
-<h4 id="docker-attach"><a href="#docker-attach" class="headerlink" title="docker attach"></a>docker attach</h4><p>进入容器，如果开启了一个 -d 后台启动容器。 我们怎么进去看看？  <code>docker attach XX容器</code><br>这个命令我学习时候用过，感觉有时候不太好使。命令执行完卡那不动。</p>
-<h4 id="docker-exec"><a href="#docker-exec" class="headerlink" title="docker exec"></a>docker exec</h4><p>可以在容器内直接执行任意命令。<br><code>docker exec -it xx /bin/bash</code>    这可以进入xx镜像，并打开bash。 相比这个比上面的attach 好多了。</p>
-<h4 id="docker-ps"><a href="#docker-ps" class="headerlink" title="docker ps"></a>docker ps</h4><p>列出启动中的容器， <code>docker ps -a</code> 列出所有镜像。</p>
-<p>###仓库相关</p>
-<h4 id="docker-images"><a href="#docker-images" class="headerlink" title="docker images"></a>docker images</h4><p>列出本地镜像文件</p>
-<h4 id="docker-rmi"><a href="#docker-rmi" class="headerlink" title="docker rmi"></a>docker rmi</h4><p>删除本地镜像文件</p>
-<h4 id="docker-seach-xxx"><a href="#docker-seach-xxx" class="headerlink" title="docker seach xxx"></a>docker seach xxx</h4><p>在docker hub查询xxx 镜像</p>
-<h4 id="docker-pull"><a href="#docker-pull" class="headerlink" title="docker pull"></a>docker pull</h4><p>想不想git？ docker pull xx 可以下载xx镜像到本地。 （还能联想到 push 吧？ commit ？ 这些吧）</p>
-<h4 id="docker-login"><a href="#docker-login" class="headerlink" title="docker login"></a>docker login</h4><p>登陆docker hub</p>
-<h4 id="docker-push"><a href="#docker-push" class="headerlink" title="docker push"></a>docker push</h4><p>推送本地镜像到docker hub上。</p>
-<h3 id="数据相关"><a href="#数据相关" class="headerlink" title="数据相关"></a>数据相关</h3><h4 id="v"><a href="#v" class="headerlink" title="-v"></a>-v</h4><p>在容器内创建数据卷    <code>docker run -d  -v /test ubuntu</code>  在此镜像下创建一个test数据卷<br>也可以挂在主机目录为数据卷  <code>docker run -d  -v /usr/local/src:/opt/test ubuntu</code>   将本地的/usr/lcoal/src  挂载到此镜象的 /opt/test  作为数据卷。 在本机修改，容器内可以看到。<br>这里可以增加参数来控制读写，默认读写。</p>
-<h4 id="volumes-from"><a href="#volumes-from" class="headerlink" title="volumes-from"></a>volumes-from</h4><p>数据卷容器<br>容器与容器间的数据挂在参数。<br>例如有个容器为 files    ，通过另一个 test来挂在files。 <code>docker run -it --volumes-from files --name test ubuntu</code><br><code>--name</code> 是为后者容器起名。这个名字叫test 挂在了files 容器的数据。</p>
-<h3 id="端口映射，容器互联"><a href="#端口映射，容器互联" class="headerlink" title="端口映射，容器互联"></a>端口映射，容器互联</h3><h4 id="p-amp-amp-P"><a href="#p-amp-amp-P" class="headerlink" title="-p &amp;&amp; -P"></a>-p &amp;&amp; -P</h4><p><code>docker run -itd -p 8080:80 --name web nginx:1.15</code>   本机8080端口映射到容器80.<br>-p 需要自己分配端口   -P Docker会随机映射一个49000~49900的端口</p>
-<h4 id="docker-port"><a href="#docker-port" class="headerlink" title="docker port"></a>docker port</h4><p>查看映射端口配置</p>
-<h4 id="link"><a href="#link" class="headerlink" title="link"></a>link</h4><p><code>--link</code>参数可以让容器之间安全地进行交互</p>
-<p>基本上了解到的命令吧，后续根据搭建环境以及使用中来丰富其他的命令和参数。</p>
+        <h3 id="Centos7时间相关"><a href="#Centos7时间相关" class="headerlink" title="Centos7时间相关"></a>Centos7时间相关</h3><h4 id="查看时间"><a href="#查看时间" class="headerlink" title="查看时间"></a>查看时间</h4><p>date<br>hwclock 硬件时间<br>timedatectl  各时间状态</p>
+<h4 id="设置-amp-更新服务时间"><a href="#设置-amp-更新服务时间" class="headerlink" title="设置&amp;更新服务时间"></a>设置&amp;更新服务时间</h4><p>安装ntpdate<br><code>yum install utp ntpdate</code></p>
+<h4 id="设置同步"><a href="#设置同步" class="headerlink" title="设置同步"></a>设置同步</h4><p><code>ntpdate cn.pool.ntp.org</code>        (time.windows.com) 地址看喜好</p>
+<h4 id="设置硬件时间"><a href="#设置硬件时间" class="headerlink" title="设置硬件时间"></a>设置硬件时间</h4><p>hwclock –systohc</p>
+<h4 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h4><p>timedatectl set-timezone Asia/Shanghai  （上海）</p>
+<p>timedatectl  很多设置，需要请查相关资料。</p>
 
       
     </div>
@@ -519,7 +501,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/docker/" rel="tag"># docker</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -532,8 +514,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/04/Ubutun下安装Docker/" rel="next" title="Ubutun下安装Docker">
-                <i class="fa fa-chevron-left"></i> Ubutun下安装Docker
+              <a href="/2019/04/18/Centos7防火墙相关设置/" rel="next" title="Centos7防火墙相关设置">
+                <i class="fa fa-chevron-left"></i> Centos7防火墙相关设置
               </a>
             
           </div>
@@ -541,10 +523,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/15/Centos7启动等级设置/" rel="prev" title="Centos7启动等级设置">
-                Centos7启动等级设置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -691,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker常用命令"><span class="nav-number">1.</span> <span class="nav-text">Docker常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#容器相关"><span class="nav-number">1.1.</span> <span class="nav-text">容器相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-create-amp-amp-docker-start-amp-amp-docker-stop"><span class="nav-number">1.1.1.</span> <span class="nav-text">docker create &amp;&amp; docker start &amp;&amp; docker stop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-rm"><span class="nav-number">1.1.2.</span> <span class="nav-text">docker rm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-attach"><span class="nav-number">1.1.3.</span> <span class="nav-text">docker attach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-exec"><span class="nav-number">1.1.4.</span> <span class="nav-text">docker exec</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-ps"><span class="nav-number">1.1.5.</span> <span class="nav-text">docker ps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-images"><span class="nav-number">1.1.6.</span> <span class="nav-text">docker images</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-rmi"><span class="nav-number">1.1.7.</span> <span class="nav-text">docker rmi</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-seach-xxx"><span class="nav-number">1.1.8.</span> <span class="nav-text">docker seach xxx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-pull"><span class="nav-number">1.1.9.</span> <span class="nav-text">docker pull</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-login"><span class="nav-number">1.1.10.</span> <span class="nav-text">docker login</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-push"><span class="nav-number">1.1.11.</span> <span class="nav-text">docker push</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据相关"><span class="nav-number">1.2.</span> <span class="nav-text">数据相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#v"><span class="nav-number">1.2.1.</span> <span class="nav-text">-v</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#volumes-from"><span class="nav-number">1.2.2.</span> <span class="nav-text">volumes-from</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#端口映射，容器互联"><span class="nav-number">1.3.</span> <span class="nav-text">端口映射，容器互联</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#p-amp-amp-P"><span class="nav-number">1.3.1.</span> <span class="nav-text">-p &amp;&amp; -P</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-port"><span class="nav-number">1.3.2.</span> <span class="nav-text">docker port</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#link"><span class="nav-number">1.3.3.</span> <span class="nav-text">link</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Centos7时间相关"><span class="nav-number">1.</span> <span class="nav-text">Centos7时间相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看时间"><span class="nav-number">1.1.</span> <span class="nav-text">查看时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置-amp-更新服务时间"><span class="nav-number">1.2.</span> <span class="nav-text">设置&amp;更新服务时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置同步"><span class="nav-number">1.3.</span> <span class="nav-text">设置同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置硬件时间"><span class="nav-number">1.4.</span> <span class="nav-text">设置硬件时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置时区"><span class="nav-number">1.5.</span> <span class="nav-text">设置时区</span></a></li></ol></li></ol></div>
             
 
           </div>
