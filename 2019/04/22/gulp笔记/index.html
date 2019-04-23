@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。`var gulp = requi">
+  <meta name="description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。  var gulp = requ">
 <meta name="keywords" content="gulp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gulp笔记">
 <meta property="og:url" content="http://blog.51ai.vip/2019/04/22/gulp笔记/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。`var gulp = requi">
+<meta property="og:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。  var gulp = requ">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-23T04:38:33.979Z">
+<meta property="og:updated_time" content="2019-04-23T06:31:09.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gulp笔记">
-<meta name="twitter:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。`var gulp = requi">
+<meta name="twitter:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。  var gulp = requ">
 
 
 
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-23 12:38:33" itemprop="dateModified" datetime="2019-04-23T12:38:33+08:00">2019-04-23</time>
+                <time title="修改时间：2019-04-23 14:31:09" itemprop="dateModified" datetime="2019-04-23T14:31:09+08:00">2019-04-23</time>
               
             
           </span>
@@ -417,7 +417,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.2k</span>
+                <span title="本文字数">3.1k</span>
               
 
               
@@ -457,118 +457,112 @@
 <li>安装全局gulp，<code>npm install -g gulp</code>。</li>
 <li>进入项目，初始化（npm init）</li>
 <li>项目安装gulp，项目文件夹下，<code>npm install --save-dev gulp</code>。 (–save-dev 加入此项目依赖中，不需要取消这个参数)</li>
-<li>项目根创建gulpfile.js文件，文件内创建任务测试。<br><code>`</code><br>var gulp = require(‘gulp’);<br>gulp.task(‘default’,function(){<br> console.log(‘hello world!’);<br>});</li>
+<li>项目根创建gulpfile.js文件，文件内创建任务测试。</li>
 </ol>
-<pre><code>6. 运行 `gulp`，可以看到默认执行，输出 hello world! 。测试成功。
+<pre><code>var gulp = require(&#39;gulp&#39;);
+gulp.task(&#39;default&#39;,function(){
+    console.log(&#39;hello world!&#39;);
+});
 
-### gulp API
-    上面运行 gulp 执行default ，这个是gulp API。 [文档](https://www.gulpjs.com.cn/docs/api/) 
+</code></pre><ol start="6">
+<li>运行 <code>gulp</code>，可以看到默认执行，输出 hello world! 。测试成功。</li>
+</ol>
+<h3 id="gulp-API"><a href="#gulp-API" class="headerlink" title="gulp API"></a>gulp API</h3><pre><code>上面运行 gulp 执行default ，这个是gulp API。 [文档](https://www.gulpjs.com.cn/docs/api/) 
+</code></pre><h4 id="gulp工作方式"><a href="#gulp工作方式" class="headerlink" title="gulp工作方式"></a>gulp工作方式</h4><p><code>gulp.src</code> 获取文件流,通过<code>pipe</code>方法导入到插件，插件处理的流通过<code>pipe</code>方法导入 <code>gulp.dest</code>中, <code>gulp.dest</code> 输出目标文件。</p>
+<ul>
+<li><p>gulp src<br><code>gulp.src(globs[, options])</code></p>
+<blockquote>
+<p>输出（Emits）符合所提供的匹配模式（glob）或者匹配模式的数组（array of globs）的文件。 将返回一个 Vinyl files 的 stream 它可以被 piped 到别的插件中。</p>
+</blockquote>
+</li>
+</ul>
+<p>文档这意思看着有点费劲，理解为获取文件路径。gulp通过这个方法获取到处理的文件流。</p>
+<p>参数： </p>
+<pre><code>globs 文件匹配模式，匹配文件路径，文件名。
+类型： string array
 
-#### gulp工作方式
+options  额外可选参数
+类型： object
+额外参数需要看手册
+</code></pre><ul>
+<li><p>gulp.dest<br><code>gulp.dest(path[, options])</code></p>
+<blockquote>
+<p>能被 pipe 进来，并且将会写文件。并且重新输出（emits）所有数据，因此你可以将它 pipe 到多个文件夹。如果某文件夹不存在，将会自动创建它。</p>
+</blockquote>
+</li>
+</ul>
+<p>理解为写文件，写入path路径文件。</p>
+<p>参数：</p>
+<pre><code>path 文件写入路径
+类型：string function
 
-`gulp.src` 获取文件流,通过`pipe`方法导入到插件，插件处理的流通过`pipe`方法导入 `gulp.dest`中, `gulp.dest` 输出目标文件。
+options 额外可选参数
+类型：object
+</code></pre><ul>
+<li><p>gulp.task<br><code>gulp.task(name[, deps], fn)</code></p>
+<blockquote>
+<p>定义一个使用 Orchestrator 实现的任务（task）。</p>
+</blockquote>
+</li>
+</ul>
+<p>用来定义任务，内部使用的是Orchestrator。</p>
+<p>参数：</p>
+<pre><code>name 任务名字
 
+deps 是当前任务需要的其他任务，一个数组。依赖任务，先于此任务执行。
+类型：array
 
-* gulp src
-  `gulp.src(globs[, options])`
+fn  该函数定义任务所要执行的一些操作，把任务要执行的代码写在里面。
+</code></pre><ul>
+<li>gulp.watch<br><code>gulp.watch(glob[, opts], tasks)</code><br><code>gulp.watch(glob[, opts, cb])</code></li>
+</ul>
+<blockquote>
+<p>监视文件，并且可以在文件发生改动时候做一些事情。</p>
+</blockquote>
+<p>参数：</p>
+<pre><code>glob 文件匹配模式
+类型 string array
 
-  &gt;输出（Emits）符合所提供的匹配模式（glob）或者匹配模式的数组（array of globs）的文件。 将返回一个 Vinyl files 的 stream 它可以被 piped 到别的插件中。
+opts 可选配置
+类型 object
 
-文档这意思看着有点费劲，理解为获取文件路径。gulp通过这个方法获取到处理的文件流。
+tasks 文件变动后执行的任务
+类型 array
 
-参数： 
+cb 一个函数，文件发生变化时调用的函数。
+类型 function
+</code></pre><p><em>Glob</em> 匹配模式  <a href="https://github.com/isaacs/node-glob" target="_blank" rel="noopener">(node-glob）参考语法</a> </p>
+<pre><code>匹配符                             说明
+      *                               匹配文件路径中的0个或多个字符，但不会匹配路径分割符，
+                                      除非分隔符出现在末尾
 
-    globs 文件匹配模式，匹配文件路径，文件名。
-    类型： string array
+      **                              匹配路径的0个会多个目录 及子目录 需要单独出现，
+                                      即他左右不能有其他的东西了如果出现在末尾，也能匹配文件
 
-    options  额外可选参数
-    类型： object
-    额外参数需要看手册
+      ？                              匹配文件路径中的一个字符（不能匹配路径分割符/）
 
-* gulp.dest
-  `gulp.dest(path[, options])`
+      [...]                           匹配方括号中 出现字符的任意一个，当方括号中第一个字符为^或!时，
+                                      则表示不匹配方括号中出现字符中的任意一个，
+                                      类似于js中正则表达式中的用法
 
-  &gt;能被 pipe 进来，并且将会写文件。并且重新输出（emits）所有数据，因此你可以将它 pipe 到多个文件夹。如果某文件夹不存在，将会自动创建它。
+      !(pattern|pattern|pattern)      匹配任何与括号中给定的任意模式都不匹配
+      ？(pattern|pattern|pattern)     匹配括号中给定的任意模式0次或1次
+      +(pattern|pattern|pattern)      匹配括号中的至少一次
+      *(pattern|pattern|pattern)      匹配括号中给定的任意模式0次或多次
+      @(pattern|pattern|pattern)      匹配括号中 给定的任意模式一次
 
-理解为写文件，写入path路径文件。
-
-参数：
-
-    path 文件写入路径
-    类型：string function
-
-    options 额外可选参数
-    类型：object
-
-* gulp.task
-  `gulp.task(name[, deps], fn)`
-
-    &gt; 定义一个使用 Orchestrator 实现的任务（task）。
-
-用来定义任务，内部使用的是Orchestrator。
-
-参数：
-
-    name 任务名字
-
-    deps 是当前任务需要的其他任务，一个数组。依赖任务，先于此任务执行。
-    类型：array
-
-    fn  该函数定义任务所要执行的一些操作，把任务要执行的代码写在里面。
-
-* gulp.watch
-  `gulp.watch(glob[, opts], tasks)`
-  `gulp.watch(glob[, opts, cb])`
-
-&gt;监视文件，并且可以在文件发生改动时候做一些事情。
-
-参数：
-
-    glob 文件匹配模式
-    类型 string array
-
-    opts 可选配置
-    类型 object
-
-    tasks 文件变动后执行的任务
-    类型 array
-
-    cb 一个函数，文件发生变化时调用的函数。
-    类型 function
-
-*Glob* 匹配模式  [(node-glob）参考语法](https://github.com/isaacs/node-glob) 
-</code></pre><p>匹配符                             说明</p>
-<pre><code>  *                               匹配文件路径中的0个或多个字符，但不会匹配路径分割符，
-                                  除非分隔符出现在末尾
-
-  **                              匹配路径的0个会多个目录 及子目录 需要单独出现，
-                                  即他左右不能有其他的东西了如果出现在末尾，也能匹配文件
-
-  ？                              匹配文件路径中的一个字符（不能匹配路径分割符/）
-
-  [...]                           匹配方括号中 出现字符的任意一个，当方括号中第一个字符为^或!时，
-                                  则表示不匹配方括号中出现字符中的任意一个，
-                                  类似于js中正则表达式中的用法
-
-  !(pattern|pattern|pattern)      匹配任何与括号中给定的任意模式都不匹配
-  ？(pattern|pattern|pattern)     匹配括号中给定的任意模式0次或1次
-  +(pattern|pattern|pattern)      匹配括号中的至少一次
-  *(pattern|pattern|pattern)      匹配括号中给定的任意模式0次或多次
-  @(pattern|pattern|pattern)      匹配括号中 给定的任意模式一次
-
-eg：glob 匹配
-  |能匹配 a.js,x.y,abc,abc/,但不能匹配a/b.js|
-  |.*   a.js,style.css,a.b,x.y
-  //*.js    能匹配 a/b/c.js,x/y/z.js,不能匹配a/b.js,a/b/c/d.js
-  **    能匹配 abc,a/b.js,a/b/c.js,x/y/z,x/y/z/a.b,能用来匹配所有的目录和文件
-  a/**/z    能匹配 a/z,a/b/z,a/b/c/z,a/d/g/h/j/k/z
-  a/**b/z   能匹配 a/b/z,a/sb/z,但不能匹配a/x/sb/z,因为只有单**单独出现才能匹配多级目录
-  ?.js  能匹配 a.js,b.js,c.js
-  a??   能匹配 a.b,abc,但不能匹配ab/,因为它不会匹配路径分隔符
-  [xyz].js  只能匹配 x.js,y.js,z.js,不会匹配xy.js,xyz.js等,整个中括号只代表一个字符
-  [^xyz].js 能匹配 a.js,b.js,c.js等,不能匹配x.js,y.js,z.js
-</code></pre><p><code>`</code></p>
-<p>多种匹配模式时，使用数组<br><code>gulp.src([&#39;js/*.js&#39;,&#39;css/*.css&#39;,&#39;*.html&#39;])</code></p>
+    eg：glob 匹配
+      |能匹配 a.js,x.y,abc,abc/,但不能匹配a/b.js|
+      |.*   a.js,style.css,a.b,x.y
+      //*.js    能匹配 a/b/c.js,x/y/z.js,不能匹配a/b.js,a/b/c/d.js
+      **    能匹配 abc,a/b.js,a/b/c.js,x/y/z,x/y/z/a.b,能用来匹配所有的目录和文件
+      a/**/z    能匹配 a/z,a/b/z,a/b/c/z,a/d/g/h/j/k/z
+      a/**b/z   能匹配 a/b/z,a/sb/z,但不能匹配a/x/sb/z,因为只有单**单独出现才能匹配多级目录
+      ?.js  能匹配 a.js,b.js,c.js
+      a??   能匹配 a.b,abc,但不能匹配ab/,因为它不会匹配路径分隔符
+      [xyz].js  只能匹配 x.js,y.js,z.js,不会匹配xy.js,xyz.js等,整个中括号只代表一个字符
+      [^xyz].js 能匹配 a.js,b.js,c.js等,不能匹配x.js,y.js,z.js
+</code></pre><p>多种匹配模式时，使用数组<br><code>gulp.src([&#39;js/*.js&#39;,&#39;css/*.css&#39;,&#39;*.html&#39;])</code></p>
 <p>数组中可以用 <code>！</code> 排除<em>(放在数组第一个无效)</em><br><code>gulp.src([*.js,&#39;!b*.js&#39;])</code></p>
 <h3 id="gulp插件"><a href="#gulp插件" class="headerlink" title="gulp插件"></a>gulp插件</h3><ul>
 <li>CSS压缩 gulp-minify-css</li>
@@ -810,7 +804,7 @@ eg：glob 匹配
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp"><span class="nav-number">1.</span> <span class="nav-text">gulp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp插件"><span class="nav-number">3.</span> <span class="nav-text">gulp插件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp"><span class="nav-number">1.</span> <span class="nav-text">gulp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-API"><span class="nav-number">3.</span> <span class="nav-text">gulp API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gulp工作方式"><span class="nav-number">3.1.</span> <span class="nav-text">gulp工作方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp插件"><span class="nav-number">4.</span> <span class="nav-text">gulp插件</span></a></li></ol></div>
             
 
           </div>
@@ -843,7 +837,7 @@ eg：glob 匹配
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">12k</span>
+    <span title="站点总字数">11k</span>
   
 
   
@@ -852,7 +846,7 @@ eg：glob 匹配
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">11 分钟</span>
+    <span title="站点阅读时长">10 分钟</span>
   
 </div>
 
