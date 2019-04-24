@@ -10,9 +10,11 @@ gulp.js是一个前端构建工具。
 
 ### 安装
 1. npm
-2. 安装全局gulp，`npm install -g gulp`。
+2. 安装全局gulp，`npm install -g gulp`。（如果没有梯子，最好安装下cnpm）
+cnpm 安装 `npm install -g cnpm --registry=https://registry.npm.taobao.org`
+安装完cnpm，下面所有npm操作替换cnpm 执行即可。
 3. 进入项目，初始化（npm init）
-4. 项目安装gulp，项目文件夹下，`npm install --save-dev gulp`。 (--save-dev 加入此项目依赖中，不需要取消这个参数)
+4. 项目安装gulp，项目文件夹下，`npm install --save-dev gulp`。 (--save-dev 加入此项目依赖中，不需要可取消这个参数)
 5. 项目根创建gulpfile.js文件，文件内创建任务测试。
 
 ```
@@ -140,16 +142,40 @@ gulp.task('default',function(){
 数组中可以用 `！` 排除*(放在数组第一个无效)*
 `gulp.src([*.js,'!b*.js'])`
 
+### 编写一个任务
+常用到压缩，写个压缩demo。
+目录，根目录下有两个文件夹，dist空文件，src目录,src/js文件夹2个文件，common.js,demo.js。
+任务目标，将js目录下的.js文件，压缩合并为new.min.js。之后将合并压缩的文件保存到dist/js/。
+
+1. 我们在初始化后的项目中，先安装所需插件，gulp-rename（重命名插件）,gulp-uglify（压缩js插件），gulp-concat（合并文件插件）。
+npm install gulp-rename gulp-uglify gulp-concat --save-dev
+2. 编辑gulpfile.js 
+
+```
+   var gulp=require('gulp'); 
+   var  rename= require('gulp-rename');  //引入插件
+   var  uglify= require('gulp-uglify');
+   var  concat= require('gulp-concat');
+
+    gulp.task('js', function(){                   //创建名为 js的任务
+        return gulp.src('src/js/*.js')           //读取文件流           
+        .pipe(concat())                             //合并
+        .pipe(uglify())                              //压缩
+        .pipe(rename({suffix: '.min'}))     //重命名
+        .pipe(gulp.dest('dist/js/'))          //输出到指定路径
+      });
+
+```
+
+文件保存后，命令行执行任务： `gulp js` 。
+可以看到Finshed时间，去dist目录可以看到合并压缩的文件已在里面。
 
 
 ### gulp插件
 * CSS压缩 gulp-minify-css
 * Js压缩 gulp-uglify
-* Js代码检测 gulp-jshint
-* html文件压缩 gulp-minify-html
 * 重命名 gulp-rename
 * 文件合并 gulp-concat
 * 自动加载 gulp-load-plugins
 * less编译 gulp-less
 * sass编译 gulp-sass
-* 图片压缩 gulp-imagemin
