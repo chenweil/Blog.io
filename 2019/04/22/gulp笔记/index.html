@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。  var gulp = requ">
+  <meta name="description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。（如果没有梯子，最好安装下cnpm）cnpm 安装 npm install -g cnpm --registry=https://registry.npm.taobao.org安装完cnpm，下面所有npm操作替换cnpm 执行即可。 进入项目，初始化（npm init） 项目安装g">
 <meta name="keywords" content="gulp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gulp笔记">
 <meta property="og:url" content="http://blog.51ai.vip/2019/04/22/gulp笔记/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。  var gulp = requ">
+<meta property="og:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。（如果没有梯子，最好安装下cnpm）cnpm 安装 npm install -g cnpm --registry=https://registry.npm.taobao.org安装完cnpm，下面所有npm操作替换cnpm 执行即可。 进入项目，初始化（npm init） 项目安装g">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-23T06:31:09.325Z">
+<meta property="og:updated_time" content="2019-04-24T02:30:55.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gulp笔记">
-<meta name="twitter:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。 进入项目，初始化（npm init） 项目安装gulp，项目文件夹下，npm install --save-dev gulp。 (–save-dev 加入此项目依赖中，不需要取消这个参数) 项目根创建gulpfile.js文件，文件内创建任务测试。  var gulp = requ">
+<meta name="twitter:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。（如果没有梯子，最好安装下cnpm）cnpm 安装 npm install -g cnpm --registry=https://registry.npm.taobao.org安装完cnpm，下面所有npm操作替换cnpm 执行即可。 进入项目，初始化（npm init） 项目安装g">
 
 
 
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-23 14:31:09" itemprop="dateModified" datetime="2019-04-23T14:31:09+08:00">2019-04-23</time>
+                <time title="修改时间：2019-04-24 10:30:55" itemprop="dateModified" datetime="2019-04-24T10:30:55+08:00">2019-04-24</time>
               
             
           </span>
@@ -417,7 +417,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.1k</span>
+                <span title="本文字数">4.1k</span>
               
 
               
@@ -431,7 +431,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -454,9 +454,9 @@
         <h3 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h3><p>gulp.js是一个前端构建工具。</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
 <li>npm</li>
-<li>安装全局gulp，<code>npm install -g gulp</code>。</li>
+<li>安装全局gulp，<code>npm install -g gulp</code>。（如果没有梯子，最好安装下cnpm）<br>cnpm 安装 <code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code><br>安装完cnpm，下面所有npm操作替换cnpm 执行即可。</li>
 <li>进入项目，初始化（npm init）</li>
-<li>项目安装gulp，项目文件夹下，<code>npm install --save-dev gulp</code>。 (–save-dev 加入此项目依赖中，不需要取消这个参数)</li>
+<li>项目安装gulp，项目文件夹下，<code>npm install --save-dev gulp</code>。 (–save-dev 加入此项目依赖中，不需要可取消这个参数)</li>
 <li>项目根创建gulpfile.js文件，文件内创建任务测试。</li>
 </ol>
 <pre><code>var gulp = require(&#39;gulp&#39;);
@@ -564,17 +564,33 @@ cb 一个函数，文件发生变化时调用的函数。
       [^xyz].js 能匹配 a.js,b.js,c.js等,不能匹配x.js,y.js,z.js
 </code></pre><p>多种匹配模式时，使用数组<br><code>gulp.src([&#39;js/*.js&#39;,&#39;css/*.css&#39;,&#39;*.html&#39;])</code></p>
 <p>数组中可以用 <code>！</code> 排除<em>(放在数组第一个无效)</em><br><code>gulp.src([*.js,&#39;!b*.js&#39;])</code></p>
+<h3 id="编写一个任务"><a href="#编写一个任务" class="headerlink" title="编写一个任务"></a>编写一个任务</h3><p>常用到压缩，写个压缩demo。<br>目录，根目录下有两个文件夹，dist空文件，src目录,src/js文件夹2个文件，common.js,demo.js。<br>任务目标，将js目录下的.js文件，压缩合并为new.min.js。之后将合并压缩的文件保存到dist/js/。</p>
+<ol>
+<li>我们在初始化后的项目中，先安装所需插件，gulp-rename（重命名插件）,gulp-uglify（压缩js插件），gulp-concat（合并文件插件）。<br>npm install gulp-rename gulp-uglify gulp-concat –save-dev</li>
+<li>编辑gulpfile.js </li>
+</ol>
+<pre><code>   var gulp=require(&#39;gulp&#39;); 
+   var  rename= require(&#39;gulp-rename&#39;);  //引入插件
+   var  uglify= require(&#39;gulp-uglify&#39;);
+   var  concat= require(&#39;gulp-concat&#39;);
+
+    gulp.task(&#39;js&#39;, function(){                   //创建名为 js的任务
+        return gulp.src(&#39;src/js/*.js&#39;)           //读取文件流           
+        .pipe(concat())                             //合并
+        .pipe(uglify())                              //压缩
+        .pipe(rename({suffix: &#39;.min&#39;}))     //重命名
+        .pipe(gulp.dest(&#39;dist/js/&#39;))          //输出到指定路径
+      });
+
+</code></pre><p>文件保存后，命令行执行任务： <code>gulp js</code> 。<br>可以看到Finshed时间，去dest目录可以看到合并压缩的文件已在里面。</p>
 <h3 id="gulp插件"><a href="#gulp插件" class="headerlink" title="gulp插件"></a>gulp插件</h3><ul>
 <li>CSS压缩 gulp-minify-css</li>
 <li>Js压缩 gulp-uglify</li>
-<li>Js代码检测 gulp-jshint</li>
-<li>html文件压缩 gulp-minify-html</li>
 <li>重命名 gulp-rename</li>
 <li>文件合并 gulp-concat</li>
 <li>自动加载 gulp-load-plugins</li>
 <li>less编译 gulp-less</li>
 <li>sass编译 gulp-sass</li>
-<li>图片压缩 gulp-imagemin</li>
 </ul>
 
       
@@ -804,7 +820,7 @@ cb 一个函数，文件发生变化时调用的函数。
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp"><span class="nav-number">1.</span> <span class="nav-text">gulp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-API"><span class="nav-number">3.</span> <span class="nav-text">gulp API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gulp工作方式"><span class="nav-number">3.1.</span> <span class="nav-text">gulp工作方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp插件"><span class="nav-number">4.</span> <span class="nav-text">gulp插件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp"><span class="nav-number">1.</span> <span class="nav-text">gulp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-API"><span class="nav-number">3.</span> <span class="nav-text">gulp API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gulp工作方式"><span class="nav-number">3.1.</span> <span class="nav-text">gulp工作方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写一个任务"><span class="nav-number">4.</span> <span class="nav-text">编写一个任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp插件"><span class="nav-number">5.</span> <span class="nav-text">gulp插件</span></a></li></ol></div>
             
 
           </div>
@@ -837,7 +853,7 @@ cb 一个函数，文件发生变化时调用的函数。
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">12k</span>
   
 
   
@@ -846,7 +862,7 @@ cb 一个函数，文件发生变化时调用的函数。
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">11 分钟</span>
   
 </div>
 
