@@ -92,18 +92,18 @@
 
 
 
-  <meta name="description" content="Centos7时间相关查看时间datehwclock 硬件时间timedatectl  各时间状态 设置&amp;amp;更新服务时间安装ntpdateyum install utp ntpdate 设置同步ntpdate cn.pool.ntp.org        (time.windows.com) 地址看喜好 设置硬件时间hwclock –systohc 设置时区timedatectl set-t">
-<meta name="keywords" content="Linux">
+  <meta name="description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos7时间设置">
-<meta property="og:url" content="http://blog.51ai.vip/2019/04/19/Centos7时间设置/index.html">
+<meta property="og:title" content="Ubutun16.04安装Python">
+<meta property="og:url" content="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="Centos7时间相关查看时间datehwclock 硬件时间timedatectl  各时间状态 设置&amp;amp;更新服务时间安装ntpdateyum install utp ntpdate 设置同步ntpdate cn.pool.ntp.org        (time.windows.com) 地址看喜好 设置硬件时间hwclock –systohc 设置时区timedatectl set-t">
+<meta property="og:description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-19T03:54:26.520Z">
+<meta property="og:updated_time" content="2019-05-24T05:36:44.658Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Centos7时间设置">
-<meta name="twitter:description" content="Centos7时间相关查看时间datehwclock 硬件时间timedatectl  各时间状态 设置&amp;amp;更新服务时间安装ntpdateyum install utp ntpdate 设置同步ntpdate cn.pool.ntp.org        (time.windows.com) 地址看喜好 设置硬件时间hwclock –systohc 设置时区timedatectl set-t">
+<meta name="twitter:title" content="Ubutun16.04安装Python">
+<meta name="twitter:description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
 
 
 
@@ -111,7 +111,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.51ai.vip/2019/04/19/Centos7时间设置/">
+  <link rel="canonical" href="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/">
 
 
 
@@ -121,7 +121,7 @@
   };
 </script>
 
-  <title>Centos7时间设置 | aLong</title>
+  <title>Ubutun16.04安装Python | aLong</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/04/19/Centos7时间设置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aLong">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Centos7时间设置
+          <h1 class="post-title" itemprop="name headline">Ubutun16.04安装Python
 
               
             
@@ -350,7 +350,7 @@
                 
               
 
-              <time title="创建时间：2019-04-19 11:42:02 / 修改时间：11:54:26" itemprop="dateCreated datePublished" datetime="2019-04-19T11:42:02+08:00">2019-04-19</time>
+              <time title="创建时间：2019-05-24 11:17:59 / 修改时间：13:36:44" itemprop="dateCreated datePublished" datetime="2019-05-24T11:17:59+08:00">2019-05-24</time>
             
 
             
@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">256</span>
+                <span title="本文字数">1.1k</span>
               
 
               
@@ -435,12 +435,26 @@
       
 
       
-        <h3 id="Centos7时间相关"><a href="#Centos7时间相关" class="headerlink" title="Centos7时间相关"></a>Centos7时间相关</h3><h4 id="查看时间"><a href="#查看时间" class="headerlink" title="查看时间"></a>查看时间</h4><p>date<br>hwclock 硬件时间<br>timedatectl  各时间状态</p>
-<h4 id="设置-amp-更新服务时间"><a href="#设置-amp-更新服务时间" class="headerlink" title="设置&amp;更新服务时间"></a>设置&amp;更新服务时间</h4><p>安装ntpdate<br><code>yum install utp ntpdate</code></p>
-<h4 id="设置同步"><a href="#设置同步" class="headerlink" title="设置同步"></a>设置同步</h4><p><code>ntpdate cn.pool.ntp.org</code>        (time.windows.com) 地址看喜好</p>
-<h4 id="设置硬件时间"><a href="#设置硬件时间" class="headerlink" title="设置硬件时间"></a>设置硬件时间</h4><p>hwclock –systohc</p>
-<h4 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h4><p>timedatectl set-timezone Asia/Shanghai  （上海）</p>
-<p>timedatectl  很多设置，需要请查相关资料。</p>
+        <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>安装python3.7.3<br>安装pip</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>系统内置python2.X,去除默认python的软链, <code>sudo rm /usr/bin/python</code></li>
+<li>安装一些软件包&amp;软件包保持最新状态. </li>
+</ul>
+<p><code>sudo apt-get update</code> </p>
+<p><code>sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget</code></p>
+<h3 id="安装Python"><a href="#安装Python" class="headerlink" title="安装Python"></a>安装Python</h3><p>通过编译安装python</p>
+<p>默认我下载在home里, <code>cd</code></p>
+<p>下载新python文件, <code>wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz</code></p>
+<p>解压文件, <code>tar zxf Python-3.7.3.tgz</code></p>
+<p>把这个文件拷贝到放置的位置. 这里我放到/usr/local/python <code>mkdir -p /usr/local/python</code></p>
+<p>进入这个目录, 执行 <code>./configure --enable-optimizations</code><br>之后执行 <code>sudo make -j 8</code>  这里8根据设备cpu核心数来的,不知道你可以写1(手动滑稽)</p>
+<p>make之后 该 <del>make install</del> 嘛? NO! 是 <code>sudo make altinstall</code></p>
+<p>装完之后, 可以尝试 python –version 看看有没有, 如果没有或者版本不对.可能是准备里你没有删除 /usr/bin/python 或者这个不存在.<br>需要手动添加一下,我这个是没有给我创建成功. </p>
+<p><code>sudo ln -s /usr/local/Python-3.7.3/python /usr/bin/python</code></p>
+<p>这里版本是3.7.3版本的python已经好了,但我发现没有pip.那我只好装一下pip.</p>
+<h3 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h3><p>同样在home目录下载:<br><code>curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</code></p>
+<p>下载完成后, 执行 <code>python get-pip.py</code><br>我遇到一个问题是: Command ‘lsb_release -a’ returned non-zero exit status 1<br>查了一下,大概意思是lsb_release上的问题,这里python2.X用到的(Ubutun自带2.X),那我解决办法是干掉他 <code>sudo rm -f /usr/bin/lsb_release</code></p>
+<p>重新执行上面的命令,ok 已经安装上pip. 到此结束.</p>
 
       
     </div>
@@ -497,7 +511,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
         </div>
       
@@ -510,8 +524,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/18/Centos7防火墙相关设置/" rel="next" title="Centos7防火墙相关设置">
-                <i class="fa fa-chevron-left"></i> Centos7防火墙相关设置
+              <a href="/2019/05/15/Go学习笔记/" rel="next" title="Go学习笔记">
+                <i class="fa fa-chevron-left"></i> Go学习笔记
               </a>
             
           </div>
@@ -519,10 +533,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/22/gulp笔记/" rel="prev" title="gulp笔记">
-                gulp笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -681,7 +691,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Centos7时间相关"><span class="nav-number">1.</span> <span class="nav-text">Centos7时间相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看时间"><span class="nav-number">1.1.</span> <span class="nav-text">查看时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置-amp-更新服务时间"><span class="nav-number">1.2.</span> <span class="nav-text">设置&amp;更新服务时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置同步"><span class="nav-number">1.3.</span> <span class="nav-text">设置同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置硬件时间"><span class="nav-number">1.4.</span> <span class="nav-text">设置硬件时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置时区"><span class="nav-number">1.5.</span> <span class="nav-text">设置时区</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Python"><span class="nav-number">3.</span> <span class="nav-text">安装Python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装pip"><span class="nav-number">4.</span> <span class="nav-text">安装pip</span></a></li></ol></div>
             
 
           </div>
