@@ -92,18 +92,18 @@
 
 
 
-  <meta name="description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
-<meta name="keywords" content="python">
+  <meta name="description" content="Python Socket连接5月中旬遇到一个功能,需要利用Python建立Socket连接,于设备通讯发送相关数据. 这块没接触,Python也是hello world水平. 赶紧恶补一下: Socket是网络编程的一个抽象概念。 通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。 服务端我也不知道什么样,这里只记录客">
+<meta name="keywords" content="Python,Socket">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubutun16.04安装Python">
-<meta property="og:url" content="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/index.html">
+<meta property="og:title" content="Python建立SocketSSL连接">
+<meta property="og:url" content="http://blog.51ai.vip/2019/06/04/Python建立SocketSSL连接/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
+<meta property="og:description" content="Python Socket连接5月中旬遇到一个功能,需要利用Python建立Socket连接,于设备通讯发送相关数据. 这块没接触,Python也是hello world水平. 赶紧恶补一下: Socket是网络编程的一个抽象概念。 通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。 服务端我也不知道什么样,这里只记录客">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-24T05:36:44.658Z">
+<meta property="og:updated_time" content="2019-06-04T02:41:32.873Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubutun16.04安装Python">
-<meta name="twitter:description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
+<meta name="twitter:title" content="Python建立SocketSSL连接">
+<meta name="twitter:description" content="Python Socket连接5月中旬遇到一个功能,需要利用Python建立Socket连接,于设备通讯发送相关数据. 这块没接触,Python也是hello world水平. 赶紧恶补一下: Socket是网络编程的一个抽象概念。 通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。 服务端我也不知道什么样,这里只记录客">
 
 
 
@@ -111,7 +111,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/">
+  <link rel="canonical" href="http://blog.51ai.vip/2019/06/04/Python建立SocketSSL连接/">
 
 
 
@@ -121,7 +121,7 @@
   };
 </script>
 
-  <title>Ubutun16.04安装Python | aLong</title>
+  <title>Python建立SocketSSL连接 | aLong</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/06/04/Python建立SocketSSL连接/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aLong">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Ubutun16.04安装Python
+          <h1 class="post-title" itemprop="name headline">Python建立SocketSSL连接
 
               
             
@@ -350,7 +350,7 @@
                 
               
 
-              <time title="创建时间：2019-05-24 11:17:59 / 修改时间：13:36:44" itemprop="dateCreated datePublished" datetime="2019-05-24T11:17:59+08:00">2019-05-24</time>
+              <time title="创建时间：2019-06-04 10:23:11 / 修改时间：10:41:32" itemprop="dateCreated datePublished" datetime="2019-06-04T10:23:11+08:00">2019-06-04</time>
             
 
             
@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.1k</span>
+                <span title="本文字数">668</span>
               
 
               
@@ -435,26 +435,31 @@
       
 
       
-        <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>安装python3.7.3<br>安装pip</p>
-<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
-<li>系统内置python2.X,去除默认python的软链, <code>sudo rm /usr/bin/python</code></li>
-<li>安装一些软件包&amp;软件包保持最新状态. </li>
-</ul>
-<p><code>sudo apt-get update</code> </p>
-<p><code>sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget</code></p>
-<h3 id="安装Python"><a href="#安装Python" class="headerlink" title="安装Python"></a>安装Python</h3><p>通过编译安装python</p>
-<p>默认我下载在home里, <code>cd</code></p>
-<p>下载新python文件, <code>wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz</code></p>
-<p>解压文件, <code>tar zxf Python-3.7.3.tgz</code></p>
-<p>把这个文件拷贝到放置的位置. 这里我放到/usr/local/python <code>mkdir -p /usr/local/python</code></p>
-<p>进入这个目录, 执行 <code>./configure --enable-optimizations</code><br>之后执行 <code>sudo make -j 8</code>  这里8根据设备cpu核心数来的,不知道你可以写1(手动滑稽)</p>
-<p>make之后 该 <del>make install</del> 嘛? NO! 是 <code>sudo make altinstall</code></p>
-<p>装完之后, 可以尝试 python –version 看看有没有, 如果没有或者版本不对.可能是准备里你没有删除 /usr/bin/python 或者这个不存在.<br>需要手动添加一下,我这个是没有给我创建成功. </p>
-<p><code>sudo ln -s /usr/local/Python-3.7.3/python /usr/bin/python</code></p>
-<p>这里版本是3.7.3版本的python已经好了,但我发现没有pip.那我只好装一下pip.</p>
-<h3 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h3><p>同样在home目录下载:<br><code>curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</code></p>
-<p>下载完成后, 执行 <code>python get-pip.py</code><br>我遇到一个问题是: Command ‘lsb_release -a’ returned non-zero exit status 1<br>查了一下,大概意思是lsb_release上的问题,这里python2.X用到的(Ubutun自带2.X),那我解决办法是干掉他 <code>sudo rm -f /usr/bin/lsb_release</code></p>
-<p>重新执行上面的命令,ok 已经安装上pip. 到此结束.</p>
+        <h3 id="Python-Socket连接"><a href="#Python-Socket连接" class="headerlink" title="Python Socket连接"></a>Python Socket连接</h3><p>5月中旬遇到一个功能,需要利用Python建立Socket连接,于设备通讯发送相关数据.</p>
+<p>这块没接触,Python也是hello world水平.</p>
+<p>赶紧恶补一下:</p>
+<p>Socket是网络编程的一个抽象概念。</p>
+<p>通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。</p>
+<p>服务端我也不知道什么样,这里只记录客户端的相关. </p>
+<p>这里我们得到一个文档说,需要建立socket SSL 连接,通过XML格式发送数据.</p>
+<h4 id="非ssl的socket"><a href="#非ssl的socket" class="headerlink" title="非ssl的socket:"></a>非ssl的socket:</h4><pre><code>import socket
+
+# 创建一个socket:
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# 建立连接:
+s.connect((&#39;192.168.1.230&#39;, 80))
+</code></pre><h4 id="SSL-socket"><a href="#SSL-socket" class="headerlink" title="SSL socket:"></a>SSL socket:</h4><p>端口是3344,ssl跳过验证,如果验证参数需要修改.</p>
+<pre><code>import socket
+
+ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+ c = ssl.wrap_socket(s, cert_reqs=ssl.CERT_NONE)
+ try:
+    c.connect((&#39;192.168.1.230&#39;, &#39;3344&#39;))
+except:
+    return 2
+</code></pre><p>这下与那台设备可以正常通讯了,后面实现具体功能就ok了.</p>
 
       
     </div>
@@ -511,7 +516,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"># python</a>
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Socket/" rel="tag"># Socket</a>
           
         </div>
       
@@ -524,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/15/Go学习笔记/" rel="next" title="Go学习笔记">
-                <i class="fa fa-chevron-left"></i> Go学习笔记
+              <a href="/2019/05/24/Ubutun16-04安装Python/" rel="next" title="Ubutun16.04安装Python">
+                <i class="fa fa-chevron-left"></i> Ubutun16.04安装Python
               </a>
             
           </div>
@@ -533,10 +540,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/04/Python建立SocketSSL连接/" rel="prev" title="Python建立SocketSSL连接">
-                Python建立SocketSSL连接 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -703,7 +706,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Python"><span class="nav-number">3.</span> <span class="nav-text">安装Python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装pip"><span class="nav-number">4.</span> <span class="nav-text">安装pip</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-Socket连接"><span class="nav-number">1.</span> <span class="nav-text">Python Socket连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非ssl的socket"><span class="nav-number">1.1.</span> <span class="nav-text">非ssl的socket:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL-socket"><span class="nav-number">1.2.</span> <span class="nav-text">SSL socket:</span></a></li></ol></li></ol></div>
             
 
           </div>
