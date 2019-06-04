@@ -7,7 +7,7 @@ tags: [Python,Socket]
 
 ### Python Socket连接
 
-5月中旬遇到一个功能,需要利用Python建立Socket连接,于设备通讯发送相关数据.
+5月中旬遇到一个功能,需要利用Python建立Socket tcp连接,于设备通讯发送相关数据.
 
 这块没接触,Python也是hello world水平.
 
