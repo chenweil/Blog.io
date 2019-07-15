@@ -92,18 +92,18 @@
 
 
 
-  <meta name="description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
-<meta name="keywords" content="python">
+  <meta name="description" content="###composer - laravel5 ####创建laravel项目： conposer create-project laravel/laravel=5.8.* --prefer-dist  ./XXX laravel=5.8.* 这里代表要部署5.8中最高版本   –prefer-dist  参数代表优先下载zip ####安装vendor: composer install comp">
+<meta name="keywords" content="Composer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubutun16.04安装Python">
-<meta property="og:url" content="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/index.html">
+<meta property="og:title" content="Composer笔记">
+<meta property="og:url" content="http://blog.51ai.vip/2019/07/15/Composer笔记/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
+<meta property="og:description" content="###composer - laravel5 ####创建laravel项目： conposer create-project laravel/laravel=5.8.* --prefer-dist  ./XXX laravel=5.8.* 这里代表要部署5.8中最高版本   –prefer-dist  参数代表优先下载zip ####安装vendor: composer install comp">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-24T05:36:44.658Z">
+<meta property="og:updated_time" content="2019-07-15T09:28:35.804Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubutun16.04安装Python">
-<meta name="twitter:description" content="目的安装python3.7.3安装pip 准备工作 系统内置python2.X,去除默认python的软链, sudo rm /usr/bin/python 安装一些软件包&amp;amp;软件包保持最新状态.   sudo apt-get update  sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev">
+<meta name="twitter:title" content="Composer笔记">
+<meta name="twitter:description" content="###composer - laravel5 ####创建laravel项目： conposer create-project laravel/laravel=5.8.* --prefer-dist  ./XXX laravel=5.8.* 这里代表要部署5.8中最高版本   –prefer-dist  参数代表优先下载zip ####安装vendor: composer install comp">
 
 
 
@@ -111,7 +111,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/">
+  <link rel="canonical" href="http://blog.51ai.vip/2019/07/15/Composer笔记/">
 
 
 
@@ -121,7 +121,7 @@
   };
 </script>
 
-  <title>Ubutun16.04安装Python | aLong</title>
+  <title>Composer笔记 | aLong</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/05/24/Ubutun16-04安装Python/">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/07/15/Composer笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aLong">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Ubutun16.04安装Python
+          <h1 class="post-title" itemprop="name headline">Composer笔记
 
               
             
@@ -350,7 +350,7 @@
                 
               
 
-              <time title="创建时间：2019-05-24 11:17:59 / 修改时间：13:36:44" itemprop="dateCreated datePublished" datetime="2019-05-24T11:17:59+08:00">2019-05-24</time>
+              <time title="创建时间：2019-07-15 17:24:45 / 修改时间：17:28:35" itemprop="dateCreated datePublished" datetime="2019-07-15T17:24:45+08:00">2019-07-15</time>
             
 
             
@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.1k</span>
+                <span title="本文字数">825</span>
               
 
               
@@ -435,26 +435,28 @@
       
 
       
-        <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>安装python3.7.3<br>安装pip</p>
-<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
-<li>系统内置python2.X,去除默认python的软链, <code>sudo rm /usr/bin/python</code></li>
-<li>安装一些软件包&amp;软件包保持最新状态. </li>
-</ul>
-<p><code>sudo apt-get update</code> </p>
-<p><code>sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget</code></p>
-<h3 id="安装Python"><a href="#安装Python" class="headerlink" title="安装Python"></a>安装Python</h3><p>通过编译安装python</p>
-<p>默认我下载在home里, <code>cd</code></p>
-<p>下载新python文件, <code>wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz</code></p>
-<p>解压文件, <code>tar zxf Python-3.7.3.tgz</code></p>
-<p>把这个文件拷贝到放置的位置. 这里我放到/usr/local/python <code>mkdir -p /usr/local/python</code></p>
-<p>进入这个目录, 执行 <code>./configure --enable-optimizations</code><br>之后执行 <code>sudo make -j 8</code>  这里8根据设备cpu核心数来的,不知道你可以写1(手动滑稽)</p>
-<p>make之后 该 <del>make install</del> 嘛? NO! 是 <code>sudo make altinstall</code></p>
-<p>装完之后, 可以尝试 python –version 看看有没有, 如果没有或者版本不对.可能是准备里你没有删除 /usr/bin/python 或者这个不存在.<br>需要手动添加一下,我这个是没有给我创建成功. </p>
-<p><code>sudo ln -s /usr/local/Python-3.7.3/python /usr/bin/python</code></p>
-<p>这里版本是3.7.3版本的python已经好了,但我发现没有pip.那我只好装一下pip.</p>
-<h3 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h3><p>同样在home目录下载:<br><code>curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</code></p>
-<p>下载完成后, 执行 <code>python get-pip.py</code><br>我遇到一个问题是: Command ‘lsb_release -a’ returned non-zero exit status 1<br>查了一下,大概意思是lsb_release上的问题,这里python2.X用到的(Ubutun自带2.X),那我解决办法是干掉他 <code>sudo rm -f /usr/bin/lsb_release</code></p>
-<p>重新执行上面的命令,ok 已经安装上pip. 到此结束.</p>
+        <p>###composer - laravel5</p>
+<p>####创建laravel项目：</p>
+<p><code>conposer create-project laravel/laravel=5.8.* --prefer-dist  ./XXX</code></p>
+<p>laravel=5.8.* 这里代表要部署5.8中最高版本   –prefer-dist  参数代表优先下载zip</p>
+<p>####安装vendor:</p>
+<p><code>composer install</code></p>
+<p><code>composer install --prefer-dist</code></p>
+<p>####更新：</p>
+<p><code>composer update</code></p>
+<h4 id="composer版本更新："><a href="#composer版本更新：" class="headerlink" title="composer版本更新："></a>composer版本更新：</h4><p><code>composer self-update</code></p>
+<h4 id="利用composer-创建laravel控制器："><a href="#利用composer-创建laravel控制器：" class="headerlink" title="利用composer 创建laravel控制器："></a>利用composer 创建laravel控制器：</h4><p><code>php artisan make:controller HomeController</code><br>  会在http下 创建一Home的控制器</p>
+<p>如果存在分目录情况，需要指定目录：<br><code>php artisan make:controller Home/HomeController</code>  </p>
+<h4 id="Laravel-config"><a href="#Laravel-config" class="headerlink" title="Laravel config:"></a>Laravel config:</h4><p>编写一些类的别名，controller中 use 简短的别名为目的。</p>
+<p>位置：config/app    存在一数组 aliases  在里面添加</p>
+<h4 id="创建模型："><a href="#创建模型：" class="headerlink" title="创建模型："></a>创建模型：</h4><p>创建一个user 的model</p>
+<p>php artisan make:model User</p>
+<p>指定目录加入目录即可</p>
+<h4 id="获取项目路由："><a href="#获取项目路由：" class="headerlink" title="获取项目路由："></a>获取项目路由：</h4><p>php artisan route:list</p>
+<h4 id="composer在项目中安装三方库时候出现报错："><a href="#composer在项目中安装三方库时候出现报错：" class="headerlink" title="composer在项目中安装三方库时候出现报错："></a>composer在项目中安装三方库时候出现报错：</h4><p>执行命令： <code>composer Install</code></p>
+<p>返回错误： Your requirements could not be resolved to an installable set of packages.</p>
+<p>解决：</p>
+<p>使用 composer install –ignore-platform-reqs 命令设置忽略版本匹配然后再进行安装你所需要的composer包。</p>
 
       
     </div>
@@ -511,7 +513,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"># python</a>
+            <a href="/tags/Composer/" rel="tag"># Composer</a>
           
         </div>
       
@@ -524,8 +526,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/15/Go学习笔记/" rel="next" title="Go学习笔记">
-                <i class="fa fa-chevron-left"></i> Go学习笔记
+              <a href="/2019/06/27/无版权素材站点/" rel="next" title="无版权素材站点">
+                <i class="fa fa-chevron-left"></i> 无版权素材站点
               </a>
             
           </div>
@@ -533,10 +535,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/04/Python建立SocketSSL连接/" rel="prev" title="Python建立SocketSSL连接">
-                Python建立SocketSSL连接 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -705,7 +703,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Python"><span class="nav-number">3.</span> <span class="nav-text">安装Python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装pip"><span class="nav-number">4.</span> <span class="nav-text">安装pip</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#composer版本更新："><span class="nav-number">1.</span> <span class="nav-text">composer版本更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用composer-创建laravel控制器："><span class="nav-number">2.</span> <span class="nav-text">利用composer 创建laravel控制器：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Laravel-config"><span class="nav-number">3.</span> <span class="nav-text">Laravel config:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建模型："><span class="nav-number">4.</span> <span class="nav-text">创建模型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取项目路由："><span class="nav-number">5.</span> <span class="nav-text">获取项目路由：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#composer在项目中安装三方库时候出现报错："><span class="nav-number">6.</span> <span class="nav-text">composer在项目中安装三方库时候出现报错：</span></a></li></ol></div>
             
 
           </div>
