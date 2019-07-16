@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="aLong">
 <meta property="og:description" content="Python Socket连接5月中旬遇到一个功能,需要利用Python建立Socket tcp连接,于设备通讯发送相关数据. 这块没接触,Python也是hello world水平. 赶紧恶补一下: Socket是网络编程的一个抽象概念。 通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。 服务端我也不知道什么样,这里">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-04T02:54:00.024Z">
+<meta property="og:updated_time" content="2019-07-16T01:35:54.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python建立SocketSSL连接">
 <meta name="twitter:description" content="Python Socket连接5月中旬遇到一个功能,需要利用Python建立Socket tcp连接,于设备通讯发送相关数据. 这块没接触,Python也是hello world水平. 赶紧恶补一下: Socket是网络编程的一个抽象概念。 通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。 服务端我也不知道什么样,这里">
@@ -350,12 +350,24 @@
                 
               
 
-              <time title="创建时间：2019-06-04 10:23:11 / 修改时间：10:54:00" itemprop="dateCreated datePublished" datetime="2019-06-04T10:23:11+08:00">2019-06-04</time>
+              <time title="创建时间：2019-06-04 10:23:11" itemprop="dateCreated datePublished" datetime="2019-06-04T10:23:11+08:00">2019-06-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-16 09:35:54" itemprop="dateModified" datetime="2019-07-16T09:35:54+08:00">2019-07-16</time>
               
             
           </span>
@@ -401,7 +413,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">672</span>
+                <span title="本文字数">657</span>
               
 
               
@@ -442,24 +454,9 @@
 <p>通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。</p>
 <p>服务端我也不知道什么样,这里只记录客户端的相关. </p>
 <p>这里我们得到一个文档说,需要建立socket SSL 连接,通过XML格式发送数据.</p>
-<h4 id="非ssl的socket"><a href="#非ssl的socket" class="headerlink" title="非ssl的socket:"></a>非ssl的socket:</h4><pre><code>import socket
-
-# 创建一个socket:
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-# 建立连接:
-s.connect((&#39;192.168.1.230&#39;, 80))
-</code></pre><h4 id="SSL-socket"><a href="#SSL-socket" class="headerlink" title="SSL socket:"></a>SSL socket:</h4><p>端口是3344,ssl跳过验证,如果验证参数需要修改.</p>
-<pre><code>import socket
-
- s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
- c = ssl.wrap_socket(s, cert_reqs=ssl.CERT_NONE)
- try:
-    c.connect((&#39;192.168.1.230&#39;, &#39;3344&#39;))
-except:
-    return 2
-</code></pre><p>这下与那台设备可以正常通讯了,后面实现具体功能就ok了.</p>
+<h4 id="非ssl的socket"><a href="#非ssl的socket" class="headerlink" title="非ssl的socket:"></a>非ssl的socket:</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个socket:</span></span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立连接:</span></span><br><span class="line">s.connect((<span class="string">'192.168.1.230'</span>, <span class="number">80</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="SSL-socket"><a href="#SSL-socket" class="headerlink" title="SSL socket:"></a>SSL socket:</h4><p>端口是3344,ssl跳过验证,如果验证参数需要修改.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"> s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">        </span><br><span class="line"> c = ssl.wrap_socket(s, cert_reqs=ssl.CERT_NONE)</span><br><span class="line"> <span class="keyword">try</span>:</span><br><span class="line">    c.connect((<span class="string">'192.168.1.230'</span>, <span class="string">'3344'</span>))</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p>这下与那台设备可以正常通讯了,后面实现具体功能就ok了.</p>
 
       
     </div>
