@@ -23,7 +23,7 @@ Socket是网络编程的一个抽象概念。
 
 #### 非ssl的socket:
 
-```
+``` python
 import socket
 
 # 创建一个socket:
@@ -35,7 +35,7 @@ s.connect(('192.168.1.230', 80))
 
 #### SSL socket:
 端口是3344,ssl跳过验证,如果验证参数需要修改.
-```
+``` python
 import socket
 
  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

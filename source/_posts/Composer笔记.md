@@ -5,21 +5,21 @@ categories: note
 tags: Composer
 ---
 
-###composer - laravel5
+### composer - laravel5
 
-####创建laravel项目：
+#### 创建laravel项目：
 
 `conposer create-project laravel/laravel=5.8.* --prefer-dist  ./XXX`
 
 laravel=5.8.* 这里代表要部署5.8中最高版本   --prefer-dist  参数代表优先下载zip
 
-####安装vendor:
+#### 安装vendor:
 
 `composer install`
 
 `composer install --prefer-dist`
 
-####更新：
+#### 更新：
 
 `composer update`
 
@@ -45,13 +45,13 @@ laravel=5.8.* 这里代表要部署5.8中最高版本   --prefer-dist  参数代
 
 创建一个user 的model
 
-php artisan make:model User
+`php artisan make:model User`
 
 指定目录加入目录即可
 
 #### 获取项目路由：
 
-php artisan route:list
+`php artisan route:list`
 
 #### composer在项目中安装三方库时候出现报错：
 
@@ -61,4 +61,4 @@ php artisan route:list
 
 解决：
 
-使用 composer install --ignore-platform-reqs 命令设置忽略版本匹配然后再进行安装你所需要的composer包。
+使用 `composer install --ignore-platform-reqs` 命令设置忽略版本匹配然后再进行安装你所需要的composer包。
