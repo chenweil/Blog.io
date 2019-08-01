@@ -553,32 +553,32 @@ zscore key m 返回key 中m的分数值
 zrevrange key start stop 降序展示
 </code></pre><h3 id="持久化："><a href="#持久化：" class="headerlink" title="持久化："></a>持久化：</h3><h4 id="rdb-aof"><a href="#rdb-aof" class="headerlink" title="rdb aof"></a>rdb aof</h4><ul>
 <li><p>rdb </p>
-<pre><code> 快照方式定期生成临时文件，从临时文件替换上次持久化的文件。数据不是非常敏感。 dump.rdb
+<pre><code>快照方式定期生成临时文件，从临时文件替换上次持久化的文件。数据不是非常敏感。 dump.rdb
 
- dump.rdb 关机会清空文件，备份需要导出到另一台机器。
+dump.rdb 关机会清空文件，备份需要导出到另一台机器。
 
- 设备启动会去读取domp.rdb来恢复数据（文件名可以设置）。
+设备启动会去读取domp.rdb来恢复数据（文件名可以设置）。
 
- 关闭rdb  设置save为空
+关闭rdb  设置save为空
 
- save命令 bgsave后台异步快照  备份到dump.rdb 
+save命令 bgsave后台异步快照  备份到dump.rdb 
 
- 优势： 适合大规模莫恢复，完整性和一致性要求不高。
+优势： 适合大规模莫恢复，完整性和一致性要求不高。
 
- 劣势： 意外down  最后一次备份不到。内存被克隆一份，2倍的性能膨胀。
+劣势： 意外down  最后一次备份不到。内存被克隆一份，2倍的性能膨胀。
 </code></pre></li>
 </ul>
 <ul>
 <li><p>aof</p>
-<pre><code>  日行形式记录每个写操作，将所有写指令记录。
+<pre><code>日行形式记录每个写操作，将所有写指令记录。
 
-  appendonly  yes  开启
+appendonly  yes  开启
 
-  注意flushdb all  这些东西也会记录操作。
+注意flushdb all  这些东西也会记录操作。
 
-  同时存在两种备份，优先恢复aof文件，如果aof失败， 导入rbd备份数据。
+同时存在两种备份，优先恢复aof文件，如果aof失败， 导入rbd备份数据。
 
-  aof文件损毁或异常时， 通过redis-check-aof程序修复后再恢复。
+aof文件损毁或异常时， 通过redis-check-aof程序修复后再恢复。
 </code></pre></li>
 </ul>
 <h4 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h4><p>appendfsync    always/everysec/no  同步设置</p>
@@ -597,20 +597,20 @@ zrevrange key start stop 降序展示
 
 wacth 监控字段，执行事务，如果监控字段未出现变化，事务执行成功。
 </code></pre><p>复制机制：</p>
-<pre><code>   master 写  slave读
+<pre><code>master 写  slave读
 
-   配置slave为主     slaveof 主库id 端口
+配置slave为主     slaveof 主库id 端口
 
-   info replication  查看信息
+info replication  查看信息
 
-   从机不能写数据
+从机不能写数据
 </code></pre><ul>
 <li><p>方式 1主机 多从机</p>
-<pre><code>  主机down，从机待命。主机启动，从机继续同步主机。
+<pre><code>主机down，从机待命。主机启动，从机继续同步主机。
 
-  从机端开，会变成master，除非配置文件规定。否则需要 slaveof 重新顶可以。
+从机端开，会变成master，除非配置文件规定。否则需要 slaveof 重新顶可以。
 
-  主机down后，如果从机某台执行 slaveof no one ，使当前从库变主库。
+主机down后，如果从机某台执行 slaveof no one ，使当前从库变主库。
 </code></pre></li>
 <li><p>方式2 主机-&gt;从机-&gt;从机  相连</p>
 </li>
@@ -774,7 +774,7 @@ sentinel monitor  主机配置  地址 端口  1  1标识投票
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -836,7 +836,9 @@ sentinel monitor  主机配置  地址 端口  1  1标识投票
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
