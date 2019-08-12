@@ -92,15 +92,18 @@
 
 
 
-  <meta name="keywords" content="aLong个人站点，学习笔记。">
+  <meta name="description" content="虚拟机安装 macOS准备工作: VM关闭进程,利用macOS Unlocker修改VM使其能安装macOS系统, 执行程序 win-install.cmd 使用管理员权限运行脚本. 准备好macOS镜象. 利用VM创建虚机,系统类型选择macOS,版本号选择与下载的镜象版本相同.  装系统: 启动虚拟机,并通过cdrom加载镜象. 首次安装需要先利用系统内硬盘工具格式化硬盘,之后利用安装工具进行">
+<meta name="keywords" content="vm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shell">
-<meta property="og:url" content="http://blog.51ai.vip/2019/06/17/shell/index.html">
+<meta property="og:title" content="VMware安装MacOS系统">
+<meta property="og:url" content="http://blog.51ai.vip/2019/08/12/VMware安装MacOS系统/index.html">
 <meta property="og:site_name" content="aLong">
+<meta property="og:description" content="虚拟机安装 macOS准备工作: VM关闭进程,利用macOS Unlocker修改VM使其能安装macOS系统, 执行程序 win-install.cmd 使用管理员权限运行脚本. 准备好macOS镜象. 利用VM创建虚机,系统类型选择macOS,版本号选择与下载的镜象版本相同.  装系统: 启动虚拟机,并通过cdrom加载镜象. 首次安装需要先利用系统内硬盘工具格式化硬盘,之后利用安装工具进行">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-17T09:42:22.024Z">
+<meta property="og:updated_time" content="2019-08-12T03:38:55.999Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shell">
+<meta name="twitter:title" content="VMware安装MacOS系统">
+<meta name="twitter:description" content="虚拟机安装 macOS准备工作: VM关闭进程,利用macOS Unlocker修改VM使其能安装macOS系统, 执行程序 win-install.cmd 使用管理员权限运行脚本. 准备好macOS镜象. 利用VM创建虚机,系统类型选择macOS,版本号选择与下载的镜象版本相同.  装系统: 启动虚拟机,并通过cdrom加载镜象. 首次安装需要先利用系统内硬盘工具格式化硬盘,之后利用安装工具进行">
 
 
 
@@ -108,7 +111,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.51ai.vip/2019/06/17/shell/">
+  <link rel="canonical" href="http://blog.51ai.vip/2019/08/12/VMware安装MacOS系统/">
 
 
 
@@ -118,7 +121,7 @@
   };
 </script>
 
-  <title>shell | aLong</title>
+  <title>VMware安装MacOS系统 | aLong</title>
   
 
 
@@ -304,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/06/17/shell/">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/08/12/VMware安装MacOS系统/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aLong">
@@ -321,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">shell
+          <h1 class="post-title" itemprop="name headline">VMware安装MacOS系统
 
               
             
@@ -347,7 +350,7 @@
                 
               
 
-              <time title="创建时间：2019-06-17 17:42:21 / 修改时间：17:42:22" itemprop="dateCreated datePublished" datetime="2019-06-17T17:42:21+08:00">2019-06-17</time>
+              <time title="创建时间：2019-08-12 11:29:38 / 修改时间：11:38:55" itemprop="dateCreated datePublished" datetime="2019-08-12T11:29:38+08:00">2019-08-12</time>
             
 
             
@@ -357,6 +360,24 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -380,7 +401,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">0</span>
+                <span title="本文字数">686</span>
               
 
               
@@ -414,7 +435,28 @@
       
 
       
-        
+        <h2 id="虚拟机安装-macOS"><a href="#虚拟机安装-macOS" class="headerlink" title="虚拟机安装 macOS"></a>虚拟机安装 macOS</h2><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作:"></a>准备工作:</h4><ul>
+<li>VM关闭进程,利用macOS Unlocker修改VM使其能安装macOS系统, 执行程序 win-install.cmd 使用管理员权限运行脚本.</li>
+<li>准备好macOS镜象.</li>
+<li>利用VM创建虚机,系统类型选择macOS,版本号选择与下载的镜象版本相同.</li>
+</ul>
+<h3 id="装系统"><a href="#装系统" class="headerlink" title="装系统:"></a>装系统:</h3><ul>
+<li>启动虚拟机,并通过cdrom加载镜象.</li>
+<li>首次安装需要先利用系统内硬盘工具格式化硬盘,之后利用安装工具进行系统安装.</li>
+</ul>
+<h3 id="异常问题"><a href="#异常问题" class="headerlink" title="异常问题:"></a>异常问题:</h3><ul>
+<li>开启虚拟机弹出错误:vcpu-0 错误.</li>
+</ul>
+<p>修改虚机镜象文件.vmx   在smc.present = “TRUE”下面插入一行代码:    smc.version = 0</p>
+<ul>
+<li>不能正常登陆APPID</li>
+</ul>
+<p>需要修改虚拟机,利用Chameleon Wizard 伪造设备信息. 保存 生成的信息 去修改镜象所在文件下的.vmx  </p>
+<p>修改 board-id.reflectHost = “TRUE” 为FALSE,并在下面插入需要的伪造设备信息例子:</p>
+<p>board-id = “Mac-94245B3640C91C81”<br>hw.model.reflectHost = “FALSE”<br>hw.model = “MacBook Pro”<br>serialNumber.reflectHost = “FALSE”<br>serialNumber = “C02JJ8B3DH2G”<br>smbios.reflectHost = “FALSE”</p>
+<p>这段信息中的board-id 与  serialNumber 不要与例子的相同.其他可以参考.最后保存,重启.</p>
+<p>重启之后尝试是否可以登陆市场.</p>
+
       
     </div>
 
@@ -468,6 +510,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/vm/" rel="tag"># vm</a>
+          
+        </div>
+      
 
       
       
@@ -477,8 +525,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/04/Hexo笔记/" rel="next" title="Hexo笔记">
-                <i class="fa fa-chevron-left"></i> Hexo笔记
+              <a href="/2019/07/26/Laravel5数据库迁移/" rel="next" title="数据库迁移">
+                <i class="fa fa-chevron-left"></i> 数据库迁移
               </a>
             
           </div>
@@ -486,10 +534,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/27/无版权素材站点/" rel="prev" title="无版权素材站点">
-                无版权素材站点 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -533,8 +577,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -642,6 +695,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机安装-macOS"><span class="nav-number">1.</span> <span class="nav-text">虚拟机安装 macOS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">1.0.1.</span> <span class="nav-text">准备工作:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装系统"><span class="nav-number">1.1.</span> <span class="nav-text">装系统:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常问题"><span class="nav-number">1.2.</span> <span class="nav-text">异常问题:</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
