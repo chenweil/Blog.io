@@ -1,7 +1,7 @@
 ---
 title: Composer笔记
 date: 2019-07-15 17:24:45
-categories: note
+categories: Composer
 tags: Composer
 ---
 

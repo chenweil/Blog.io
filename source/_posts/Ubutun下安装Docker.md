@@ -1,8 +1,8 @@
 ---
 title: Ubutun下安装Docker
 date: 2019-04-04 14:57:16
-categories: note
-tags: Docker
+categories: Linux
+tags: [Docker,Ubutun]
 ---
 
 ### Docker简介

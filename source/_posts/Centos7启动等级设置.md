@@ -1,8 +1,9 @@
 ---
 title: Centos7启动等级设置
 date: 2019-04-15 16:55:19
-categories: note
-tags: Linux
+categories: 
+- Linux
+tags: Centos7
 ---
 
 #### Centos7启动级别

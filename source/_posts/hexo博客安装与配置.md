@@ -1,8 +1,8 @@
 ---
 title: hexo博客安装与配置
 date: 2019-04-01 17:59:31
-categories: note
-tags: hexo
+categories: Hexo
+tags: Hexo
 ---
 
 ### wordpress 之后

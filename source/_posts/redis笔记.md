@@ -1,8 +1,8 @@
 ---
 title: redis笔记
 date: 2019-04-25 17:12:52
-categories: redis
-tags: redis,db
+categories: Redis
+tags: redis
 ---
 
 ## redis笔记 

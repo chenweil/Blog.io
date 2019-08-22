@@ -1,7 +1,7 @@
 ---
 title: Go学习笔记
 date: 2019-05-15 11:05:52
-categories: note
+categories: GO
 tags: Go
 ---
 

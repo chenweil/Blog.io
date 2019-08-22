@@ -1,7 +1,7 @@
 ---
 title: Python建立SocketSSL连接
 date: 2019-06-04 10:23:11
-categories: note
+categories: Python
 tags: [Python,Socket]
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: Ubutun16.04安装Python
 date: 2019-05-24 11:17:59
-categories: note
-tags: python
+categories: Python
+tags: [Python,Ubutun]
 ---
 
 ### 目的 

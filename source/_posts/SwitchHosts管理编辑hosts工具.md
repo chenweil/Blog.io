@@ -1,7 +1,7 @@
 ---
 title: SwitchHosts管理编辑hosts工具
 date: 2019-08-14 09:41:55
-categories: tools
+categories: Tools
 tags: hosts
 ---
 

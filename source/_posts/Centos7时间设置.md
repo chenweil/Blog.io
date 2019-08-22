@@ -1,8 +1,8 @@
 ---
 title: Centos7时间设置
 date: 2019-04-19 11:42:02
-categories: note
-tags: Linux
+categories: Linux
+tags: Centos7
 ---
 
 ### Centos7时间相关
