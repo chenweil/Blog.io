@@ -92,18 +92,18 @@
 
 
 
-  <meta name="description" content="Docker简介 一个能够把开发的应用程序自动部署到容器的开源引擎三大概念：镜像（Image）容器（Container）仓库（Repository）  具体信息请参考官方。官方概述（养成看文档习惯） 安装环境Ubuntu 16.04 LTS Docker安装根据官方doc安装。官方doc1.如果你之前装过，命令卸载。sudo apt-get remove docker docker-engine">
-<meta name="keywords" content="Docker">
+  <meta name="description" content="Laradock 安装与使用官网  GitHub: https://github.com/laradock/laradock  要求  Git Docker &amp;gt;= 17.12   项目的位置 已有项目情况: git submodule add https://github.com/Laradock/laradock.git 克隆到项目根目录.  结构 :   project-a larado">
+<meta name="keywords" content="laravel, docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubutun下安装Docker">
-<meta property="og:url" content="http://blog.51ai.vip/2019/04/04/Ubutun下安装Docker/index.html">
+<meta property="og:title" content="Laradock安装与使用">
+<meta property="og:url" content="http://blog.51ai.vip/2019/08/15/Laradock安装与使用/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="Docker简介 一个能够把开发的应用程序自动部署到容器的开源引擎三大概念：镜像（Image）容器（Container）仓库（Repository）  具体信息请参考官方。官方概述（养成看文档习惯） 安装环境Ubuntu 16.04 LTS Docker安装根据官方doc安装。官方doc1.如果你之前装过，命令卸载。sudo apt-get remove docker docker-engine">
+<meta property="og:description" content="Laradock 安装与使用官网  GitHub: https://github.com/laradock/laradock  要求  Git Docker &amp;gt;= 17.12   项目的位置 已有项目情况: git submodule add https://github.com/Laradock/laradock.git 克隆到项目根目录.  结构 :   project-a larado">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-11T03:15:46.867Z">
+<meta property="og:updated_time" content="2019-08-15T03:02:15.765Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubutun下安装Docker">
-<meta name="twitter:description" content="Docker简介 一个能够把开发的应用程序自动部署到容器的开源引擎三大概念：镜像（Image）容器（Container）仓库（Repository）  具体信息请参考官方。官方概述（养成看文档习惯） 安装环境Ubuntu 16.04 LTS Docker安装根据官方doc安装。官方doc1.如果你之前装过，命令卸载。sudo apt-get remove docker docker-engine">
+<meta name="twitter:title" content="Laradock安装与使用">
+<meta name="twitter:description" content="Laradock 安装与使用官网  GitHub: https://github.com/laradock/laradock  要求  Git Docker &amp;gt;= 17.12   项目的位置 已有项目情况: git submodule add https://github.com/Laradock/laradock.git 克隆到项目根目录.  结构 :   project-a larado">
 
 
 
@@ -111,7 +111,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.51ai.vip/2019/04/04/Ubutun下安装Docker/">
+  <link rel="canonical" href="http://blog.51ai.vip/2019/08/15/Laradock安装与使用/">
 
 
 
@@ -121,7 +121,7 @@
   };
 </script>
 
-  <title>Ubutun下安装Docker | aLong</title>
+  <title>Laradock安装与使用 | aLong</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/04/04/Ubutun下安装Docker/">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/08/15/Laradock安装与使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aLong">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Ubutun下安装Docker
+          <h1 class="post-title" itemprop="name headline">Laradock安装与使用
 
               
             
@@ -350,24 +350,12 @@
                 
               
 
-              <time title="创建时间：2019-04-04 14:57:16" itemprop="dateCreated datePublished" datetime="2019-04-04T14:57:16+08:00">2019-04-04</time>
+              <time title="创建时间：2019-08-15 10:01:03 / 修改时间：11:02:15" itemprop="dateCreated datePublished" datetime="2019-08-15T10:01:03+08:00">2019-08-15</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-11 11:15:46" itemprop="dateModified" datetime="2019-04-11T11:15:46+08:00">2019-04-11</time>
               
             
           </span>
@@ -413,7 +401,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">989</span>
+                <span title="本文字数">1.4k</span>
               
 
               
@@ -447,27 +435,64 @@
       
 
       
-        <h3 id="Docker简介"><a href="#Docker简介" class="headerlink" title="Docker简介"></a>Docker简介</h3><blockquote>
-<p>一个能够把开发的应用程序自动部署到容器的开源引擎<br>三大概念：镜像（Image）容器（Container）仓库（Repository）</p>
+        <h3 id="Laradock-安装与使用"><a href="#Laradock-安装与使用" class="headerlink" title="Laradock 安装与使用"></a>Laradock 安装与使用</h3><p><a href="https://laradock.io" target="_blank" rel="noopener">官网</a> </p>
+<p>GitHub: <a href="https://github.com/laradock/laradock" target="_blank" rel="noopener">https://github.com/laradock/laradock</a> </p>
+<h3 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h3><blockquote>
+<ul>
+<li>Git</li>
+<li>Docker &gt;= 17.12</li>
+</ul>
 </blockquote>
-<p>具体信息请参考官方。<a href="https://docs.docker.com/engine/docker-overview/" target="_blank" rel="noopener">官方概述</a>（养成看文档习惯）</p>
-<h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><p>Ubuntu 16.04 LTS</p>
-<h3 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h3><p>根据官方doc安装。<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">官方doc</a><br>1.如果你之前装过，命令卸载。<br><code>sudo apt-get remove docker docker-engine docker.io containerd runc</code></p>
-<p>2.更新包索引<br><code>apt-get update</code></p>
-<p>3.安装包以允许apt通过HTTPS使用存储库:<br><code>sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common</code><br>（斜线换行，一条命令）</p>
-<p>4.添加Docker的官方GPG密钥:<br><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</code><br><code>sudo apt-key fingerprint 0EBFCD88</code></p>
-<p>5.使用以下命令设置稳定存储库。要添加 夜间或测试存储库，请在下面的命令中的单词后添加单词nightly或test（或两者）stable。<br><code>$ sudo add-apt-repository \
-   &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable&quot;</code><br> (lsb_release -cs子命令返回Ubuntu发行版的名称)</p>
-<p> 6.安装最新版本的Docker CE和containerd，或者转到下一步安装特定版本：<br> <code>sudo apt-get install docker-ce docker-ce-cli containerd.io</code></p>
-<p> 7.运行hello-world 映像验证是否正确安装了Docker CE:<br> <code>sudo docker run hello-world</code><br> (执行之后，返回docker的信息)</p>
-<p> 至此，安装过程是结束了。</p>
+<h3 id="项目的位置"><a href="#项目的位置" class="headerlink" title="项目的位置"></a>项目的位置</h3><ol>
+<li>已有项目情况: <code>git submodule add https://github.com/Laradock/laradock.git</code> 克隆到项目根目录.</li>
+</ol>
+<p>结构 :</p>
+<blockquote>
+<ul>
+<li>project-a<ul>
+<li>laradock-a</li>
+</ul>
+</li>
+<li>project-b<ul>
+<li>laradock-b</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>没有项目情况: <code>git clone https://github.com/laradock/laradock.git</code> 克隆后,在同级部署项目.</li>
+</ol>
+<blockquote>
+</blockquote>
+<ul>
+<li>laradock</li>
+<li>project-x</li>
+<li>project-y</li>
+</ul>
+<h3 id="启动环境"><a href="#启动环境" class="headerlink" title="启动环境"></a>启动环境</h3><p>clone下来还没有生成.</p>
+<p>进入laradock目录,编辑Web服务器站点配置. <code>cp env-exalpme .env</code><br>环境是laradock环境,里面可以对相应的版本,配置进行修改.<br>例如指定mysql版本为5.7 ,<code>vim .env</code> ,搜索到mysql部分, 修改<strong>MYSQL_VERSION=5.7.26</strong> 保存退出.(这里还没生成容器前可以统一配置好需要的环境,再生成容器.) </p>
+<p>例如我们需要启动环境需要 mysql,redis,nginx.</p>
+<p>执行 docker-compose up -d nginx mysql redis </p>
+<p>经过漫长等待后,可以得到我们想要的环境,通过 docker ps 或者 docker-compose ps 查看容器. </p>
+<p>如果先生成容器,在之后编辑环境时,需要停掉容器,修改完 build之后 再start 容器.<br>例如修改nginx:</p>
+<ol>
+<li><code>docker-compose stop nginx</code></li>
+<li>修改.env 或者 nginx conf</li>
+<li><code>docker-compose build nginx</code> (完全重建,加参数: –no-cache)</li>
+<li><code>docker-compose start nginx</code> </li>
+</ol>
+<h3 id="Nginx-配置项目"><a href="#Nginx-配置项目" class="headerlink" title="Nginx 配置项目"></a>Nginx 配置项目</h3><p>我们再laradock中,进入nginx/sites/ 下.复制laravel.conf.example 命名为我们的项目.</p>
+<p><code>cp laravel.conf.example Myblog.conf</code></p>
+<p>我们在Myblog.conf 配置nginx 具体信息.这里与配置Vhost一样的操作.</p>
+<p><strong>修改完成后,需要build nginx(重建nginx容器).</strong></p>
+<h3 id="项目配置数据库"><a href="#项目配置数据库" class="headerlink" title="项目配置数据库"></a>项目配置数据库</h3><p>laravel项目, .env 中 此项需要改为<strong>DB_HOST=mysql</strong>,其他参数按照容器mysql配置账号密码等.<br>Redis 修改类似.</p>
+<h3 id="项目执行php-artisan-方式"><a href="#项目执行php-artisan-方式" class="headerlink" title="项目执行php artisan 方式"></a>项目执行php artisan 方式</h3><p>在laravel 需要执行 php artisan命令时,我们进入到workspace容器,</p>
+<p><code>docker-compose exec workspace bash</code></p>
+<p>进入workkspace后,就可以像以前一样进入项目目录中可以执行.</p>
+<p>也可以通过开启ssh.连接workspace 执行.</p>
+<h3 id="关闭所有正在运行的容器"><a href="#关闭所有正在运行的容器" class="headerlink" title="关闭所有正在运行的容器"></a>关闭所有正在运行的容器</h3><p><code>docker-compose stop</code></p>
+<h3 id="删除所有现有容器"><a href="#删除所有现有容器" class="headerlink" title="删除所有现有容器"></a>删除所有现有容器</h3><p><code>docker-compose down</code></p>
+<p> <em>其他内容请详见手册吧</em></p>
 
       
     </div>
@@ -524,7 +549,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Docker/" rel="tag"># Docker</a>
+            <a href="/tags/laravel-docker/" rel="tag"># laravel, docker</a>
           
         </div>
       
@@ -537,8 +562,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/01/hexo博客安装与配置/" rel="next" title="hexo博客安装与配置">
-                <i class="fa fa-chevron-left"></i> hexo博客安装与配置
+              <a href="/2019/08/14/SwitchHosts管理编辑hosts工具/" rel="next" title="SwitchHosts管理编辑hosts工具">
+                <i class="fa fa-chevron-left"></i> SwitchHosts管理编辑hosts工具
               </a>
             
           </div>
@@ -546,10 +571,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/11/Docker常用命令/" rel="prev" title="Docker常用命令">
-                Docker常用命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -728,7 +749,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker简介"><span class="nav-number">1.</span> <span class="nav-text">Docker简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装环境"><span class="nav-number">2.</span> <span class="nav-text">安装环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker安装"><span class="nav-number">3.</span> <span class="nav-text">Docker安装</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Laradock-安装与使用"><span class="nav-number">1.</span> <span class="nav-text">Laradock 安装与使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要求"><span class="nav-number">2.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目的位置"><span class="nav-number">3.</span> <span class="nav-text">项目的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动环境"><span class="nav-number">4.</span> <span class="nav-text">启动环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-配置项目"><span class="nav-number">5.</span> <span class="nav-text">Nginx 配置项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目配置数据库"><span class="nav-number">6.</span> <span class="nav-text">项目配置数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目执行php-artisan-方式"><span class="nav-number">7.</span> <span class="nav-text">项目执行php artisan 方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭所有正在运行的容器"><span class="nav-number">8.</span> <span class="nav-text">关闭所有正在运行的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除所有现有容器"><span class="nav-number">9.</span> <span class="nav-text">删除所有现有容器</span></a></li></ol></div>
             
 
           </div>
