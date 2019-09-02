@@ -101,7 +101,7 @@
 <meta property="og:description" content="SNMPSNMP(simple network management protocol)是因特网架构委员会IAB定义的一个应用层协议。SNMP广泛用于管理和监控网络设备，大多数专业的网络设备都有SNMP agent代理，这些代理被激活和配置后用于和SNMP管理 NMS(network management system)网络管理系统通信。 目的通过snmp_export,获取设备信息. 准备系统:">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://t1.picb.cc/uploads/2019/08/29/gjCvPF.png">
-<meta property="og:updated_time" content="2019-08-29T05:56:39.485Z">
+<meta property="og:updated_time" content="2019-08-29T06:00:42.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prometheus-snmp_export部署">
 <meta name="twitter:description" content="SNMPSNMP(simple network management protocol)是因特网架构委员会IAB定义的一个应用层协议。SNMP广泛用于管理和监控网络设备，大多数专业的网络设备都有SNMP agent代理，这些代理被激活和配置后用于和SNMP管理 NMS(network management system)网络管理系统通信。 目的通过snmp_export,获取设备信息. 准备系统:">
@@ -386,7 +386,7 @@
                 
               
 
-              <time title="创建时间：2019-08-29 10:06:01 / 修改时间：13:56:39" itemprop="dateCreated datePublished" datetime="2019-08-29T10:06:01+08:00">2019-08-29</time>
+              <time title="创建时间：2019-08-29 10:06:01 / 修改时间：14:00:42" itemprop="dateCreated datePublished" datetime="2019-08-29T10:06:01+08:00">2019-08-29</time>
             
 
             
@@ -484,6 +484,7 @@
 <h3 id="配置华为s2700交换机"><a href="#配置华为s2700交换机" class="headerlink" title="配置华为s2700交换机"></a>配置华为s2700交换机</h3><p>自行查阅文档.懒得写了.</p>
 <h3 id="验证服务"><a href="#验证服务" class="headerlink" title="验证服务"></a>验证服务</h3><p>访问 <a href="http://IP:9116/metrics" target="_blank" rel="noopener">http://IP:9116/metrics</a> 能返回数据,snmp_export服务正常.</p>
 <p>测试是否能获取到目标设备的数据:<br>访问 <a href="http://IP:9116/snmp?target=DEVIP" target="_blank" rel="noopener">http://IP:9116/snmp?target=DEVIP</a><br>能获取到数据,配置成功.</p>
+<p><strong>注意防火墙 把需要的端口加入规则中,不然访问不到排查绕弯路</strong></p>
 <h3 id="配置promthues"><a href="#配置promthues" class="headerlink" title="配置promthues"></a>配置promthues</h3><p>修改 promthues.yml文件. 添加一个新的job.<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- job_name:</span> <span class="string">snmp</span></span><br><span class="line"><span class="attr">  honor_timestamps:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  params:</span></span><br><span class="line"><span class="attr">    module:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">if_mib</span></span><br><span class="line"><span class="attr">  scrape_interval:</span> <span class="number">15</span><span class="string">s</span></span><br><span class="line"><span class="attr">  scrape_timeout:</span> <span class="number">10</span><span class="string">s</span></span><br><span class="line"><span class="attr">  metrics_path:</span> <span class="string">/snmp</span></span><br><span class="line"><span class="attr">  scheme:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">  static_configs:</span></span><br><span class="line"><span class="attr">  - targets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">172.16</span><span class="number">.23</span><span class="number">.253</span></span><br><span class="line"><span class="attr">    labels:</span></span><br><span class="line"><span class="attr">      tag:</span> <span class="string">huawei-switch-s2700</span></span><br><span class="line"><span class="attr">  relabel_configs:</span></span><br><span class="line"><span class="attr">  - source_labels:</span> <span class="string">[__address__]</span></span><br><span class="line"><span class="attr">    separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">__param_target</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">  - source_labels:</span> <span class="string">[__param_target]</span></span><br><span class="line"><span class="attr">    separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">instance</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">  - separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">__address__</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="number">172.16</span><span class="number">.23</span><span class="number">.12</span><span class="string">:9116</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br></pre></td></tr></table></figure></p>
 <p>之前部署prometheus 有一个参数是为了热加载配置的.<br>这里需要reload一下配置,<code>curl -X POST http://IP:9090/-/reload</code>,如果你没有就重启服务吧.</p>
 <h3 id="验证-Prometheus配置"><a href="#验证-Prometheus配置" class="headerlink" title="验证 Prometheus配置"></a>验证 Prometheus配置</h3><p>访问 <a href="http://IP:9090/" target="_blank" rel="noopener">http://IP:9090/</a><br>点击 Status-&gt;Target 可以看到监控的节点,之前我们是有一个,现在是两个节点了.</p>
@@ -571,6 +572,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/02/Centos7安装nodejs/" rel="prev" title="Centos7安装nodejs">
+                Centos7安装nodejs <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -638,7 +643,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -679,7 +684,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -738,7 +745,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">21</span>
+                      
+                    
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
