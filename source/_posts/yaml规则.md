@@ -15,30 +15,40 @@ tags: yaml
 3. 注释 # 
 
 ### 结构：
-对象： ：符号 
 
-```yml
+对象： ：符号
+
+``` yml
 name: admin
-``` 
- 
+```
+
+
+
 数组： - 符号      
-```yml
+
+``` yml
 user:
   - name: admin
   - height: 178
   - age: 30
 ```
+
 字符串： 默认无引号，内部含有空格或特殊符号需要加''
-```yml
+
+``` yml
 name: admin
 desc: 'he was cool'
 ```
+
 null： ~ 
-```yml
+
+``` yml
 value: ~
 ```
+
 层级依靠缩进：
-```yml
+
+``` yml
 job:
   - jobconfig:
     name: 'snmp-sw01'
