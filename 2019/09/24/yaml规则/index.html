@@ -92,18 +92,18 @@
 
 
 
-  <meta name="description" content="yml 语法最近经常配置一些服务，发现大部分都是yml类型文件。小记一下。 规则 大小写敏感 缩进表示层级 注释 #   结构：对象： ：符号  123456789name: admin```  数组： - 符号      ```ymluser:  - name: admin  - height: 178  - age: 30 字符串： 默认无引号，内部含有空格或特殊符号需要加’’12name:">
+  <meta name="description" content="yml 语法最近经常配置一些服务，发现大部分都是yml类型文件。小记一下。 规则 大小写敏感 缩进表示层级 注释 #   结构：对象： ：符号 1name: admin 数组： - 符号       1234user:  - name: admin  - height: 178  - age: 30 字符串： 默认无引号，内部含有空格或特殊符号需要加’’ 12name: admindesc: &apos;h">
 <meta name="keywords" content="yaml">
 <meta property="og:type" content="article">
 <meta property="og:title" content="yaml规则">
 <meta property="og:url" content="http://blog.51ai.vip/2019/09/24/yaml规则/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="yml 语法最近经常配置一些服务，发现大部分都是yml类型文件。小记一下。 规则 大小写敏感 缩进表示层级 注释 #   结构：对象： ：符号  123456789name: admin```  数组： - 符号      ```ymluser:  - name: admin  - height: 178  - age: 30 字符串： 默认无引号，内部含有空格或特殊符号需要加’’12name:">
+<meta property="og:description" content="yml 语法最近经常配置一些服务，发现大部分都是yml类型文件。小记一下。 规则 大小写敏感 缩进表示层级 注释 #   结构：对象： ：符号 1name: admin 数组： - 符号       1234user:  - name: admin  - height: 178  - age: 30 字符串： 默认无引号，内部含有空格或特殊符号需要加’’ 12name: admindesc: &apos;h">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-24T02:24:19.370Z">
+<meta property="og:updated_time" content="2019-09-24T02:34:14.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yaml规则">
-<meta name="twitter:description" content="yml 语法最近经常配置一些服务，发现大部分都是yml类型文件。小记一下。 规则 大小写敏感 缩进表示层级 注释 #   结构：对象： ：符号  123456789name: admin```  数组： - 符号      ```ymluser:  - name: admin  - height: 178  - age: 30 字符串： 默认无引号，内部含有空格或特殊符号需要加’’12name:">
+<meta name="twitter:description" content="yml 语法最近经常配置一些服务，发现大部分都是yml类型文件。小记一下。 规则 大小写敏感 缩进表示层级 注释 #   结构：对象： ：符号 1name: admin 数组： - 符号       1234user:  - name: admin  - height: 178  - age: 30 字符串： 默认无引号，内部含有空格或特殊符号需要加’’ 12name: admindesc: &apos;h">
 
 
 
@@ -384,7 +384,7 @@
                 
               
 
-              <time title="创建时间：2019-09-24 10:20:31 / 修改时间：10:24:19" itemprop="dateCreated datePublished" datetime="2019-09-24T10:20:31+08:00">2019-09-24</time>
+              <time title="创建时间：2019-09-24 10:20:31 / 修改时间：10:34:14" itemprop="dateCreated datePublished" datetime="2019-09-24T10:20:31+08:00">2019-09-24</time>
             
 
             
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">327</span>
+                <span title="本文字数">316</span>
               
 
               
@@ -475,12 +475,16 @@
 <li>缩进表示层级</li>
 <li>注释 # </li>
 </ol>
-<h3 id="结构："><a href="#结构：" class="headerlink" title="结构："></a>结构：</h3><p>对象： ：符号 </p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">admin</span></span><br><span class="line"><span class="string">```</span> </span><br><span class="line"> </span><br><span class="line"><span class="string">数组：</span> <span class="bullet">-</span> <span class="string">符号</span>      </span><br><span class="line"><span class="string">```yml</span></span><br><span class="line"><span class="attr">user:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">  - height:</span> <span class="number">178</span></span><br><span class="line"><span class="attr">  - age:</span> <span class="number">30</span></span><br></pre></td></tr></table></figure>
-<p>字符串： 默认无引号，内部含有空格或特殊符号需要加’’<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">desc:</span> <span class="string">'he was cool'</span></span><br></pre></td></tr></table></figure></p>
-<p>null： ~<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">value:</span> <span class="string">~</span></span><br></pre></td></tr></table></figure></p>
-<p>层级依靠缩进：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">job:</span></span><br><span class="line"><span class="attr">  - jobconfig:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">'snmp-sw01'</span></span><br><span class="line"><span class="attr">    - target:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.88</span></span><br></pre></td></tr></table></figure></p>
-
+<h3 id="结构："><a href="#结构：" class="headerlink" title="结构："></a>结构：</h3><p>对象： ：符号</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">admin</span></span><br></pre></td></tr></table></figure>
+<p>数组： - 符号      </p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">user:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">  - height:</span> <span class="number">178</span></span><br><span class="line"><span class="attr">  - age:</span> <span class="number">30</span></span><br></pre></td></tr></table></figure>
+<p>字符串： 默认无引号，内部含有空格或特殊符号需要加’’</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">desc:</span> <span class="string">'he was cool'</span></span><br></pre></td></tr></table></figure>
+<p>null： ~ </p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">value:</span> <span class="string">~</span></span><br></pre></td></tr></table></figure>
+<p>层级依靠缩进：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">job:</span></span><br><span class="line"><span class="attr">  - jobconfig:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">'snmp-sw01'</span></span><br><span class="line"><span class="attr">    - target:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.88</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -816,7 +820,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">33 分钟</span>
+    <span title="站点阅读时长">34 分钟</span>
   
 </div>
 
