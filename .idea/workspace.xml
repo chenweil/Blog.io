@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="891f94ca-1be1-4a7c-a498-001122a1ff2b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/source/_posts/Centos7启动等级设置.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Centos7启动等级设置.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Centos7时间设置.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Centos7时间设置.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Centos7防火墙相关设置.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Centos7防火墙相关设置.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Composer笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Composer笔记.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Docker常用命令.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Docker常用命令.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Go学习笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Go学习笔记.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Hexo笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Hexo笔记.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Laradock安装与使用.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Laradock安装与使用.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Laravel5数据库迁移.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Laravel5数据库迁移.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Python建立SocketSSL连接.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Python建立SocketSSL连接.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/SwitchHosts管理编辑hosts工具.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/SwitchHosts管理编辑hosts工具.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Ubutun16-04安装Python.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Ubutun16-04安装Python.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/Ubutun下安装Docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/Ubutun下安装Docker.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/VMware安装MacOS系统.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/VMware安装MacOS系统.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/gulp笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/gulp笔记.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/hexo博客安装与配置.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/hexo博客安装与配置.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/redis笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/redis笔记.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/shell.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/_posts/无版权素材站点.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/_posts/无版权素材站点.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/about/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/about/index.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/categories/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/categories/index.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/tags/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/source/tags/index.md" afterDir="false" />
-    </list>
+    <list default="true" id="891f94ca-1be1-4a7c-a498-001122a1ff2b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,8 +50,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -107,16 +84,17 @@
       <option name="presentableId" value="Default" />
       <updated>1566444868978</updated>
       <workItem from="1566444873395" duration="2168000" />
+      <workItem from="1570599483314" duration="601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2168000" />
+    <option name="totallyTimeSpent" value="2769000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="33" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2533512" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25670242" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -328,6 +306,14 @@
           <first_editor relative-caret-position="168">
             <caret line="6" column="6" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
           </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_posts/Prometheus-Grafana安装搭建.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
           <second_editor />
         </state>
       </provider>
