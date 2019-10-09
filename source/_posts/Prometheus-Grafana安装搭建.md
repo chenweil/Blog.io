@@ -37,6 +37,20 @@ Prometheus的特点:
 
 * Prometheus 支持通过SNMP协议获取mertics数据.通过配置job,利用snmp_export读取设备监控信息.
 
+## 指标(Metric)类型
+* **Counter**   计数器,从数据0开始累计计算. 理想状态会永远增长. 累计计算请求次数等
+* **Gauges**    瞬时状态的值. 可以任意变化的数值，适用 CPU 使用率 温度等
+* **Histogram** 对一段时间范围内数据进行采样，并对所有数值求和与统计数量、柱状图. 某个时间对某个度量值，分组，一段时间http相应大小，请求耗时的时间。
+* **Summary**  同样产生多个指标，分别带有后缀_bucket(仅histogram)、_sum、_count
+
+> Histogram和Summary都可以获取分位数。
+> 通过Histogram获得分位数，要将直方图指标数据收集prometheus中， 然后用prometheus的查询函数[histogram_quantile()](https://prometheus.io/docs/prometheus/latest/querying/functions/#histogram_quantile)计算出来。 Summary则是在应用程序中直接计算出了分位数。
+> [Histograms and summaries](https://prometheus.io/docs/practices/histograms/)中阐述了两者的区别，特别是Summary的的分位数不能被聚合。
+> 注意，这个不能聚合不是说功能上不支持，而是说对分位数做聚合操作通常是没有意义的。
+> [LatencyTipOfTheDay: You can’t average percentiles. Period](https://latencytipoftheday.blogspot.com/2014/06/latencytipoftheday-you-cant-average.html)中对“分位数”不能被相加平均的做了很详细的说明：分位数本身是用来切分数据的，它们的平均数没有同样的分位效果。
+
+主要我们监控用到最上面两种,下面两种类型目前我没有接触,上面这段文字与介绍引用自[lijiaocn](https://www.lijiaocn.com/%E9%A1%B9%E7%9B%AE/2018/08/03/prometheus-usage.html#metric%E7%B1%BB%E5%9E%8B)
+
 ## 安装Prometheus
 
 **本次搭建利用docker方式.整体搭建完成需要两个容器.暂不配置告警相关,只做监控数据**
@@ -69,7 +83,7 @@ scrape_configs:
   - targets:
     - localhost:9090
 ```
-**注意配置文件的格式为yml,语法方面请自行查阅.**
+**注意配置文件的格式为yaml,语法问题请参考[这里](https://blog.51ai.vip/2019/09/24/yaml%E8%A7%84%E5%88%99/).**
 
 ### 安装与运行
 
@@ -120,3 +134,4 @@ Grafana支持热插拔控制面板和可扩展的数据源，目前已经支持G
 [https://grafana.com/docs/](https://grafana.com/docs/)
 [https://prometheus.io/docs/introduction/overview/](https://prometheus.io/docs/introduction/overview/)
 [https://www.hi-linux.com/posts/25047.html#%E5%AE%89%E8%A3%85prometheus](https://www.hi-linux.com/posts/25047.html#%E5%AE%89%E8%A3%85prometheus)
+[https://www.lijiaocn.com/%E9%A1%B9%E7%9B%AE/2018/08/03/prometheus-usage.html#metric%E7%B1%BB%E5%9E%8B](https://www.lijiaocn.com/%E9%A1%B9%E7%9B%AE/2018/08/03/prometheus-usage.html#metric%E7%B1%BB%E5%9E%8B)
