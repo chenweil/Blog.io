@@ -1,7 +1,7 @@
 ---
 title: prometueus.yml配置文件说明
 date: 2019-10-09 15:20:58
-categories: Promethes
+categories: Prometheus
 tags: Prometheus
 ---
 
