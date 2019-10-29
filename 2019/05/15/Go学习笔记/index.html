@@ -490,7 +490,7 @@
 <p><code>_, res := 123,321</code> _特殊变量名,赋予他的值会被丢弃</p>
 <h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>const 声明</p>
 <p><code>const Pi = 3.14</code> 声明一个常量Pi</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const(</span><br><span class="line">    apple = <span class="string">"fruit"</span></span><br><span class="line">    banana</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const(</span><br><span class="line">    apple = &quot;fruit&quot;</span><br><span class="line">    banana</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
 <p>banana 常量未定义初始化值会与apple值相同</p>
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>boolean,整型,浮点型,字符串,错误</p>
 <ul>
@@ -525,7 +525,7 @@
 </li>
 <li><p>Map </p>
 <p>   kV结构集合</p>
-   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>) &#123;</span><br><span class="line">   <span class="string">"blue"</span>: <span class="number">1</span>,</span><br><span class="line">   <span class="string">"red"</span>: <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">m := make(map[string]int) &#123;</span><br><span class="line">   &quot;blue&quot;: 1,</span><br><span class="line">   &quot;red&quot;: 2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <pre><code>`delete(m,red)`  删除map中一项
@@ -534,8 +534,8 @@
 
 `m[&quot;blue&quot;] = 4` 更新一项
 </code></pre><p><em>range 遍历map,slice</em></p>
-<pre><code><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="selector-tag">i</span>,v := range m &#123;</span><br><span class="line">        fmt.Println(<span class="selector-tag">i</span>,v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</code></pre><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sub</span><span class="params">(x,y <span class="keyword">int</span>)</span> <span class="params">(z <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    z = x - y</span><br><span class="line">    <span class="keyword">return</span> z</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i,v := range m &#123;</span><br><span class="line">        fmt.Println(i,v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func sub(x,y int) (z int) &#123;</span><br><span class="line">    z = x - y</span><br><span class="line">    return z</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>声明一个方法sub,参数x,y为int型, z返回参数 int型</p>
 <p>函数无返回值可不声明,参数也可是函数.</p>
 <p>可以传指针或传引用操作</p>
@@ -544,9 +544,9 @@
 <p> 局部函数声明修改不影响全局,若全局有同名变量时,内部赋值会改变全局变量(非声明).</p>
 <h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>方法是特殊的函数,区别于方法有前置实例接收参数(receiver)</p>
 <h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>一种抽象的类型</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type I<span class="built_in"> interface </span>&#123;</span><br><span class="line">    <span class="builtin-name">Get</span>() int</span><br><span class="line">    Put(int)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type I interface &#123;</span><br><span class="line">    Get() int</span><br><span class="line">    Put(int)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>声明时,不能有字段,不能自定义方法,只声明方法,不实习现.</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实现接口:</span></span><br><span class="line">func f(<span class="selector-tag">p</span> I) &#123;</span><br><span class="line">    fmt.Println(<span class="selector-tag">p</span>.get())</span><br><span class="line">    <span class="selector-tag">p</span>.Out(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//实现接口:</span><br><span class="line">func f(p I) &#123;</span><br><span class="line">    fmt.Println(p.get())</span><br><span class="line">    p.Out(1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接收一个接口类型作为参数</p>
 <p>p实现了接口I,Get(),Put()方法.</p>
 
@@ -699,7 +699,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -823,7 +823,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -894,7 +896,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">50k</span>
+    <span title="站点总字数">61k</span>
   
 
   
@@ -903,7 +905,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">46 分钟</span>
+    <span title="站点阅读时长">56 分钟</span>
   
 </div>
 
