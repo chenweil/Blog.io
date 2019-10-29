@@ -6,10 +6,10 @@
 title: aLong
 subtitle: 一个人总是可以善待他毫不在意的人。--王尔德
 description: 
-keywords: "aLong个人站点，学习笔记。"
+keywords: aLong,学习笔记,PHP,Linux,Docker,Prometheus
 author: aLong
 language: zh-CN
-timezone:
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -41,7 +41,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: true
+  auto_detect: false
   tab_replace:
   
 # Home page setting
