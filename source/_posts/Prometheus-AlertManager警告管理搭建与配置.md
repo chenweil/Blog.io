@@ -7,7 +7,7 @@ tags:
 - AlertManager
 ---
 
-### AlertManager
+## AlertManager
 >AlertManager处理由客户端应用程序（如Prometheus服务器）发送的警报。
 它负责重复数据消除、分组，并将它们路由到正确的接收器集成（如电子邮件、PagerDuty或OpsGenie）。
 它还负责消除和抑制警报。
@@ -283,6 +283,7 @@ url: <string>
 [ to_tag: <string> | default = '{{ template "wechat.default.to_tag" . }}' ]
 ```
 
+
 ## 搭建AlertManager服务
 
 部署AlertManager可以通过官网[https://prometheus.io/download/](https://prometheus.io/download/)下载二进制文件.
@@ -314,6 +315,7 @@ quay.io/prometheus/alertmanager```
 ## 定义Prometheus警报规则并引入配置
 
 ### 配置警报规则文件
+
 警报规则文件顾名思义,你想监控的指标何时需要警报. 
 例如设备温度超过多少要警告.
 创建alert.yml,`touch alert.yml` 
@@ -331,6 +333,7 @@ rules:
 ```
 
 ### Prometheus引入配置
+
 警报规则是Prometheus引入的文件.
 Prometheus引入文件的方式:
 ```yaml
@@ -339,7 +342,8 @@ rule_files:
 
 ```
 
-### 测试警报
+## 测试警报
+
 我们上面配置好之后,需要各服务已经读取到相关配置文件了之后开始测试.
 上面的规则是监测某个监控节点断开,手动断开一个节点.然后5分钟之后观察是否得到警报.
 
@@ -355,7 +359,7 @@ rule_files:
 这里图例有些是演示用,与其他可能不存在关系.(不是同时截图的业务,图片仅供参考)
 
 
-#### 静默操作演示
+### 静默操作演示
 
 如果有些警报是我们调试的,例如我这里设置值偏低来演示ping值警报,如果我们测时候不想看到警报,可以通过静默来不让他总是发送警报.
 
@@ -367,7 +371,7 @@ rule_files:
 
 **也可以通过正则,警报组名,实例等来静默各种警报.**
 
-### 定义通知模板
+## 定义通知模板
 默认模板我们看到了,他是默认的一个告警模板,在我们测试时候可以使用,如果面向用户使用者似乎这个模板不太友好.
 而且在面对多数据展示时,此模板也显得不是很清晰.
 
@@ -416,4 +420,9 @@ receivers:
 模板保存后,测试邮件接收情况:
 ![](https://s2.ax1x.com/2019/10/29/KR89WF.png)
 
-这里面看到一个问题,就是告警时间不是东八区时间,这个问题我比较头疼,日后天坑吧.
+#### 模板时区问题
+Prometheus中所有时间都是UTC时间,为了便于我们展示友好时间(东八区),我们需要计算一下时间.
+修改模板时间:
+```yaml
+<td>{{ ($alert.StartsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}</td>
+```
