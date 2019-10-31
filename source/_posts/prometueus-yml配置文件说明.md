@@ -193,6 +193,7 @@ metric_relabel_configs:
 
 ### rule_files
 记录规则,编写的记录规则是定义一些常用计算规则.这些规则会存储到数据中.
+告警的警报规则文件需要在这里引入.
 
 ```yaml
 rule_files:
