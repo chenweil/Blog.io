@@ -426,3 +426,8 @@ Prometheus中所有时间都是UTC时间,为了便于我们展示友好时间(�
 ```yaml
 <td>{{ ($alert.StartsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}</td>
 ```
+
+*参考*
+[ishenping](http://www.ishenping.com/ArtInfo/1265281.html#Comment)
+[songjiayang](https://songjiayang.gitbooks.io/prometheus/content/alertmanager/email.html)
+[prometheus.io](https://prometheus.io/docs/alerting/alertmanager/)
