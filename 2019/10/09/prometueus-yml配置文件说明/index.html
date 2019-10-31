@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="aLong">
 <meta property="og:description" content="整体配置prometueus.yml 配置文件注解与说明 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849global:                       # 全局配置  scrape_interval: 15s        # 默认值为 15s，用于设置每">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-31T02:33:03.761Z">
+<meta property="og:updated_time" content="2019-10-31T09:32:12.693Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="prometueus.yml配置文件说明">
 <meta name="twitter:description" content="整体配置prometueus.yml 配置文件注解与说明 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849global:                       # 全局配置  scrape_interval: 15s        # 默认值为 15s，用于设置每">
@@ -401,7 +401,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-10-31 10:33:03" itemprop="dateModified" datetime="2019-10-31T10:33:03+08:00">2019-10-31</time>
+                <time title="修改时间：2019-10-31 17:32:12" itemprop="dateModified" datetime="2019-10-31T17:32:12+08:00">2019-10-31</time>
               
             
           </span>
@@ -461,7 +461,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">9 分钟</span>
+                <span title="阅读时长">10 分钟</span>
               
             </div>
           
@@ -499,6 +499,8 @@
 <h3 id="remote-read"><a href="#remote-read" class="headerlink" title="remote_read"></a>remote_read</h3><p>云端读取数据</p>
 <p>&lt;remote_read&gt;<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要发送样本的端点的URL.</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">&lt;string&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选的匹配器列表，必须存在于选择器中以查询远程读取端点。</span></span><br><span class="line"><span class="attr">required_matchers:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;labelname&gt;:</span> <span class="string">&lt;labelvalue&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对远程读取端点的请求超时。</span></span><br><span class="line"><span class="string">[</span> <span class="attr">remote_timeout:</span> <span class="string">&lt;duration&gt;</span> <span class="string">| default = 1m ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 本地存储应该有完整的数据。</span></span><br><span class="line"><span class="string">[ read_recent: &lt;boolean&gt; | default = false ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 使用配置的用户名和密码在每个远程写请求上设置`Authorization`标头.password和password_file是互斥的。</span></span><br><span class="line"><span class="string"></span><span class="attr">basic_auth:</span></span><br><span class="line">  <span class="string">[</span> <span class="attr">username:</span> <span class="string">&lt;string&gt;</span> <span class="string">]</span></span><br><span class="line">  <span class="string">[</span> <span class="attr">password:</span> <span class="string">&lt;string&gt;</span> <span class="string">]</span></span><br><span class="line">  <span class="string">[</span> <span class="attr">password_file:</span> <span class="string">&lt;string&gt;</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用配置的承载令牌在每个远程写请求上设置`Authorization`头。 它与`bearer_toke_filen`互斥。</span></span><br><span class="line"><span class="string">[</span> <span class="attr">bearer_token:</span> <span class="string">&lt;string&gt;</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用配置的承载令牌在每个远程写请求上设置`Authorization`头。 它与`bearer_token`互斥。</span></span><br><span class="line"><span class="string">[</span> <span class="attr">bearer_token_file:</span> <span class="string">/path/to/bearer/token/file</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置远程写入请求的TLS设置。</span></span><br><span class="line"><span class="attr">tls_config:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;tls_config&gt;</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选的代理URL。</span></span><br><span class="line"><span class="string">[</span> <span class="attr">proxy_url:</span> <span class="string">&lt;string&gt;</span> <span class="string">]</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="relabel-configs"><a href="#relabel-configs" class="headerlink" title="relabel_configs"></a>relabel_configs</h3><p>用来重新打标记,修改标签.</p>
+<p>请注意labels 的取名格式:<br><strong>标签label名称可以包含ASCII字母、数字和下划线。它们必须匹配正则表达式[a-zA-Z_][a-zA-Z0-9_]*。带有_下划线的标签名称被保留内部使用。</strong></p>
+<p>标签labels值包含任意的Unicode码。</p>
 <p>&lt;relabel_configs&gt;<br>Prometheus 重新标签<br>允许在采集之前对任何目标及其标签进行修改</p>
 <p>　　• 重命名标签名<br>　　• 删除标签<br>　　• 过滤目标</p>
 <p>action：重新标签动作</p>
