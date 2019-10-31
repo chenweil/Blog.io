@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KRVlsU.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KRV8Z4.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KR89WF.png">
-<meta property="og:updated_time" content="2019-10-30T02:18:54.982Z">
+<meta property="og:updated_time" content="2019-10-31T03:10:58.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prometheus-AlertManager警告管理搭建与配置">
 <meta name="twitter:description" content="AlertManager AlertManager处理由客户端应用程序（如Prometheus服务器）发送的警报。它负责重复数据消除、分组，并将它们路由到正确的接收器集成（如电子邮件、PagerDuty或OpsGenie）。它还负责消除和抑制警报。  通过翻译官方文档可以了解到,AlertManager是负责为Prometheus(本身不会发送警报)发送警报的工具.AlertManager不是简单">
@@ -407,7 +407,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-10-30 10:18:54" itemprop="dateModified" datetime="2019-10-30T10:18:54+08:00">2019-10-30</time>
+                <time title="修改时间：2019-10-31 11:10:58" itemprop="dateModified" datetime="2019-10-31T11:10:58+08:00">2019-10-31</time>
               
             
           </span>
@@ -547,6 +547,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; define &quot;email.demo.html&quot; &#125;&#125;</span><br><span class="line">&lt;pre&gt;</span><br><span class="line">&lt;table border=&quot;1&quot; cellspacing=&quot;0&quot;&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;报警名&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;设备&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;发现时间&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;详情&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &#123;&#123; range $i, $alert := .Alerts &#125;&#125;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;&#123;&#123; index $alert.Labels &quot;alertname&quot; &#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&#123;&#123; $alert.Labels.instance &#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&#123;&#123; $alert.StartsAt.Format &quot;2006-01-02 15:04:05&quot; &#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&#123;&#123; $alert.Annotations.summary &#125;&#125;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &#123;&#123; end &#125;&#125;</span><br><span class="line">&lt;/table&gt;</span><br><span class="line">&lt;/pre&gt;</span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
 <p>模板保存后,测试邮件接收情况:<br><img src="https://s2.ax1x.com/2019/10/29/KR89WF.png" alt></p>
 <h4 id="模板时区问题"><a href="#模板时区问题" class="headerlink" title="模板时区问题"></a>模板时区问题</h4><p>Prometheus中所有时间都是UTC时间,为了便于我们展示友好时间(东八区),我们需要计算一下时间.<br>修改模板时间:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;td&gt;&#123;&#123;</span> <span class="string">($alert.StartsAt.Add</span> <span class="number">28800e9</span><span class="string">).Format</span> <span class="string">"2006-01-02 15:04:05"</span> <span class="string">&#125;&#125;&lt;/td&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><em>参考</em><br><a href="http://www.ishenping.com/ArtInfo/1265281.html#Comment" target="_blank" rel="noopener">ishenping</a><br><a href="https://songjiayang.gitbooks.io/prometheus/content/alertmanager/email.html" target="_blank" rel="noopener">songjiayang</a><br><a href="https://prometheus.io/docs/alerting/alertmanager/" target="_blank" rel="noopener">prometheus.io</a></p>
 </receiver></route>
       
     </div>
@@ -896,7 +897,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">61k</span>
+    <span title="站点总字数">62k</span>
   
 
   
