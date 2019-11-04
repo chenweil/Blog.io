@@ -101,7 +101,7 @@
 <meta property="og:description" content="介绍   Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheus使用Go语言开发，是Google BorgMon监控系统的开源版本。  2016年由Google发起Linux基金会旗下的原生云基金会(Cloud Native Computing Foundation), 将Prometheus纳入其下第二大开源项目。Prometheus目">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://t1.picb.cc/uploads/2019/08/29/gjevPW.png">
-<meta property="og:updated_time" content="2019-10-09T05:34:06.823Z">
+<meta property="og:updated_time" content="2019-11-04T02:48:14.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prometheus+Grafana安装搭建">
 <meta name="twitter:description" content="介绍   Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheus使用Go语言开发，是Google BorgMon监控系统的开源版本。  2016年由Google发起Linux基金会旗下的原生云基金会(Cloud Native Computing Foundation), 将Prometheus纳入其下第二大开源项目。Prometheus目">
@@ -403,7 +403,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-10-09 13:34:06" itemprop="dateModified" datetime="2019-10-09T13:34:06+08:00">2019-10-09</time>
+                <time title="修改时间：2019-11-04 10:48:14" itemprop="dateModified" datetime="2019-11-04T10:48:14+08:00">2019-11-04</time>
               
             
           </span>
@@ -449,7 +449,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.5k</span>
+                <span title="本文字数">3.8k</span>
               
 
               
@@ -532,13 +532,30 @@
 <li><p>系统:centos7 </p>
 </li>
 </ul>
-<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>Prometheus的配置文件: prometheus.yml<br>我们建立在搭建位置的根下: <code>touch prometheus.yml</code><br>在配置文件中加入测试演示配置<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line"><span class="attr">  scrape_interval:</span> <span class="number">15</span><span class="string">s</span></span><br><span class="line"><span class="attr">  scrape_timeout:</span> <span class="number">10</span><span class="string">s</span></span><br><span class="line"><span class="attr">  evaluation_interval:</span> <span class="number">15</span><span class="string">s</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line"><span class="attr">- job_name:</span> <span class="string">prometheus</span></span><br><span class="line"><span class="attr">  honor_timestamps:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  scrape_interval:</span> <span class="number">5</span><span class="string">s</span></span><br><span class="line"><span class="attr">  scrape_timeout:</span> <span class="number">3</span><span class="string">s</span></span><br><span class="line"><span class="attr">  metrics_path:</span> <span class="string">/metrics</span></span><br><span class="line"><span class="attr">  scheme:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">  static_configs:</span></span><br><span class="line"><span class="attr">  - targets:</span></span><br><span class="line"><span class="attr">    - localhost:</span><span class="number">9090</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>Prometheus的配置文件: prometheus.yml<br>我们建立在搭建位置的根下: <code>touch prometheus.yml</code><br>在配置文件中加入测试演示配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line"><span class="attr">  scrape_interval:</span> <span class="number">15</span><span class="string">s</span></span><br><span class="line"><span class="attr">  scrape_timeout:</span> <span class="number">10</span><span class="string">s</span></span><br><span class="line"><span class="attr">  evaluation_interval:</span> <span class="number">15</span><span class="string">s</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line"><span class="attr">- job_name:</span> <span class="string">prometheus</span></span><br><span class="line"><span class="attr">  honor_timestamps:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  scrape_interval:</span> <span class="number">5</span><span class="string">s</span></span><br><span class="line"><span class="attr">  scrape_timeout:</span> <span class="number">3</span><span class="string">s</span></span><br><span class="line"><span class="attr">  metrics_path:</span> <span class="string">/metrics</span></span><br><span class="line"><span class="attr">  scheme:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">  static_configs:</span></span><br><span class="line"><span class="attr">  - targets:</span></span><br><span class="line"><span class="attr">    - localhost:</span><span class="number">9090</span></span><br></pre></td></tr></table></figure>
 <p><strong>注意配置文件的格式为yaml,语法问题请参考<a href="https://blog.51ai.vip/2019/09/24/yaml%E8%A7%84%E5%88%99/">这里</a>.</strong></p>
 <h3 id="安装与运行"><a href="#安装与运行" class="headerlink" title="安装与运行"></a>安装与运行</h3><ul>
-<li>通过docker 启动 prometheus.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9090:9090 \</span><br><span class="line">           -v /home/along/prometheus.yml:/etc/prometheus/prometheus.yml \</span><br><span class="line">            --name prometheus \</span><br><span class="line">            prom/prometheus \</span><br><span class="line">            --config.file=/etc/prometheus/prometheus.yml \</span><br><span class="line">            --web.enable-lifecycle</span><br></pre></td></tr></table></figure>
+<li><p>通过docker 启动 prometheus.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9090:9090 \</span><br><span class="line">         -v /home/along/prometheus.yml:/etc/prometheus/prometheus.yml \</span><br><span class="line">          --name prometheus \</span><br><span class="line">          prom/prometheus \</span><br><span class="line">          --config.file=/etc/prometheus/prometheus.yml \</span><br><span class="line">          --web.enable-lifecycle</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><strong>–web.enable-lifecycle 启用远程热加载配置文件</strong><br><code>curl -X curl -X POST http://IP:9090/-/reload</code></p>
+<p><strong>–web.enable-lifecycle 启用远程热加载配置文件</strong><br><code>curl -X POST http://IP:9090/-/reload</code></p>
+<hr>
+<p><strong>注意这里docker热加载存在一个问题,上面挂在文件为/home/along/prometheus.yml 如果直接编辑此文件会改变文件的inode, 热加载不会成功.</strong></p>
+<p><strong>解决办法: 我们不在挂在配置文件上做修改,复制一份,通过冲顶下方式到prometheus.yml上面 </strong></p>
+<p>例如:</p>
+<ol>
+<li><p><code>cp /home/along/prometheus.yml /home/along/prom-edit.yml</code> </p>
+</li>
+<li><p><code>vi /home/along/prom-edit.ym</code></p>
+</li>
+<li><p><code>cat /home/along/prom-edit.ym &gt; /home/along/prometheus.yml</code></p>
+</li>
+<li><p>此时 <code>curl -X POST http://IP:9090/-/reload</code> 会成功加载.</p>
+</li>
+</ol>
+<hr>
 <h3 id="验证服务"><a href="#验证服务" class="headerlink" title="验证服务"></a>验证服务</h3><p>访问 <a href="http://IP:9090" target="_blank" rel="noopener">http://IP:9090</a>  会进入简单webUI界面中.这是prometheus的web界面.</p>
 <p>里面看到一些信息和监控数据.可以展示图表.</p>
 <p>点击 Status-&gt;Target 可以看到监控的设备信息.</p>
@@ -909,7 +926,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">56 分钟</span>
+    <span title="站点阅读时长">57 分钟</span>
   
 </div>
 
