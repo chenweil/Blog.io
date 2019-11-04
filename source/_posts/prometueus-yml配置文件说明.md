@@ -6,14 +6,15 @@ tags: Prometheus
 ---
 
 ## 整体配置
+
 prometueus.yml 配置文件注解与说明
 
 ```yaml
 global:                       # 全局配置
-  scrape_interval: 15s        # 默认值为 15s，用于设置每次数据收集的间隔
+  scrape_interval: 15s        # 默认值为 1m，用于设置每次数据收集的间隔
   scrape_timeout: 10s         # 默认10s,收集超时时间
   evaluation_interval: 15s    # 记录规则/告警的执行周期 默认1m
-  external_labels:            # 所有时间序列和警告与外部通信时用的外部标签
+  external_labels:            # 时间序列和警告与外部通信(远程存储/警报灯)时用的外部标签
     monitor: 'ctmonitor'
 
 rule_files:                   # 指定告警规则文件&记录文件
@@ -31,7 +32,7 @@ alerting:                     # 告警管理配置
 # 抓取(pull)，即监控目标配置。默认只有主机本身的监控配置 
 
 
-scrape_configs:               # 抓取
+scrape_configs:               # 抓取配置选项
 - job_name: prometheus        # 默认情况下分配给刮削度量的作业名称。
   scrape_interval: 5s         # 从这项工作中获取目标的频率。
   scrape_timeout: 3s          # 每次获取超时时间
@@ -62,7 +63,30 @@ scrape_configs:               # 抓取
 
 ## 各部分详解
 
+---
+
+部分官方文档的译文
+
+____
+
+官方文档中,使用了通用占位符来解释设定值的定义.
+
+通用占位符由下面定义：
+
+- `\<boolean\>`: 一个布尔值，包括`true`或者`false`.
+- `\<duration\>`: 持续时间，与正则表达式`[0-9]+(ms|smhdwy)`匹配
+- `\<labelname\>`: 一个与正则表达式`[a-zA-Z_][a-zA-Z0-9_]*`匹配的字符串
+- `\<labelvalue\>`: 一个为unicode字符串
+- `\<filename\>`: 当前工作目录下的有效路径
+- `\<host\>`: 一个包含主机名或者IP地址，并且可以带上一个非必需的端口号的有效字符串
+- `\<path\>`: 一个有效的URL路径
+- `\<scheme\>`: 一个可以是`http`或者`https`的字符串
+- `\<string\>`: 一个正则表达式字符串
+
+
+
 ### scrape_configs
+
 监控配置
 
 <scrape_configs>
@@ -190,8 +214,8 @@ metric_relabel_configs:
 [ sample_limit: <int> | default = 0 ]
 ```
 
-
 ### rule_files
+
 记录规则,编写的记录规则是定义一些常用计算规则.这些规则会存储到数据中.
 告警的警报规则文件需要在这里引入.
 
@@ -300,11 +324,13 @@ relabel_configs:
 ```
 
 ### remote_write
+
 云端写入数据
 <remote_write>
 write_relabel_configs是在将样本发送到远程端点之前应用于样本的重新标记。 在外部标签之后应用写入重新标记。 这可用于限制发送的样本。
 
 有一个如何使用此功能的小型演示。
+
 ```yaml
 # 要发送样本的端点的URL.
 url: <string>
@@ -355,10 +381,11 @@ queue_config:
   [ max_backoff: <duration> | default = 100ms ]
 ```
 
-
 ### remote_read
+
 云端读取数据
 <remote_read>
+
 ```yaml
 # 要发送样本的端点的URL.
 url: <string>
@@ -394,7 +421,13 @@ tls_config:
 ```
 
 ### relabel_configs
+
 用来重新打标记,修改标签.
+
+请注意labels 的取名格式:
+**标签label名称可以包含ASCII字母、数字和下划线。它们必须匹配正则表达式[a-zA-Z_][a-zA-Z0-9_]*。带有_下划线的标签名称被保留内部使用。**
+
+标签labels值包含任意的Unicode码。
 
 <relabel_configs>
 Prometheus 重新标签
@@ -438,5 +471,3 @@ relable_configs:
 # 基于正则表达式匹配执行的操作。
 [ action: <relabel_action> | default = replace ]
 ```
-
-

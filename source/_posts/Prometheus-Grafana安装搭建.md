@@ -6,21 +6,23 @@ tags: [Prometheus,Grafana]
 ---
 
 ## 介绍
+
 >   Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheus使用Go语言开发，是Google BorgMon监控系统的开源版本。
 >   2016年由Google发起Linux基金会旗下的原生云基金会(Cloud Native Computing Foundation), 将Prometheus纳入其下第二大开源项目。Prometheus目前在开源社区相当活跃。
 >   Prometheus和Heapster(Heapster是K8S的一个子项目，用于获取集群的性能数据。)相比功能更完善、更全面。Prometheus性能也足够支撑上万台规模的集群。
 
->   
-Prometheus的特点:
-1. 多维度数据模型。
-2. 灵活的查询语言。
-3. 不依赖分布式存储，单个服务器节点是自主的。
-4. 通过基于HTTP的pull方式采集时序数据。
-5. 可以通过中间网关进行时序列数据推送。
-6. 通过服务发现或者静态配置来发现目标服务对象。
-7. 支持多种多样的图表和界面展示，比如Grafana等。
+> Prometheus的特点:
+> 
+> 1. 多维度数据模型。
+> 2. 灵活的查询语言。
+> 3. 不依赖分布式存储，单个服务器节点是自主的。
+> 4. 通过基于HTTP的pull方式采集时序数据。
+> 5. 可以通过中间网关进行时序列数据推送。
+> 6. 通过服务发现或者静态配置来发现目标服务对象。
+> 7. 支持多种多样的图表和界面展示，比如Grafana等。
 
 ## 架构图
+
 ![结构图](https://t1.picb.cc/uploads/2019/08/29/gjevPW.png)
 
 ## Prometheus服务大致过程：
@@ -38,6 +40,7 @@ Prometheus的特点:
 * Prometheus 支持通过SNMP协议获取mertics数据.通过配置job,利用snmp_export读取设备监控信息.
 
 ## 指标(Metric)类型
+
 * **Counter**   计数器,从数据0开始累计计算. 理想状态会永远增长. 累计计算请求次数等
 * **Gauges**    瞬时状态的值. 可以任意变化的数值，适用 CPU 使用率 温度等
 * **Histogram** 对一段时间范围内数据进行采样，并对所有数值求和与统计数量、柱状图. 某个时间对某个度量值，分组，一段时间http相应大小，请求耗时的时间。
@@ -56,6 +59,7 @@ Prometheus的特点:
 **本次搭建利用docker方式.整体搭建完成需要两个容器.暂不配置告警相关,只做监控数据**
 
 ### 前提
+
 * 搭建位置: */home/aLong/prometheus/*
 
 * 环境:docker19.03.1 需要指定版本请查阅官方文档.
@@ -67,6 +71,7 @@ Prometheus的特点:
 Prometheus的配置文件: prometheus.yml
 我们建立在搭建位置的根下: `touch prometheus.yml` 
 在配置文件中加入测试演示配置
+
 ```yml
 global:
   scrape_interval: 15s
@@ -83,24 +88,45 @@ scrape_configs:
   - targets:
     - localhost:9090
 ```
+
 **注意配置文件的格式为yaml,语法问题请参考[这里](https://blog.51ai.vip/2019/09/24/yaml%E8%A7%84%E5%88%99/).**
 
 ### 安装与运行
 
 * 通过docker 启动 prometheus.
-```bash
-docker run -d -p 9090:9090 \
+  
+  ```bash
+  docker run -d -p 9090:9090 \
            -v /home/along/prometheus.yml:/etc/prometheus/prometheus.yml \
             --name prometheus \
             prom/prometheus \
             --config.file=/etc/prometheus/prometheus.yml \
             --web.enable-lifecycle
-```
+  ```
 
 **--web.enable-lifecycle 启用远程热加载配置文件**
-`curl -X curl -X POST http://IP:9090/-/reload`
+`curl -X POST http://IP:9090/-/reload`
+
+---
+
+**注意这里docker热加载存在一个问题,上面挂在文件为/home/along/prometheus.yml 如果直接编辑此文件会改变文件的inode, 热加载不会成功.**
+
+**解决办法: 我们不在挂在配置文件上做修改,复制一份,通过冲顶下方式到prometheus.yml上面 **
+
+例如:
+
+1. `cp /home/along/prometheus.yml /home/along/prom-edit.yml` 
+
+2. `vi /home/along/prom-edit.ym`
+
+3. `cat /home/along/prom-edit.ym > /home/along/prometheus.yml`
+
+4. 此时 `curl -X POST http://IP:9090/-/reload` 会成功加载.
+
+---
 
 ### 验证服务
+
 访问 http://IP:9090  会进入简单webUI界面中.这是prometheus的web界面.
 
 里面看到一些信息和监控数据.可以展示图表.
@@ -114,9 +140,9 @@ docker run -d -p 9090:9090 \
 ## Grafana安装
 
 > Grafana是用于可视化大型测量数据的开源程序，它提供了强大和优雅的方式去创建、共享、浏览数据。
-Dashboard中显示了你不同metric数据源中的数据。
-Grafana最常用于因特网基础设施和应用分析，但在其他领域也有用到，比如：工业传感器、家庭自动化、过程控制等等。
-Grafana支持热插拔控制面板和可扩展的数据源，目前已经支持Graphite、InfluxDB、OpenTSDB、Elasticsearch、Prometheus等
+> Dashboard中显示了你不同metric数据源中的数据。
+> Grafana最常用于因特网基础设施和应用分析，但在其他领域也有用到，比如：工业传感器、家庭自动化、过程控制等等。
+> Grafana支持热插拔控制面板和可扩展的数据源，目前已经支持Graphite、InfluxDB、OpenTSDB、Elasticsearch、Prometheus等
 
 `docker run -d -p 3000:3000 --name grafana grafana/grafana
 `
@@ -131,6 +157,7 @@ Grafana支持热插拔控制面板和可扩展的数据源，目前已经支持G
 自定义模板选择需要的数据来展示,这里我还没玩6,暂不多说了.
 
 ## 参考
+
 [https://grafana.com/docs/](https://grafana.com/docs/)
 [https://prometheus.io/docs/introduction/overview/](https://prometheus.io/docs/introduction/overview/)
 [https://www.hi-linux.com/posts/25047.html#%E5%AE%89%E8%A3%85prometheus](https://www.hi-linux.com/posts/25047.html#%E5%AE%89%E8%A3%85prometheus)
