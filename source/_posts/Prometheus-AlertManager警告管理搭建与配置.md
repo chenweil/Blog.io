@@ -1,7 +1,9 @@
 ---
 title: Prometheus-AlertManager警告管理搭建与配置
 date: 2019-10-19 09:40:15
-categories: Prometheus
+categories:
+- Prometheus
+- AlertManager
 tags:
 - Prometheus
 - AlertManager
@@ -39,13 +41,13 @@ templates:
 
 # 定义路由树信息
 route:   
-  group_by: ['alertname', 'cluster', 'service']        # 报警分组依据 根据标签分组,
+  group_by: ['alertname', 'cluster', 'service']        # 报警分组依据,设置后会按照设定值分组,例如instance,alertname等
                                                        # 同标签警告会在作为一组警报发送
-  group_wait: 10s                                      # 最初即第一次等待多久时间发送一组警报的通知
-  group_interval: 10s                                  # 在发送新警报前的等待时间
-  repeat_interval: 1m                                  # 发送重复警报的周期
+  group_wait: 10s                                      # 组内等待时间,触发阈值后,XXs后发送本组警报
+  group_interval: 10s                                  # 每个组之前间隔时间(group_by设定的值划分的组)
+  repeat_interval: 1m                                  # 重复发送警报的周期
   (对于email配置中，此项不可以设置过低，否则将会由于邮件发送太多频繁，被smtp服务器拒绝)
-  receiver: 'email'                                    # 发送警报的接收者的名称，
+  receiver: 'email'                                    # 发送警报的接收者的名称
                                                        # 以下receivers name的名称
   routes:
   - match:                      # 普通匹配
