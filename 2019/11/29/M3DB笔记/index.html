@@ -92,18 +92,20 @@
 
 
 
-  <meta name="description" content="Python Socket连接5月中旬遇到一个功能,需要利用Python建立Socket tcp连接,于设备通讯发送相关数据. 这块没接触,Python也是hello world水平. 赶紧恶补一下: Socket是网络编程的一个抽象概念。 通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。 服务端我也不知道什么样,这里">
-<meta name="keywords" content="Python,Socket">
+  <meta name="description" content="M3DB笔记前阵子研究prometheus,初期没有考虑存储问题.本地默认存储30天数据. 监控已经折腾完毕,现在需要来处理存储的方案. 通过互联网的科普,发现目前有两个方案可以解决这个问题.  thanos  M3DB  thanos是需要存储云端数据(本地存储官方不推荐).不符合我们的考虑范围内.那就来学习M3DB了.   简介 M3可以在较长的保留时间内可靠地存储大规模指标。为了向更广泛的社">
+<meta name="keywords" content="m3db">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python建立SocketSSL连接">
-<meta property="og:url" content="http://blog.51ai.vip/2019/06/04/Python建立SocketSSL连接/index.html">
+<meta property="og:title" content="M3DB笔记">
+<meta property="og:url" content="http://blog.51ai.vip/2019/11/29/M3DB笔记/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="Python Socket连接5月中旬遇到一个功能,需要利用Python建立Socket tcp连接,于设备通讯发送相关数据. 这块没接触,Python也是hello world水平. 赶紧恶补一下: Socket是网络编程的一个抽象概念。 通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。 服务端我也不知道什么样,这里">
+<meta property="og:description" content="M3DB笔记前阵子研究prometheus,初期没有考虑存储问题.本地默认存储30天数据. 监控已经折腾完毕,现在需要来处理存储的方案. 通过互联网的科普,发现目前有两个方案可以解决这个问题.  thanos  M3DB  thanos是需要存储云端数据(本地存储官方不推荐).不符合我们的考虑范围内.那就来学习M3DB了.   简介 M3可以在较长的保留时间内可靠地存储大规模指标。为了向更广泛的社">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-22T04:05:48.241Z">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2019/11/29/kIj7yu.png">
+<meta property="og:updated_time" content="2019-11-29T09:42:42.612Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python建立SocketSSL连接">
-<meta name="twitter:description" content="Python Socket连接5月中旬遇到一个功能,需要利用Python建立Socket tcp连接,于设备通讯发送相关数据. 这块没接触,Python也是hello world水平. 赶紧恶补一下: Socket是网络编程的一个抽象概念。 通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。 服务端我也不知道什么样,这里">
+<meta name="twitter:title" content="M3DB笔记">
+<meta name="twitter:description" content="M3DB笔记前阵子研究prometheus,初期没有考虑存储问题.本地默认存储30天数据. 监控已经折腾完毕,现在需要来处理存储的方案. 通过互联网的科普,发现目前有两个方案可以解决这个问题.  thanos  M3DB  thanos是需要存储云端数据(本地存储官方不推荐).不符合我们的考虑范围内.那就来学习M3DB了.   简介 M3可以在较长的保留时间内可靠地存储大规模指标。为了向更广泛的社">
+<meta name="twitter:image" content="https://t1.picb.cc/uploads/2019/11/29/kIj7yu.png">
 
 
 
@@ -111,7 +113,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.51ai.vip/2019/06/04/Python建立SocketSSL连接/">
+  <link rel="canonical" href="http://blog.51ai.vip/2019/11/29/M3DB笔记/">
 
 
 
@@ -121,7 +123,7 @@
   };
 </script>
 
-  <title>Python建立SocketSSL连接 | aLong</title>
+  <title>M3DB笔记 | aLong</title>
   
 
 
@@ -341,7 +343,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/06/04/Python建立SocketSSL连接/">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/11/29/M3DB笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aLong">
@@ -358,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python建立SocketSSL连接
+          <h1 class="post-title" itemprop="name headline">M3DB笔记
 
               
             
@@ -384,24 +386,12 @@
                 
               
 
-              <time title="创建时间：2019-06-04 10:23:11" itemprop="dateCreated datePublished" datetime="2019-06-04T10:23:11+08:00">2019-06-04</time>
+              <time title="创建时间：2019-11-29 17:41:43 / 修改时间：17:42:42" itemprop="dateCreated datePublished" datetime="2019-11-29T17:41:43+08:00">2019-11-29</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-22 12:05:48" itemprop="dateModified" datetime="2019-08-22T12:05:48+08:00">2019-08-22</time>
               
             
           </span>
@@ -418,7 +408,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/m3db/" itemprop="url" rel="index"><span itemprop="name">m3db</span></a></span>
 
                 
                 
@@ -447,7 +437,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">657</span>
+                <span title="本文字数">2.6k</span>
               
 
               
@@ -461,7 +451,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -481,17 +471,50 @@
       
 
       
-        <h3 id="Python-Socket连接"><a href="#Python-Socket连接" class="headerlink" title="Python Socket连接"></a>Python Socket连接</h3><p>5月中旬遇到一个功能,需要利用Python建立Socket tcp连接,于设备通讯发送相关数据.</p>
-<p>这块没接触,Python也是hello world水平.</p>
-<p>赶紧恶补一下:</p>
-<p>Socket是网络编程的一个抽象概念。</p>
-<p>通常我们用一个Socket表示“打开了一个网络链接”，打开一个Socket需要知道目标计算机的IP地址和端口号，再指定协议类型。</p>
-<p>服务端我也不知道什么样,这里只记录客户端的相关. </p>
-<p>这里我们得到一个文档说,需要建立socket SSL 连接,通过XML格式发送数据.</p>
-<h4 id="非ssl的socket"><a href="#非ssl的socket" class="headerlink" title="非ssl的socket:"></a>非ssl的socket:</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个socket:</span></span><br><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立连接:</span></span><br><span class="line">s.connect((<span class="string">'192.168.1.230'</span>, <span class="number">80</span>))</span><br></pre></td></tr></table></figure>
-<h4 id="SSL-socket"><a href="#SSL-socket" class="headerlink" title="SSL socket:"></a>SSL socket:</h4><p>端口是3344,ssl跳过验证,如果验证参数需要修改.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"> s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">        </span><br><span class="line"> c = ssl.wrap_socket(s, cert_reqs=ssl.CERT_NONE)</span><br><span class="line"> <span class="keyword">try</span>:</span><br><span class="line">    c.connect((<span class="string">'192.168.1.230'</span>, <span class="string">'3344'</span>))</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
-<p>这下与那台设备可以正常通讯了,后面实现具体功能就ok了.</p>
-
+        <h2 id="M3DB笔记"><a href="#M3DB笔记" class="headerlink" title="M3DB笔记"></a>M3DB笔记</h2><p>前阵子研究prometheus,初期没有考虑存储问题.本地默认存储30天数据.</p>
+<p>监控已经折腾完毕,现在需要来处理存储的方案.</p>
+<p>通过互联网的科普,发现目前有两个方案可以解决这个问题.</p>
+<ol>
+<li><p>thanos</p>
+</li>
+<li><p>M3DB </p>
+<p>thanos是需要存储云端数据(本地存储官方不推荐).不符合我们的考虑范围内.那就来学习M3DB了.</p>
+</li>
+</ol>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote>
+<p>M3可以在较长的保留时间内可靠地存储大规模指标。为了向更广泛的社区中的其他人提供这些好处，我们决定开放M3平台作为Prometheus的远程存储后端，Prometheus是一种流行的监控和警报解决方案。正如其文档所述，Prometheus的可扩展性和耐用性受到单个节点的限制。 M3平台旨在为Prometheus指标提供安全，可扩展且可配置的多租户的存储。</p>
+<p>M3于2015年发布，目前拥有超过66亿个时间序列。 M3每秒聚合5亿个指标，并在全球范围内（使用M3DB）每秒持续存储2000万个度量指标，批量写入将每个指标持久保存到区域中的三个副本。它还允许工程师编写度量策略，告诉M3以更短或更长的保留时间（两天，一个月，六个月，一年，三年，五年等）以特定的粒度（一秒，十秒，一分钟，十分钟等）。这允许工程师和数据科学家使用与定义的存储策略匹配的度量标签（标签），在精细和粗粒度范围内智能地存储不同保留的时间序列。例如，工程师可以选择存储“应用程序”标记为“mobile_api”且“端点”标记为“注册”的所有度量标准，这些标记在10秒粒度下为30天，在一小时粒度下为5年。</p>
+</blockquote>
+<h3 id="相关组件"><a href="#相关组件" class="headerlink" title="相关组件"></a>相关组件</h3><blockquote>
+<h4 id="M3-Coordinator"><a href="#M3-Coordinator" class="headerlink" title="M3 Coordinator"></a>M3 Coordinator</h4><p>M3 Coordinator是一种服务，用于协调上游系统（如Prometheus和M3DB）之间的读写操作。它还提供了管理API，用于设置和配置M3的不同部分。它是用户可以部署以访问M3DB的优势的桥梁，例如长期存储和与其他监控系统（如Prometheus）的多DC设置。</p>
+<h4 id="M3DB"><a href="#M3DB" class="headerlink" title="M3DB"></a>M3DB</h4><p>M3DB是一个分布式时间序列数据库，提供可扩展存储和时间序列的反向索引。它经过优化，具有成本效益和可靠的实时和长期保留指标存储和索引</p>
+<h4 id="M3-Query"><a href="#M3-Query" class="headerlink" title="M3 Query"></a>M3 Query</h4><p>M3 Query是一种服务，它包含一个分布式查询引擎，用于查询实时和历史指标，支持多种不同的查询语言。它旨在支持低延迟实时查询和可能需要更长时间执行的查询，聚合更大的数据集，用于分析用例</p>
+<h4 id="M3-Aggregator"><a href="#M3-Aggregator" class="headerlink" title="M3 Aggregator"></a>M3 Aggregator</h4><p>M3 Aggregator是一种作为专用度量聚合器运行的服务，它基于存储在etcd中的动态规则提供基于流的下采样。它使用领导者选举和聚合窗口跟踪，利用etcd来管理此状态，从而可靠地为低采样度量标准发送至少一次聚合到长期存储。这提供了成本有效且可靠的下采样和汇总指标。这些功能也存在于M3协调器中，但专用聚合器是分片和复制的，而M3协调器则不需要并且需要谨慎部署和以高可用性方式运行。还有一些工作要使用户更容易访问聚合器，而无需他们编写自己的兼容生产者和消费者。</p>
+</blockquote>
+<h3 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h3><p><img src="https://t1.picb.cc/uploads/2019/11/29/kIj7yu.png" alt></p>
+<p>上面的组件通俗讲:</p>
+<p><em>prometheus</em> 需要通过<em>M3 Coordinator</em>来协调存储与查询到M3DB,<em>prometheus</em>本地存储数据时间与这个没关系.</p>
+<p>上面没有提到一个名字etcd服务.此服务推断拓扑\配置功能. 如果db嵌入此服务就称为种子节点SeedNode.</p>
+<hr>
+<p>官方提供了一个镜象,里面包含 M3 Coordinator + SeedNode.</p>
+<p>拉取镜象:<code>docker pull quay.io/m3db/m3dbnode:latest</code></p>
+<p>启动名为m3db容器:<code>docker run -d -p 7201:7201 -p 7203:7203 -p 9003:9003 --name m3db -v $(pwd)/m3db_data:/var/lib/m3db quay.io/m3db/m3dbnode:latest</code></p>
+<p>该容器的端口为7201（用于管理集群拓扑），端口为7203，Prometheus用来刮除M3DB和M3Coordinator生成的度量，端口9003（用于读取和写入度量）已公开。</p>
+<p>这时候m3db已经启动,需要创建一个初始命名空间.官方镜象默认是type:local,namespace:default. 这个可以进入容器查看到配置位置<code>/etc/d3dbnode/m3dbnode.yml</code>.如果我们创建其他命名空间需要在m3coordinator中配置好.</p>
+<p><code>curl -X POST http://localhost:7201/api/v1/database/create -d &#39;{
+  &quot;type&quot;: &quot;local&quot;,
+  &quot;namespaceName&quot;: &quot;default&quot;,
+  &quot;retentionTime&quot;: &quot;24h&quot;
+}&#39;</code></p>
+<p>这里配置的参数除了type与namespaceName,还有一个保留时间.超过时间就被清除了.我们测试设置24小时可以了,如果我是监测自己的设备,不是生产的情况其实偷懒可以用这个单机存储设置一个较长时间.例如:1y(看你了兄嘚).</p>
+<p>设置完稍等几分钟就可以使用了.</p>
+<p>通过接口可以查看: <code>curl http://localhost:7201/api/v1/placement</code></p>
+<p>看到很多<code>AVAILABLE</code> 就是ok了.</p>
+<p>访问<code>localhost:7201/api/v1/openapi</code> 可以看到官方提供的接口文档.</p>
+<h3 id="配置远程读写"><a href="#配置远程读写" class="headerlink" title="配置远程读写"></a>配置远程读写</h3><p>上面的库已经ok了,现在配置一下Prometheus.配置很简单只有两条.一条写,一条读.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">remote_read:</span></span><br><span class="line"><span class="attr">  - url:</span> <span class="string">"http://localhost:7201/api/v1/prom/remote/read"</span></span><br><span class="line"><span class="attr">    read_recent:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">remote_write:</span></span><br><span class="line"><span class="attr">  - url:</span> <span class="string">"http://localhost:7201/api/v1/prom/remote/write"</span></span><br></pre></td></tr></table></figure>
+<h3 id="监控指标"><a href="#监控指标" class="headerlink" title="监控指标"></a>监控指标</h3><p>我们这个用的是官方提供的镜象,嵌入式M3Coordinator的M3DB.所以按照下面这种方式配置.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- job_name:</span> <span class="string">'m3'</span></span><br><span class="line"><span class="attr">  static_configs:</span></span><br><span class="line"><span class="attr">    - targets:</span> <span class="string">['&lt;HOST_NAME&gt;:7203']</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -547,9 +570,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"># Python</a>
-          
-            <a href="/tags/Socket/" rel="tag"># Socket</a>
+            <a href="/tags/m3db/" rel="tag"># m3db</a>
           
         </div>
       
@@ -562,8 +583,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/24/Ubutun16-04安装Python/" rel="next" title="Ubutun16.04安装Python">
-                <i class="fa fa-chevron-left"></i> Ubutun16.04安装Python
+              <a href="/2019/10/23/网络传输速度测试工具/" rel="next" title="网络传输速度测试工具">
+                <i class="fa fa-chevron-left"></i> 网络传输速度测试工具
               </a>
             
           </div>
@@ -571,10 +592,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/04/Hexo笔记/" rel="prev" title="Hexo笔记">
-                Hexo笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -813,7 +830,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-Socket连接"><span class="nav-number">1.</span> <span class="nav-text">Python Socket连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非ssl的socket"><span class="nav-number">1.1.</span> <span class="nav-text">非ssl的socket:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL-socket"><span class="nav-number">1.2.</span> <span class="nav-text">SSL socket:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#M3DB笔记"><span class="nav-number">1.</span> <span class="nav-text">M3DB笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关组件"><span class="nav-number">1.2.</span> <span class="nav-text">相关组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#M3-Coordinator"><span class="nav-number">1.2.1.</span> <span class="nav-text">M3 Coordinator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#M3DB"><span class="nav-number">1.2.2.</span> <span class="nav-text">M3DB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#M3-Query"><span class="nav-number">1.2.3.</span> <span class="nav-text">M3 Query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#M3-Aggregator"><span class="nav-number">1.2.4.</span> <span class="nav-text">M3 Aggregator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入门"><span class="nav-number">1.3.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置远程读写"><span class="nav-number">1.4.</span> <span class="nav-text">配置远程读写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监控指标"><span class="nav-number">1.5.</span> <span class="nav-text">监控指标</span></a></li></ol></li></ol></div>
             
 
           </div>
