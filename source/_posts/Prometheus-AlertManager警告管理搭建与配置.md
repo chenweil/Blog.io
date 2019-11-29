@@ -10,9 +10,10 @@ tags:
 ---
 
 ## AlertManager
->AlertManager处理由客户端应用程序（如Prometheus服务器）发送的警报。
-它负责重复数据消除、分组，并将它们路由到正确的接收器集成（如电子邮件、PagerDuty或OpsGenie）。
-它还负责消除和抑制警报。
+
+> AlertManager处理由客户端应用程序（如Prometheus服务器）发送的警报。
+> 它负责重复数据消除、分组，并将它们路由到正确的接收器集成（如电子邮件、PagerDuty或OpsGenie）。
+> 它还负责消除和抑制警报。
 
 通过翻译官方文档可以了解到,AlertManager是负责为Prometheus(本身不会发送警报)发送警报的工具.
 AlertManager不是简单发送警报,可以消除重复警报,分组,抑制警报功能.并支持多接收器.
@@ -20,6 +21,7 @@ AlertManager不是简单发送警报,可以消除重复警报,分组,抑制警�
 Prometheus->触发定义的警报规则->AlertManager->发送警报到指定通知渠道.
 
 为了能让Prometheus发送警报,我们需要:
+
 1. 搭建AlertManager服务.
 2. 定义AlertManager通知配置.
 3. 定义Prometheus警报规则并引入.
@@ -27,6 +29,7 @@ Prometheus->触发定义的警报规则->AlertManager->发送警报到指定通�
 5. 定义通知模板.
 
 ## 定义AlertManager通知配置
+
 ```yaml
   smtp_smarthost: 'smtp.163.com:25'               # 邮箱smtp服务器代理
   smtp_from: 'shitu-0071@163.com'                 # 发送邮箱名称
@@ -59,7 +62,7 @@ route:
   - receiver: along             # 定义接收者
     match:                      # 匹配
       severity: test            # 等级为test
- 
+
 
 # 定义警报接收者信息
 receivers:
@@ -95,11 +98,12 @@ inhibit_rules:
     # 则启动抑制机制，新的告警不会发送。
 ```
 
-
-
 ***
+
 以下是官方文档配置翻译的文档.供参考具体详细的配置介绍.不细看先略过到下个步骤.
+
 ***
+
 <route>
 
 路由块定义路由树中的节点及其子节点。如果未设置，则其可选配置参数将从其父节点继承。
@@ -190,38 +194,51 @@ wechat_configs:
 [ send_resolved: <boolean> | default = false ]
 
 # 要向其发送通知的电子邮件地址
+
 to: <tmpl_string>
 
 # 发件人地址
+
 [ from: <tmpl_string> | default = global.smtp_from ]
 
 # 发送电子邮件的SMTP主机
+
 [ smarthost: <string> | default = global.smtp_smarthost ]
 
 # 要标识到SMTP服务器的主机名
+
 [ hello: <string> | default = global.smtp_hello ]
 
 # SMTP身份验证信息.
+
 [ auth_username: <string> | default = global.smtp_auth_username ]
 [ auth_password: <secret> | default = global.smtp_auth_password ]
 [ auth_secret: <secret> | default = global.smtp_auth_secret ]
 [ auth_identity: <string> | default = global.smtp_auth_identity ]
 
 # SMTP TLS要求
+
 [ require_tls: <bool> | default = global.smtp_require_tls ]
 
 # TLS配置
+
 tls_config:
   [ <tls_config> ]
 
 # 电子邮件通知的HTML正文
+
 [ html: <tmpl_string> | default = '{{ template "email.default.html" . }}' ]
+
 # 电子邮件通知的正文
+
 [ text: <tmpl_string> ]
 
 # 更多标题电子邮件标题键/值对,重写通知实现以前设置的任何头
+
 # 先前由通知实现设置的。
+
 [ headers: { <string>: <tmpl_string>, ... } ]
+
 ```
 
 <webhook_config>
@@ -235,6 +252,7 @@ url: <string>
 # http客户端的配置
 [ http_config: <http_config> | default = global.http_config ]
 ```
+
 微信json 格式
 
 ```json
@@ -261,7 +279,6 @@ url: <string>
 }
 ```
 
-
 <wechat_config>
 
 ```yaml
@@ -285,7 +302,6 @@ url: <string>
 [ to_tag: <string> | default = '{{ template "wechat.default.to_tag" . }}' ]
 ```
 
-
 ## 搭建AlertManager服务
 
 部署AlertManager可以通过官网[https://prometheus.io/download/](https://prometheus.io/download/)下载二进制文件.
@@ -297,6 +313,7 @@ docker部署前,需要先完成配置文件的工作.
 之后编辑 `vi alertmanager.yml`,具体看上文的配置介绍.
 
 启动容器:
+
 ```bash
 docker run -d -p 9093:9093 --name alertmanagter
 -v /home/along/alertmanager.yml:/etc/alertmanager/alertmanager.yml
@@ -338,10 +355,10 @@ rules:
 
 警报规则是Prometheus引入的文件.
 Prometheus引入文件的方式:
+
 ```yaml
 rule_files:
   - "/usr/local/prometheus/alert.yml" # 引入定义的警报规则
-
 ```
 
 ## 测试警报
@@ -357,9 +374,7 @@ rule_files:
 
 ![](https://s2.ax1x.com/2019/10/29/KRV1LF.png)
 
-
 这里图例有些是演示用,与其他可能不存在关系.(不是同时截图的业务,图片仅供参考)
-
 
 ### 静默操作演示
 
@@ -374,10 +389,12 @@ rule_files:
 **也可以通过正则,警报组名,实例等来静默各种警报.**
 
 ## 定义通知模板
+
 默认模板我们看到了,他是默认的一个告警模板,在我们测试时候可以使用,如果面向用户使用者似乎这个模板不太友好.
 而且在面对多数据展示时,此模板也显得不是很清晰.
 
 通过定义了模板,在触发不同警报可以通过AlertManager中,receivers选项来选择模板.
+
 ```yaml
 templates:
   - 'template/*.tmpl'           # 定义模板中心
@@ -423,8 +440,10 @@ receivers:
 ![](https://s2.ax1x.com/2019/10/29/KR89WF.png)
 
 #### 模板时区问题
+
 Prometheus中所有时间都是UTC时间,为了便于我们展示友好时间(东八区),我们需要计算一下时间.
 修改模板时间:
+
 ```yaml
 <td>{{ ($alert.StartsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}</td>
 ```
