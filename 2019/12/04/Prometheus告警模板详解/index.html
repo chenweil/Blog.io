@@ -92,20 +92,21 @@
 
 
 
-  <meta name="description" content="SNMPSNMP(simple network management protocol)是因特网架构委员会IAB定义的一个应用层协议。SNMP广泛用于管理和监控网络设备，大多数专业的网络设备都有SNMP agent代理，这些代理被激活和配置后用于和SNMP管理 NMS(network management system)网络管理系统通信。 目的通过snmp_export,获取设备信息. 准备系统:">
-<meta name="keywords" content="SNMP">
+  <meta name="description" content="目的之前配置告警之后,可以发送告警信息.但对于数据具体的结构信息,在模板中数据读取都比较懵.原因是不太清除警报都提供了哪些数据,除了我们设置的信息,还有没有其他的信息. 告警数据结构官方docs 推送数据结构:       名称    类型    解释    备注      Receiver  string  定义将通知发送到的接收者的名称(slack，电子邮件等)  接收者名称     Stat">
+<meta name="keywords" content="AlertManager">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Prometheus-snmp_export部署">
-<meta property="og:url" content="http://blog.51ai.vip/2019/08/29/Prometheus-snmp-export部署/index.html">
+<meta property="og:title" content="Prometheus告警模板详解">
+<meta property="og:url" content="http://blog.51ai.vip/2019/12/04/Prometheus告警模板详解/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="SNMPSNMP(simple network management protocol)是因特网架构委员会IAB定义的一个应用层协议。SNMP广泛用于管理和监控网络设备，大多数专业的网络设备都有SNMP agent代理，这些代理被激活和配置后用于和SNMP管理 NMS(network management system)网络管理系统通信。 目的通过snmp_export,获取设备信息. 准备系统:">
+<meta property="og:description" content="目的之前配置告警之后,可以发送告警信息.但对于数据具体的结构信息,在模板中数据读取都比较懵.原因是不太清除警报都提供了哪些数据,除了我们设置的信息,还有没有其他的信息. 告警数据结构官方docs 推送数据结构:       名称    类型    解释    备注      Receiver  string  定义将通知发送到的接收者的名称(slack，电子邮件等)  接收者名称     Stat">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://t1.picb.cc/uploads/2019/08/29/gjCvPF.png">
-<meta property="og:updated_time" content="2019-08-29T06:00:42.770Z">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2019/12/05/kngppe.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2019/12/05/kngxOt.png">
+<meta property="og:updated_time" content="2019-12-05T08:43:15.308Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Prometheus-snmp_export部署">
-<meta name="twitter:description" content="SNMPSNMP(simple network management protocol)是因特网架构委员会IAB定义的一个应用层协议。SNMP广泛用于管理和监控网络设备，大多数专业的网络设备都有SNMP agent代理，这些代理被激活和配置后用于和SNMP管理 NMS(network management system)网络管理系统通信。 目的通过snmp_export,获取设备信息. 准备系统:">
-<meta name="twitter:image" content="https://t1.picb.cc/uploads/2019/08/29/gjCvPF.png">
+<meta name="twitter:title" content="Prometheus告警模板详解">
+<meta name="twitter:description" content="目的之前配置告警之后,可以发送告警信息.但对于数据具体的结构信息,在模板中数据读取都比较懵.原因是不太清除警报都提供了哪些数据,除了我们设置的信息,还有没有其他的信息. 告警数据结构官方docs 推送数据结构:       名称    类型    解释    备注      Receiver  string  定义将通知发送到的接收者的名称(slack，电子邮件等)  接收者名称     Stat">
+<meta name="twitter:image" content="https://t1.picb.cc/uploads/2019/12/05/kngppe.png">
 
 
 
@@ -113,7 +114,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.51ai.vip/2019/08/29/Prometheus-snmp-export部署/">
+  <link rel="canonical" href="http://blog.51ai.vip/2019/12/04/Prometheus告警模板详解/">
 
 
 
@@ -123,7 +124,7 @@
   };
 </script>
 
-  <title>Prometheus-snmp_export部署 | aLong</title>
+  <title>Prometheus告警模板详解 | aLong</title>
   
 
 
@@ -343,7 +344,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/08/29/Prometheus-snmp-export部署/">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/12/04/Prometheus告警模板详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="aLong">
@@ -360,7 +361,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Prometheus-snmp_export部署
+          <h1 class="post-title" itemprop="name headline">Prometheus告警模板详解
 
               
             
@@ -386,12 +387,24 @@
                 
               
 
-              <time title="创建时间：2019-08-29 10:06:01 / 修改时间：14:00:42" itemprop="dateCreated datePublished" datetime="2019-08-29T10:06:01+08:00">2019-08-29</time>
+              <time title="创建时间：2019-12-04 11:51:43" itemprop="dateCreated datePublished" datetime="2019-12-04T11:51:43+08:00">2019-12-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-05 16:43:15" itemprop="dateModified" datetime="2019-12-05T16:43:15+08:00">2019-12-05</time>
               
             
           </span>
@@ -437,7 +450,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2k</span>
+                <span title="本文字数">4.1k</span>
               
 
               
@@ -451,7 +464,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -471,28 +484,25 @@
       
 
       
-        <h2 id="SNMP"><a href="#SNMP" class="headerlink" title="SNMP"></a>SNMP</h2><p>SNMP(simple network management protocol)是因特网架构委员会IAB定义的一个应用层协议。SNMP广泛用于管理和监控网络设备，大多数专业的网络设备都有SNMP agent代理，这些代理被激活和配置后用于和SNMP管理 NMS(network management system)网络管理系统通信。</p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>通过snmp_export,获取设备信息.</p>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>系统: centos7,docker19.<br>之前已经安装好 Prometheus</p>
-<p>此处目标设备是华为交换机 s2700</p>
-<h2 id="部署snmp-expoer"><a href="#部署snmp-expoer" class="headerlink" title="部署snmp_expoer"></a>部署snmp_expoer</h2><p>snmp.yml 配置文件不是自己定义的,是通过注册生成或下载的.这里我通过github下载配置文件.</p>
-<p><a href="https://github.com/prometheus/snmp_exporter/blob/master/snmp.yml" target="_blank" rel="noopener">snmp.yml</a></p>
-<ul>
-<li>配置snmp_export 配置文件 snmp.yml</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">auth:</span></span><br><span class="line"><span class="attr">  community:</span> <span class="string">**交换机设置的团体名**</span></span><br><span class="line"><span class="string">```</span> </span><br><span class="line"><span class="string">查找到if_mib</span> <span class="string">再此段结尾中加入</span> <span class="string">上面的配置(大概行数6199).</span></span><br><span class="line"></span><br><span class="line"><span class="string">![demo](https://t1.picb.cc/uploads/2019/08/29/gjuSAc.png)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 部署snmp_expor</span></span><br><span class="line"></span><br><span class="line"><span class="string">```bash</span></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">--restart</span> <span class="string">always</span> <span class="string">\</span></span><br><span class="line"><span class="bullet">-</span><span class="string">v</span> <span class="string">/home/along/snmp.yml:/etc/snmp_exporter/snmp.yml</span> <span class="string">\</span></span><br><span class="line"><span class="bullet">-</span><span class="string">p</span> <span class="number">9116</span><span class="string">:9116</span> <span class="bullet">--name</span> <span class="string">snmp-exporter</span> <span class="string">prom/snmp-exporter</span> <span class="string">\</span> <span class="bullet">--config.file="/etc/snmp_exporter/snmp.yml"</span></span><br></pre></td></tr></table></figure>
-<h3 id="配置华为s2700交换机"><a href="#配置华为s2700交换机" class="headerlink" title="配置华为s2700交换机"></a>配置华为s2700交换机</h3><p>自行查阅文档.懒得写了.</p>
-<h3 id="验证服务"><a href="#验证服务" class="headerlink" title="验证服务"></a>验证服务</h3><p>访问 <a href="http://IP:9116/metrics" target="_blank" rel="noopener">http://IP:9116/metrics</a> 能返回数据,snmp_export服务正常.</p>
-<p>测试是否能获取到目标设备的数据:<br>访问 <a href="http://IP:9116/snmp?target=DEVIP" target="_blank" rel="noopener">http://IP:9116/snmp?target=DEVIP</a><br>能获取到数据,配置成功.</p>
-<p><strong>注意防火墙 把需要的端口加入规则中,不然访问不到排查绕弯路</strong></p>
-<h3 id="配置promthues"><a href="#配置promthues" class="headerlink" title="配置promthues"></a>配置promthues</h3><p>修改 promthues.yml文件. 添加一个新的job.<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- job_name:</span> <span class="string">snmp</span></span><br><span class="line"><span class="attr">  honor_timestamps:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  params:</span></span><br><span class="line"><span class="attr">    module:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">if_mib</span></span><br><span class="line"><span class="attr">  scrape_interval:</span> <span class="number">15</span><span class="string">s</span></span><br><span class="line"><span class="attr">  scrape_timeout:</span> <span class="number">10</span><span class="string">s</span></span><br><span class="line"><span class="attr">  metrics_path:</span> <span class="string">/snmp</span></span><br><span class="line"><span class="attr">  scheme:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">  static_configs:</span></span><br><span class="line"><span class="attr">  - targets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">172.16</span><span class="number">.23</span><span class="number">.253</span></span><br><span class="line"><span class="attr">    labels:</span></span><br><span class="line"><span class="attr">      tag:</span> <span class="string">huawei-switch-s2700</span></span><br><span class="line"><span class="attr">  relabel_configs:</span></span><br><span class="line"><span class="attr">  - source_labels:</span> <span class="string">[__address__]</span></span><br><span class="line"><span class="attr">    separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">__param_target</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">  - source_labels:</span> <span class="string">[__param_target]</span></span><br><span class="line"><span class="attr">    separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">instance</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">  - separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">__address__</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="number">172.16</span><span class="number">.23</span><span class="number">.12</span><span class="string">:9116</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br></pre></td></tr></table></figure></p>
-<p>之前部署prometheus 有一个参数是为了热加载配置的.<br>这里需要reload一下配置,<code>curl -X POST http://IP:9090/-/reload</code>,如果你没有就重启服务吧.</p>
-<h3 id="验证-Prometheus配置"><a href="#验证-Prometheus配置" class="headerlink" title="验证 Prometheus配置"></a>验证 Prometheus配置</h3><p>访问 <a href="http://IP:9090/" target="_blank" rel="noopener">http://IP:9090/</a><br>点击 Status-&gt;Target 可以看到监控的节点,之前我们是有一个,现在是两个节点了.</p>
-<p><img src="https://t1.picb.cc/uploads/2019/08/29/gjCvPF.png" alt></p>
-<p>有数据之后,就可以在grafana中展示设备的数据了.</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/prometheus/snmp_exporter" target="_blank" rel="noopener">https://github.com/prometheus/snmp_exporter</a></p>
-<p><a href="https://prometheus.io/docs/instrumenting/exporters/" target="_blank" rel="noopener">https://prometheus.io/docs/instrumenting/exporters/</a></p>
-<p><a href="http://owelinux.github.io/owelinux.github.io/2018/07/25/article8-linux-prometheus/" target="_blank" rel="noopener">http://owelinux.github.io/owelinux.github.io/2018/07/25/article8-linux-prometheus/</a></p>
+        <h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>之前配置告警之后,可以发送告警信息.但对于数据具体的结构信息,在模板中数据读取都比较懵.原因是不太清除警报都提供了哪些数据,除了我们设置的信息,还有没有其他的信息.</p>
+<h3 id="告警数据结构"><a href="#告警数据结构" class="headerlink" title="告警数据结构"></a>告警数据结构</h3><p><a href="[https://prometheus.io/docs/alerting/notifications/#alert](https://prometheus.io/docs/alerting/notifications/#alert">官方docs</a></p>
+<p>推送数据结构:</p>
+<div><br><table><br>  <tr><br>    <td>名称</td><br>    <td>类型</td><br>    <td>解释</td><br>    <td>备注</td><br>  </tr><br>  <tr><br>  <td>Receiver</td><br>  <td>string</td><br>  <td>定义将通知发送到的接收者的名称(slack，电子邮件等)</td><br>  <td>接收者名称</td><br>  </tr><br>  <tr><br> <td>Status</td><br> <td>string</td><br> <td>如果至少一个警报正在触发，则定义为触发，否则解决(Firing/Resolved)</td><br> <td>通过状态可以知道,是触发警报,还是警报已经恢复.便于区分状态.只有这两个状态,要么触发,要么恢复.</td><br> </tr><br> <tr><br> <td>Alerts</td><br> <td>Alert</td><br> <td>该组中所有警报对象的列表(请参见下文)</td><br> <td>警报提供的数据都在此列表中.列表下面会详细解读</td><br> </tr><br> <tr><br> <td>GroupLabels</td><br> <td>KV</td><br> <td>这些警报按标签分组</td><br> <td>键值对数据,里面是我们在alertManager中配置分组(group_by)的数据</td><br> </tr><br> <tr><br> <td>CommonLabels</td><br> <td>KV</td><br> <td>所有警报共有的标签</td><br> <td>很好理解,所有警报都共同有的标签.</td><br> </tr><br> <tr><br> <td>CommonAnnotations</td><br> <td>KV</td><br> <td>所有警报的通用注释集。<br>用于获取有关警报的更多其他信息字符串</td><br> <td>通用的注释(Annotations)</td><br> </tr><br> <tr><br> <td>ExternalURL</td><br> <td>string</td><br> <td>反向链接到发送通知的Alertmanager</td><br> <td>此连接,点击会跳转到AlertManager.警报管理地址.</td><br> </tr><br></table><br></div>
+
+
+
+<h3 id="Alerts数据"><a href="#Alerts数据" class="headerlink" title="Alerts数据"></a>Alerts数据</h3><div><br><table><br>    <tr><br>        <td>名称</td><br>        <td>类型</td><br><br>        <td>解释</td><br>        <td>备注</td><br><br>    </tr><br>    <tr><br>        <td>Status</td><br>        <td>string</td><br><br>        <td>定义警报是否已解决或当前正在触发</td><br>        <td>警报状态(Firing/Resolved)</td><br><br>    </tr><br>    <tr><br>        <td>Labels</td><br>        <td>KV</td><br>        <td>警报上要贴的一组标签</td><br><br>        <td>警报设置中附加的标签</td><br><br>    </tr><br>    <tr><br>        <td>Annotations</td><br>        <td>KV</td><br>        <td>警报的一组注释</td><br><br>        <td>顾名思义</td><br><br>    </tr><br>    <tr><br>        <td>StartsAt</td><br>        <td>time.Time</td><br><br>        <td>警报开始触发的时间。<br>如果省略，则当前时间由Alertmanager分配</td><br>        <td>警报触发时间</td><br><br>    </tr><br>    <tr><br>        <td>EndsAt</td><br>        <td>time.Time</td><br><br>        <td>仅在知道警报的结束时间时设置。<br>否则设置为自收到最后一个警报以来的时间的可配置超时时间</td><br>        <td>警报恢复时间(这个时间我不太清除到底是不是正确的,配置中也会有恢复超时时间,如果超时了,应该也会被认为恢复吧)</td><br><br>    </tr><br>    <tr><br>        <td>GeneratorURL</td><br>        <td>string</td><br>        <td>标识此警报的原因实体的反向链接<br></td><br>        <td>跳转警报图形数据的连接</td><br><br>    </tr><br></table><br></div>
+
+<h3 id="KV数据的处理方式"><a href="#KV数据的处理方式" class="headerlink" title="KV数据的处理方式"></a>KV数据的处理方式</h3><p>KV结构很简单,键值对.通过键获取对应的值.下面提供了一些方法处理这种结构的一些方法.</p>
+<div><br><table><br>    <tr><br>        <td>方法名</td><br><br>        <td>参数</td><br><br>        <td>返回值</td><br><br>        <td>解释</td><br>        <td>说明</td><br><br>    </tr><br>    <tr><br>        <td>SortedPairs</td><br>        <td>-</td><br><br>        <td>对（键/值字符串对的列表）</td><br><br>        <td>返回键/值对的排序列表</td><br>        <td>通过此方法可以获得排序后的键值对列表数据</td><br><br>    </tr><br>    <tr><br>        <td>Remove</td><br>        <td>[]string</td><br><br>        <td>KV</td><br>        <td>返回没有给定键的键/值映射的副本</td><br>        <td>当我们不希望KV数据种出现某些字段,通过此方法可以得到</td><br><br>    </tr><br>    <tr><br>        <td>Names</td><br>        <td>-</td><br><br>        <td>[]string</td><br><br>        <td>返回LabelSet中标签名称的名称</td><br>        <td>通过此方法可以获得KV数据中所有键</td><br><br>    </tr><br>    <tr><br>        <td>Values</td><br>        <td>-</td><br><br>        <td>[]string</td><br><br>        <td>返回LabelSet中值的列表</td><br>        <td>通过此方法可以获得KV数据中所有值</td><br><br>    </tr><br><br></table><br></div>
+
+<h3 id="字符串相关方法"><a href="#字符串相关方法" class="headerlink" title="字符串相关方法"></a>字符串相关方法</h3><p>警报提供的数据是通过GO模板解析的,GO模板的功能通过<a href="[https://golang.org/pkg/text/template/#hdr-Functions](https://golang.org/pkg/text/template/#hdr-Functions">GO模板文档</a>可以了解.</p>
+<p>下面提供了一些处理字符串的方法:</p>
+<p><img src="https://t1.picb.cc/uploads/2019/12/05/kngppe.png" alt></p>
+<h3 id="微信通知的DEMO"><a href="#微信通知的DEMO" class="headerlink" title="微信通知的DEMO"></a>微信通知的DEMO</h3><p><img src="https://t1.picb.cc/uploads/2019/12/05/kngxOt.png" alt></p>
+<p>上图中是微信接受的通知,下面展示通知模板的代码.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;- define &quot;_alert_list&quot; -&#125;&#125;</span><br><span class="line">&#123;&#123;- range .Alerts.Firing -&#125;&#125;</span><br><span class="line">-----------------------</span><br><span class="line">告警类型：&#123;&#123; .Labels.alertname &#125;&#125;</span><br><span class="line">告警主题: &#123;&#123; .Annotations.summary &#125;&#125;</span><br><span class="line">告警详情: &#123;&#123; .Annotations.description &#125;&#125;</span><br><span class="line">触发时间: &#123;&#123; (.StartsAt.Add 28800e9).Format &quot;2006-01-02 15:04:05&quot; &#125;&#125;</span><br><span class="line">&#123;&#123; end -&#125;&#125;</span><br><span class="line">---------结束-----------------</span><br><span class="line">&#123;&#123;- end -&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;- define &quot;_resolve_list&quot; -&#125;&#125;</span><br><span class="line">&#123;&#123;- range .Alerts.Resolved -&#125;&#125;</span><br><span class="line">**************************</span><br><span class="line">告警类型：&#123;&#123; .Labels.alertname &#125;&#125;</span><br><span class="line">告警主题: &#123;&#123; .Annotations.summary &#125;&#125;</span><br><span class="line">告警详情: &#123;&#123; .Annotations.description &#125;&#125;</span><br><span class="line">触发时间: &#123;&#123; (.StartsAt.Add 28800e9).Format &quot;2006-01-02 15:04:05&quot; &#125;&#125;</span><br><span class="line">恢复时间: &#123;&#123; (.EndsAt.Add 28800e9).Format &quot;2006-01-02 15:04:05&quot; &#125;&#125;</span><br><span class="line">&#123;&#123; end -&#125;&#125;</span><br><span class="line">************结束*****************</span><br><span class="line">&#123;&#123;- end -&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;- define &quot;wechat.message&quot; -&#125;&#125;</span><br><span class="line">&#123;&#123;- if and (gt (len .Alerts.Firing) 0) (gt (len .Alerts.Resolved) 0) -&#125;&#125;</span><br><span class="line">告警数量:&#123;&#123;.Alerts.Firing | len&#125;&#125;</span><br><span class="line">告警设备:&#123;&#123; .GroupLabels.server&#125;&#125;</span><br><span class="line">&#123;&#123; template &quot;_alert_list&quot; . &#125;&#125;</span><br><span class="line">====================================</span><br><span class="line">告警恢复:&#123;&#123;len .Alerts.Resolved&#125;&#125;</span><br><span class="line">告警设备:&#123;&#123; .GroupLabels.server&#125;&#125;</span><br><span class="line">&#123;&#123; template &quot;_resolve_list&quot; . &#125;&#125;</span><br><span class="line">&#123;&#123;- else -&#125;&#125;</span><br><span class="line">  &#123;&#123;- if gt (len .Alerts.Firing) 0 -&#125;&#125;</span><br><span class="line">告警数量:&#123;&#123;.Alerts.Firing | len&#125;&#125;</span><br><span class="line">告警设备:&#123;&#123; .GroupLabels.server&#125;&#125;  </span><br><span class="line">&#123;&#123; template &quot;_alert_list&quot; . &#125;&#125;</span><br><span class="line">  &#123;&#123;- end -&#125;&#125;</span><br><span class="line">  &#123;&#123;- if gt (len .Alerts.Resolved) 0 -&#125;&#125;</span><br><span class="line">告警恢复:&#123;&#123;len .Alerts.Resolved&#125;&#125;</span><br><span class="line">告警设备:&#123;&#123; .GroupLabels.server&#125;&#125;</span><br><span class="line">&#123;&#123; template &quot;_resolve_list&quot; . &#125;&#125;</span><br><span class="line">  &#123;&#123;- end -&#125;&#125;</span><br><span class="line">&#123;&#123;- end -&#125;&#125;</span><br><span class="line">&#123;&#123;- end -&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>其中告警设备 server 这个标签是自定义的.如果没有可以删除此行或根据自己标签定义.</strong></p>
 
       
     </div>
@@ -549,7 +559,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SNMP/" rel="tag"># SNMP</a>
+            <a href="/tags/AlertManager/" rel="tag"># AlertManager</a>
           
         </div>
       
@@ -562,8 +572,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/28/Prometheus-Grafana安装搭建/" rel="next" title="Prometheus+Grafana安装搭建">
-                <i class="fa fa-chevron-left"></i> Prometheus+Grafana安装搭建
+              <a href="/2019/12/03/Prometheus标签处理-服务发现/" rel="next" title="Prometheus标签处理&服务发现">
+                <i class="fa fa-chevron-left"></i> Prometheus标签处理&服务发现
               </a>
             
           </div>
@@ -571,10 +581,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/02/Centos7安装nodejs/" rel="prev" title="Centos7安装nodejs">
-                Centos7安装nodejs <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -813,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SNMP"><span class="nav-number">1.</span> <span class="nav-text">SNMP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">2.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">3.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署snmp-expoer"><span class="nav-number">4.</span> <span class="nav-text">部署snmp_expoer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置华为s2700交换机"><span class="nav-number">4.1.</span> <span class="nav-text">配置华为s2700交换机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证服务"><span class="nav-number">4.2.</span> <span class="nav-text">验证服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置promthues"><span class="nav-number">4.3.</span> <span class="nav-text">配置promthues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证-Prometheus配置"><span class="nav-number">4.4.</span> <span class="nav-text">验证 Prometheus配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#告警数据结构"><span class="nav-number">1.1.</span> <span class="nav-text">告警数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alerts数据"><span class="nav-number">1.2.</span> <span class="nav-text">Alerts数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KV数据的处理方式"><span class="nav-number">1.3.</span> <span class="nav-text">KV数据的处理方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串相关方法"><span class="nav-number">1.4.</span> <span class="nav-text">字符串相关方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信通知的DEMO"><span class="nav-number">1.5.</span> <span class="nav-text">微信通知的DEMO</span></a></li></ol></li></ol></div>
             
 
           </div>

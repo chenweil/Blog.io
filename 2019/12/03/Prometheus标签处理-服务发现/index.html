@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="aLong">
 <meta property="og:description" content="标签处理的重要性之前的配置中提到了标签的处理,不过由于写的是静态的配置,标签可以自己设置或者不设置都可以. 当使用服务发现之后发现标签处理的重要性提升了更高的级别. 标签处理12345678910111213141516171819202122232425262728 - job_name: &apos;node&apos;    static_configs:    - targets: [&apos;172.16.23.1">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-03T07:56:52.801Z">
+<meta property="og:updated_time" content="2019-12-03T08:07:51.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prometheus标签处理&amp;服务发现">
 <meta name="twitter:description" content="标签处理的重要性之前的配置中提到了标签的处理,不过由于写的是静态的配置,标签可以自己设置或者不设置都可以. 当使用服务发现之后发现标签处理的重要性提升了更高的级别. 标签处理12345678910111213141516171819202122232425262728 - job_name: &apos;node&apos;    static_configs:    - targets: [&apos;172.16.23.1">
@@ -384,7 +384,7 @@
                 
               
 
-              <time title="创建时间：2019-12-03 15:14:16 / 修改时间：15:56:52" itemprop="dateCreated datePublished" datetime="2019-12-03T15:14:16+08:00">2019-12-03</time>
+              <time title="创建时间：2019-12-03 15:14:16 / 修改时间：16:07:51" itemprop="dateCreated datePublished" datetime="2019-12-03T15:14:16+08:00">2019-12-03</time>
             
 
             
@@ -471,7 +471,7 @@
       
         <h3 id="标签处理的重要性"><a href="#标签处理的重要性" class="headerlink" title="标签处理的重要性"></a>标签处理的重要性</h3><p>之前的<a href="[https://blog.51ai.vip/2019/10/09/prometueus-yml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/](https://blog.51ai.vip/2019/10/09/prometueus-yml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/">配置</a>中提到了标签的处理,不过由于写的是静态的配置,标签可以自己设置或者不设置都可以.</p>
 <p>当使用服务发现之后发现标签处理的重要性提升了更高的级别.</p>
-<h3 id="标签处理"><a href="#标签处理" class="headerlink" title="标签处理"></a>标签处理</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"> - job_name:</span> <span class="string">'node'</span></span><br><span class="line"><span class="attr">    static_configs:</span></span><br><span class="line"><span class="attr">    - targets:</span> <span class="string">['172.16.23.110:9100','172.16.23.111:9100']</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    metric_relable_configs:</span>  <span class="comment">#通过正则重命名标签</span></span><br><span class="line"><span class="attr">    - action:</span> <span class="string">replace</span>  <span class="comment">#replace替换是默认动作。keep（只参加匹配标签的实例）、drop（不采集匹配正则的实例）、labelkeep\labeldrop(对标签进行过滤处理而非实例)等动作</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      source_labels:</span> <span class="string">['job']</span>  <span class="comment">#原标签，job是默认就会产生的标签，这里job标签的值是node</span></span><br><span class="line"><span class="attr">      regex:</span> <span class="string">(.*)</span>  <span class="comment">#正则匹配，这里匹配job标签内的内容，也就是node</span></span><br><span class="line"><span class="attr">      replacement:</span> <span class="string">beijing</span>  <span class="comment">#替换成什么内容，如果写$1就是将正则里读取的值</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      target_label:</span> <span class="string">idc</span>  <span class="comment">#把替换内容赋值给idc标签</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    - action:</span> <span class="string">labeldrop</span>  <span class="comment">#删除标签</span></span><br><span class="line"><span class="attr">      regex:</span> <span class="string">job</span>  <span class="comment">#把原job标签删除</span></span><br><span class="line">     </span><br><span class="line"><span class="attr">- job_name:</span> <span class="string">'prometheus'</span></span><br><span class="line"><span class="attr">   static_configs:</span></span><br><span class="line"><span class="attr">    - targets:</span> <span class="string">['localhost:9090']</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        location:</span> <span class="string">bj3</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    relabel_configs:</span></span><br><span class="line"><span class="attr">    - action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">      source_labels:</span> <span class="string">['job']</span></span><br><span class="line"><span class="attr">      regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">      replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">      target_label:</span> <span class="string">server</span></span><br></pre></td></tr></table></figure>
+<h3 id="标签处理"><a href="#标签处理" class="headerlink" title="标签处理"></a>标签处理</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr"> - job_name:</span> <span class="string">'node'</span></span><br><span class="line"><span class="attr">    static_configs:</span></span><br><span class="line"><span class="attr">    - targets:</span> <span class="string">['172.16.23.110:9100','172.16.23.111:9100']</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    metric_relable_configs:</span>  <span class="comment">#通过正则重命名标签</span></span><br><span class="line"><span class="attr">    - action:</span> <span class="string">replace</span>  <span class="comment">#replace替换是默认动作。keep（只参加匹配标签的实例）、drop（不采集匹配正则的实例）、labelkeep\labeldrop(对标签进行过滤处理而非实例)等动作</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      source_labels:</span> <span class="string">['job']</span>  <span class="comment">#原标签，job是默认就会产生的标签，这里job标签的值是node</span></span><br><span class="line"><span class="attr">      regex:</span> <span class="string">(.*)</span>  <span class="comment">#正则匹配，这里匹配job标签内的内容，也就是node</span></span><br><span class="line"><span class="attr">      replacement:</span> <span class="string">beijing</span>  <span class="comment">#替换成什么内容，如果写$1就是将正则里读取的值</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      target_label:</span> <span class="string">idc</span>  <span class="comment">#把替换内容赋值给idc标签</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    - action:</span> <span class="string">labeldrop</span>  <span class="comment">#删除标签</span></span><br><span class="line"><span class="attr">      regex:</span> <span class="string">job</span>  <span class="comment">#把原job标签删除</span></span><br><span class="line"></span><br><span class="line"><span class="attr">- job_name:</span> <span class="string">'prometheus'</span></span><br><span class="line"><span class="attr">   static_configs:</span></span><br><span class="line"><span class="attr">    - targets:</span> <span class="string">['localhost:9090']</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        location:</span> <span class="string">bj3</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    relabel_configs:</span></span><br><span class="line"><span class="attr">    - action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">      source_labels:</span> <span class="string">['job']</span></span><br><span class="line"><span class="attr">      regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">      replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">      target_label:</span> <span class="string">server</span></span><br></pre></td></tr></table></figure>
 <p>以上两个例子都是替换标签,job:node中,删除了前job标签,下面的job新增了’server’标签内容取的job内容,但没删除job标签.</p>
 <p>通过标签我们组成多维模型.可以对标签重命名,删除,过滤信息等.</p>
 <h3 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h3><p>之前配置中的静态配置需要一个一些写配置,设备或者服务多的时候容易头大.</p>
@@ -480,10 +480,10 @@
 <p>这里举例file.比较简单的方式.</p>
 <p>file机制中:需要提供文件来获取内容.文件格式为YAML 或 JSON格式.</p>
 <p>prometheus配置:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scrape_configs:</span><br><span class="line">  - job_name: &apos;prometheus&apos;</span><br><span class="line">    file_sd_configs: </span><br><span class="line">      - files: [&apos;/usr/local/prometheus/files_sd_configs/*.yaml&apos;]  </span><br><span class="line">        ##指定服务发现文件位置</span><br><span class="line"></span><br><span class="line">        refresh_interval: 5s</span><br><span class="line">        ##刷新间隔改为5秒</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scrape_configs:</span><br><span class="line">  - job_name: &apos;prometheus&apos;</span><br><span class="line">    file_sd_configs: </span><br><span class="line">      - files: [&apos;/usr/local/prometheus/files_sd_configs/*.yaml&apos;]  </span><br><span class="line">        ##指定服务发现文件位置</span><br><span class="line">        refresh_interval: 5s</span><br><span class="line">        ##刷新间隔改为5秒</span><br></pre></td></tr></table></figure>
 <p>Prometheus 每5秒扫描一次指定位置的配置文件.</p>
 <p>服务发现文件格式:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- targets:</span> <span class="string">['localhost:9090']</span>    <span class="comment"># 监控目标</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  labels:</span>                        <span class="comment"># 配置标签</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    server:</span> <span class="string">local</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- targets:</span> <span class="string">['localhost:9090']</span>    <span class="comment"># 监控目标</span></span><br><span class="line"><span class="attr">  labels:</span>                        <span class="comment"># 配置标签</span></span><br><span class="line"><span class="attr">    server:</span> <span class="string">local</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -563,6 +563,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/12/04/Prometheus告警模板详解/" rel="prev" title="Prometheus告警模板详解">
+                Prometheus告警模板详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -630,7 +634,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -833,7 +837,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">71k</span>
   
 
   
@@ -842,7 +846,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:04</span>
   
 </div>
 
