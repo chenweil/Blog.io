@@ -83,8 +83,6 @@ ____
 - `\<scheme\>`: 一个可以是`http`或者`https`的字符串
 - `\<string\>`: 一个正则表达式字符串
 
-
-
 ### scrape_configs
 
 监控配置
@@ -120,7 +118,7 @@ job_name: <job_name>
 # 如果honor_labels设置为"false"，则通过将已抓取数据中的冲突标签重命名为"exported_ <original-label>"（例如"exported_instance"，"exported_job"）然后附加服务器端标签来解决标签冲突。 这对于联合等用例很有用，其中应保留目标中指定的所有标签。
 # 
 # 请注意，任何全局配置的"external_labels"都不受此设置的影响。 在与外部系统通信时，它们始终仅在时间序列尚未具有给定标签时应用，否则将被忽略。
-# 
+# 当设置为 true, 以拉取数据为准，否则以服务配置为准
 [ honor_labels: <boolean> | default = false ]
 
 # 配置用于请求的协议方案.

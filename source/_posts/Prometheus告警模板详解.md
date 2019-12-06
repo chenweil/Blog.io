@@ -16,7 +16,7 @@ tags:
 
 ### 告警数据结构
 
-[官方docs]([https://prometheus.io/docs/alerting/notifications/#alert](https://prometheus.io/docs/alerting/notifications/#alert)
+[官方docs](https://prometheus.io/docs/alerting/notifications/#alert)
 
 推送数据结构:
 <html><table><tr><td>名称</td><td>类型</td><td>解释</td><td>备注</td></tr><tr><td>Receiver</td><td>string</td><td>定义将通知发送到的接收者的名称(slack，电子邮件等)</td><td>接收者名称</td></tr><tr><td>Status</td><td>string</td><td>如果至少一个警报正在触发，则定义为触发，否则解决(Firing/Resolved)</td><td>通过状态可以知道,是触发警报,还是警报已经恢复.便于区分状态.只有这两个状态,要么触发,要么恢复.</td></tr><tr><td>Alerts</td><td>Alert</td><td>该组中所有警报对象的列表(请参见下文)</td><td>警报提供的数据都在此列表中.列表下面会详细解读</td></tr><tr><td>GroupLabels</td><td>KV</td><td>这些警报按标签分组</td><td>键值对数据,里面是我们在alertManager中配置分组(group_by)的数据</td></tr><tr><td>CommonLabels</td><td>KV</td><td>所有警报共有的标签</td><td>很好理解,所有警报都共同有的标签.</td></tr><tr><td>CommonAnnotations</td><td>KV</td><td>所有警报的通用注释集。用于获取有关警报的更多其他信息字符串</td><td>通用的注释(Annotations)</td></tr><tr><td>ExternalURL</td><td>string</td><td>反向链接到发送通知的Alertmanager</td><td>此连接,点击会跳转到AlertManager.警报管理地址.</td></tr></table></html>
@@ -32,7 +32,7 @@ KV结构很简单,键值对.通过键获取对应的值.下面提供了一些方
 
 ### 字符串相关方法
 
-警报提供的数据是通过GO模板解析的,GO模板的功能通过[GO模板文档]([https://golang.org/pkg/text/template/#hdr-Functions](https://golang.org/pkg/text/template/#hdr-Functions)可以了解.
+警报提供的数据是通过GO模板解析的,GO模板的功能通过[GO模板文档](https://golang.org/pkg/text/template/#hdr-Functions)可以了解.
 
 下面提供了一些处理字符串的方法:
 
