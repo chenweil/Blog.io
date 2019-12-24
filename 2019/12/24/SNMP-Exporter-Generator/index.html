@@ -92,18 +92,18 @@
 
 
 
-  <meta name="description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说SNMP_Exporter时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成sn">
-<meta name="keywords" content="SNMP,Prometheus,SNMP_Exporter">
+  <meta name="description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说Prometheus-snmp_export部署时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自">
+<meta name="keywords" content="Prometheus,SNMP,SNMP_Exporter">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SNMP_Exporter Generator">
 <meta property="og:url" content="http://blog.51ai.vip/2019/12/24/SNMP-Exporter-Generator/index.html">
 <meta property="og:site_name" content="aLong">
-<meta property="og:description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说SNMP_Exporter时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成sn">
+<meta property="og:description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说Prometheus-snmp_export部署时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-24T09:25:42.184Z">
+<meta property="og:updated_time" content="2019-12-24T09:41:29.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SNMP_Exporter Generator">
-<meta name="twitter:description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说SNMP_Exporter时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成sn">
+<meta name="twitter:description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说Prometheus-snmp_export部署时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自">
 
 
 
@@ -384,7 +384,7 @@
                 
               
 
-              <time title="创建时间：2019-12-24 15:26:33 / 修改时间：17:25:42" itemprop="dateCreated datePublished" datetime="2019-12-24T15:26:33+08:00">2019-12-24</time>
+              <time title="创建时间：2019-12-24 15:26:33 / 修改时间：17:41:29" itemprop="dateCreated datePublished" datetime="2019-12-24T15:26:33+08:00">2019-12-24</time>
             
 
             
@@ -472,7 +472,7 @@
         <h2 id="SNMP-Exporter"><a href="#SNMP-Exporter" class="headerlink" title="SNMP Exporter"></a>SNMP Exporter</h2><blockquote>
 <p> 生成器从generator.yml读取并写入snmp.yml。</p>
 </blockquote>
-<p>之前在说SNMP_Exporter时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的<a href="https://github.com/prometheus/snmp_exporter/blob/master/snmp.yml" target="_blank" rel="noopener">snmp.yml</a>文件(只在demo中添加了auth配置).</p>
+<p>之前在说<a href="https://blog.51ai.vip/2019/08/29/Prometheus-snmp-export%E9%83%A8%E7%BD%B2/">Prometheus-snmp_export部署</a>时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的<a href="https://github.com/prometheus/snmp_exporter/blob/master/snmp.yml" target="_blank" rel="noopener">snmp.yml</a>文件(只在demo中添加了auth配置).</p>
 <p>因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成snmp.yml.</p>
 <h3 id="Generator-的操作步骤"><a href="#Generator-的操作步骤" class="headerlink" title="Generator 的操作步骤"></a>Generator 的操作步骤</h3><ol>
 <li><p>下载需要的程序</p>
@@ -486,10 +486,12 @@
 <ol start="2">
 <li>首先,我们需要准备好所有需要涉及到的mib文件. 除了公有的mib,我们还需要监控目标设备的私有mib.思科/华为之类的会提供这些mib,像锐捷这种需要和商务部联系.</li>
 </ol>
-<p>一些mib:</p>
-<p><a href="https://github.com/netdisco/netdisco-mibs" target="_blank" rel="noopener">https://github.com/netdisco/netdisco-mibs</a></p>
-<p><a href="https://github.com/pgmillon/observium/tree/master/mibs" target="_blank" rel="noopener">https://github.com/pgmillon/observium/tree/master/mibs</a></p>
-<p><a href="https://github.com/librenms/librenms/tree/master/mibs" target="_blank" rel="noopener">https://github.com/librenms/librenms/tree/master/mibs</a></p>
+<hr>
+<p><em>一些mib:</em></p>
+<p>  <a href="https://github.com/netdisco/netdisco-mibs" target="_blank" rel="noopener">https://github.com/netdisco/netdisco-mibs</a></p>
+<p>  <a href="https://github.com/pgmillon/observium/tree/master/mibs" target="_blank" rel="noopener">https://github.com/pgmillon/observium/tree/master/mibs</a></p>
+<p>  <a href="https://github.com/librenms/librenms/tree/master/mibs" target="_blank" rel="noopener">https://github.com/librenms/librenms/tree/master/mibs</a></p>
+<hr>
 <ol start="3">
 <li>当我们准备好所有的mib后,需要编写一个generator.yml.</li>
 </ol>
@@ -514,7 +516,6 @@
 <li><p>overrides  前三个指标删除,后面几项是定义了他们的数据类型.</p>
 </li>
 </ul>
-<p>### </p>
 <ol start="4">
 <li><p>万事具备,只差执行.</p>
 <p>准备工作完成之后,就可以执行程序了. </p>
@@ -578,9 +579,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SNMP/" rel="tag"># SNMP</a>
-          
             <a href="/tags/Prometheus/" rel="tag"># Prometheus</a>
+          
+            <a href="/tags/SNMP/" rel="tag"># SNMP</a>
           
             <a href="/tags/SNMP-Exporter/" rel="tag"># SNMP_Exporter</a>
           
