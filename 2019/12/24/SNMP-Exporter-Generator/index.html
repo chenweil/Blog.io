@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/long.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说SNMP_Exporter时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成sn">
+<meta name="keywords" content="SNMP,Prometheus,SNMP_Exporter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SNMP_Exporter Generator">
+<meta property="og:url" content="http://blog.51ai.vip/2019/12/24/SNMP-Exporter-Generator/index.html">
+<meta property="og:site_name" content="aLong">
+<meta property="og:description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说SNMP_Exporter时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成sn">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-24T09:25:42.184Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SNMP_Exporter Generator">
+<meta name="twitter:description" content="SNMP Exporter  生成器从generator.yml读取并写入snmp.yml。  之前在说SNMP_Exporter时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的snmp.yml文件(只在demo中添加了auth配置). 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成sn">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.51ai.vip/2019/12/24/SNMP-Exporter-Generator/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>SNMP_Exporter Generator | aLong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aLong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">一个人总是可以善待他毫不在意的人。--王尔德</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/12/24/SNMP-Exporter-Generator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aLong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aLong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SNMP_Exporter Generator
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-24 15:26:33 / 修改时间：17:25:42" itemprop="dateCreated datePublished" datetime="2019-12-24T15:26:33+08:00">2019-12-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SNMP/" itemprop="url" rel="index"><span itemprop="name">SNMP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">5.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">5 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SNMP-Exporter"><a href="#SNMP-Exporter" class="headerlink" title="SNMP Exporter"></a>SNMP Exporter</h2><blockquote>
+<p> 生成器从generator.yml读取并写入snmp.yml。</p>
+</blockquote>
+<p>之前在说SNMP_Exporter时,没有具体提到snmp.yml的生成器是怎么生成的.几乎用的都是github上的<a href="https://github.com/prometheus/snmp_exporter/blob/master/snmp.yml" target="_blank" rel="noopener">snmp.yml</a>文件(只在demo中添加了auth配置).</p>
+<p>因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成snmp.yml.</p>
+<h3 id="Generator-的操作步骤"><a href="#Generator-的操作步骤" class="headerlink" title="Generator 的操作步骤"></a>Generator 的操作步骤</h3><ol>
+<li><p>下载需要的程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Debian-based distributions.</span><br><span class="line">sudo apt-get install unzip build-essential libsnmp-dev # Debian-based distros</span><br><span class="line"># Redhat-based distributions.</span><br><span class="line">sudo yum install gcc gcc-g++ make net-snmp net-snmp-utils net-snmp-libs net-snmp-devel # RHEL-based distros</span><br><span class="line"></span><br><span class="line">go get github.com/prometheus/snmp_exporter/generator</span><br><span class="line">cd $&#123;GOPATH-$HOME/go&#125;/src/github.com/prometheus/snmp_exporter/generator</span><br><span class="line">go build</span><br><span class="line">make mibs(不建议直接make)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   这里直接make mibs 可能会失败,他在make文件里设置的源有些已经不能访问了.</p>
+<p>   我建议先下载好mibs ,我已经上传<a href="https://github.com/prometheus/snmp_exporter" target="_blank" rel="noopener">github</a>.</p>
+<p>   <strong><em>建议自行搜集mib 不执行make mibs会方便一些</em></strong></p>
+<p>   把所有的mib放入mibs 目录下.</p>
+<ol start="2">
+<li>首先,我们需要准备好所有需要涉及到的mib文件. 除了公有的mib,我们还需要监控目标设备的私有mib.思科/华为之类的会提供这些mib,像锐捷这种需要和商务部联系.</li>
+</ol>
+<p>一些mib:</p>
+<p><a href="https://github.com/netdisco/netdisco-mibs" target="_blank" rel="noopener">https://github.com/netdisco/netdisco-mibs</a></p>
+<p><a href="https://github.com/pgmillon/observium/tree/master/mibs" target="_blank" rel="noopener">https://github.com/pgmillon/observium/tree/master/mibs</a></p>
+<p><a href="https://github.com/librenms/librenms/tree/master/mibs" target="_blank" rel="noopener">https://github.com/librenms/librenms/tree/master/mibs</a></p>
+<ol start="3">
+<li>当我们准备好所有的mib后,需要编写一个generator.yml.</li>
+</ol>
+<p>下面是一个翻译的官方文档(翻译比较烂,自行查阅<a href="[https://github.com/prometheus/snmp_exporter/tree/master/generator](https://github.com/prometheus/snmp_exporter/tree/master/generator">原文</a>)):</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">modules:</span></span><br><span class="line"><span class="attr">  module_name:</span>  <span class="comment"># 模块名称。您可以根据需要拥有任意数量的模块。</span></span><br><span class="line"><span class="attr">    walk:</span>       <span class="comment"># 要walk的OID列表。 也可以是SNMP对象名称或特定实例。</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">1.3</span><span class="number">.6</span><span class="number">.1</span><span class="number">.2</span><span class="number">.1</span><span class="number">.2</span>              <span class="comment"># 与“接口”相同。</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">sysUpTime</span>                  <span class="comment"># 与“ 1.3.6.1.2.1.1.3”相同。</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">1.3</span><span class="number">.6</span><span class="number">.1</span><span class="number">.2</span><span class="number">.1</span><span class="number">.31</span><span class="number">.1</span><span class="number">.1</span><span class="number">.1</span><span class="number">.6</span><span class="number">.40</span>  <span class="comment"># 索引为“ 40”的“ ifHCInOctets”的实例。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    version:</span> <span class="number">2</span>  <span class="comment"># 要使用的SNMP版本。 默认2。</span></span><br><span class="line">                <span class="comment"># 1将使用GETNEXT，2和3将使用GETBULK。</span></span><br><span class="line"><span class="attr">    max_repetitions:</span> <span class="number">25</span>  <span class="comment"># 使用GET / GETBULK请求多少个对象，默认为25。</span></span><br><span class="line">                         <span class="comment"># 对于有故障的设备，可能需要减少。</span></span><br><span class="line"><span class="attr">    retries:</span> <span class="number">3</span>   <span class="comment"># 重试失败请求的次数，默认为3。</span></span><br><span class="line"><span class="attr">    timeout:</span> <span class="number">10</span><span class="string">s</span> <span class="comment"># 每次步行的超时时间，默认为10秒。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    auth:</span></span><br><span class="line">      <span class="comment"># 社区字符串与SNMP v1和v2一起使用。 默认为“ public”。</span></span><br><span class="line"><span class="attr">      community:</span> <span class="string">public</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># v3具有不同且更复杂的设置。</span></span><br><span class="line">      <span class="comment"># 需要哪些取决于security_level。</span></span><br><span class="line">      <span class="comment"># 还列出了NetSNMP命令上的等效选项，例如snmpbulkwalk和snmpget。</span></span><br><span class="line">      <span class="comment"># 请参见snmpcmd（1）。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      username:</span> <span class="string">user</span>  <span class="comment"># 必需，无默认值。 NetSNMP的-u选项。</span></span><br><span class="line"><span class="attr">      security_level:</span> <span class="string">noAuthNoPriv</span>  <span class="comment"># 默认为noAuthNoPriv。 NetSNMP的-l选项。</span></span><br><span class="line">                                    <span class="comment"># 可以是noAuthNoPriv，authNoPriv或authPriv。</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">pass</span>  <span class="comment"># 没有默认值。 也称为authKey，NetSNMP的-A选项。</span></span><br><span class="line">                      <span class="comment"># 如果security_level是authNoPriv或authPriv，则为必需。</span></span><br><span class="line"><span class="attr">      auth_protocol:</span> <span class="string">MD5</span>  <span class="comment"># MD5或SHA，默认为MD5。 -NetSNMP的选项。</span></span><br><span class="line">                          <span class="comment"># 如果security_level为authNoPriv或authPriv，则使用此属性。</span></span><br><span class="line"><span class="attr">      priv_protocol:</span> <span class="string">DES</span>  <span class="comment"># DES或AES，默认为DES。 NetSNMP的-x选项。</span></span><br><span class="line">                          <span class="comment"># 如果security_level为authPriv，则使用。</span></span><br><span class="line"><span class="attr">      priv_password:</span> <span class="string">otherPass</span> <span class="comment"># 没有默认值。 也称为privKey，NetSNMP的-X选项。</span></span><br><span class="line">                               <span class="comment"># 如果security_level是authPriv，则为必需。</span></span><br><span class="line"><span class="attr">      context_name:</span> <span class="string">context</span> <span class="comment"># 没有默认值。 NetSNMP的-n选项。</span></span><br><span class="line">                            <span class="comment"># 如果在设备上配置了上下文，则为必需。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    lookups:</span>  <span class="comment"># 要执行的查找的可选列表。</span></span><br><span class="line">              <span class="comment"># “keep_source_indexes”的默认值为false。 </span></span><br><span class="line">              <span class="comment"># 索引必须唯一，才能使用此选项。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="comment"># 如果表的索引是bsnDot11EssIndex，则通常是该表结果度量的标签。</span></span><br><span class="line">      <span class="comment"># 相反,使用索引查找bsnDot11EssSsid表条目，并使用该值创建一个bsnDot11EssSsid标签。</span></span><br><span class="line"><span class="attr">      - source_indexes:</span> <span class="string">[bsnDot11EssIndex]</span></span><br><span class="line"><span class="attr">        lookup:</span> <span class="string">bsnDot11EssSsid</span></span><br><span class="line"><span class="attr">        drop_source_indexes:</span> <span class="literal">false</span>  <span class="comment"># 如果为true，则删除此查找的源索引标签。</span></span><br><span class="line">                                    <span class="comment"># 当新索引唯一时，这可以避免标签混乱。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">     overrides:</span> <span class="comment"># 允许每个模块覆盖MIB的位</span></span><br><span class="line"><span class="attr">       metricName:</span></span><br><span class="line"><span class="attr">         ignore:</span> <span class="literal">true</span> <span class="comment"># 从输出中删除度量。</span></span><br><span class="line"><span class="attr">         regex_extracts:</span></span><br><span class="line"><span class="attr">           Temp:</span> <span class="comment"># 将创建一个新的度量，并将其附加到metricName上，成为metricNameTemp。</span></span><br><span class="line"><span class="attr">             - regex:</span> <span class="string">'(.*)'</span> <span class="comment"># 正则表达式从返回的SNMP walk的值中提取一个值。</span></span><br><span class="line"><span class="attr">               value:</span> <span class="string">'$1'</span> <span class="comment"># 结果将解析为float64，默认为$1。</span></span><br><span class="line"><span class="attr">           Status:</span></span><br><span class="line"><span class="attr">             - regex:</span> <span class="string">'.*Example'</span></span><br><span class="line"><span class="attr">               value:</span> <span class="string">'1'</span></span><br><span class="line"><span class="attr">             - regex:</span> <span class="string">'.*'</span></span><br><span class="line"><span class="attr">               value:</span> <span class="string">'0'</span></span><br><span class="line"><span class="attr">         type:</span> <span class="string">DisplayString</span> <span class="comment"># 覆盖度量标准类型，可能的类型有：</span></span><br><span class="line">                             <span class="comment">#   gauge:   带gauge的整数。</span></span><br><span class="line">                             <span class="comment">#   counter: 带类型计数器的整数。</span></span><br><span class="line">                             <span class="comment">#   OctetString: 一个位字符串，呈现为0xff34。</span></span><br><span class="line">                             <span class="comment">#   DateAndTime: RFC 2579日期和时间字节序列。如果设备没有时区数据，则使用UTC。</span></span><br><span class="line">                             <span class="comment">#   DisplayString: ASCII或UTF-8字符串。</span></span><br><span class="line">                             <span class="comment">#   PhysAddress48: 一个48位的MAC地址，呈现为00:01:02:03:04:ff。</span></span><br><span class="line">                             <span class="comment">#   Float: 一个32位浮点值，带有类型gauge。</span></span><br><span class="line">                             <span class="comment">#   Double: 一个64位浮点值，带有类型gauge。</span></span><br><span class="line">                             <span class="comment">#   InetAddressIPv4: IPv4地址，呈现为1.2.3.4。</span></span><br><span class="line">                             <span class="comment">#   InetAddressIPv6: IPv6地址，呈现为0102:0304:0506:0708:090A:0B0C:0D0E:0F10。</span></span><br><span class="line">                             <span class="comment">#   InetAddress: 每个RFC 4001有一个InetAddress。必须以InetAddressType开头。</span></span><br><span class="line">                             <span class="comment">#   InetAddressMissingSize: 因索引中没有大小而违反RFC 4001第4.1节的InetAddress。</span></span><br><span class="line">                             <span class="comment">#                           必须以InetAddressType开头。</span></span><br><span class="line">                             <span class="comment">#   EnumAsInfo: 为其创建单个时间序列的枚举。适用于恒定值。</span></span><br><span class="line">                             <span class="comment">#   EnumAsStateSet: 每个状态具有时间序列的枚举。适用于可变低基数枚举。</span></span><br><span class="line">                             <span class="comment">#   Bits: 一种RFC2578位结构，它产生一个具有每位时间序列的状态集。</span></span><br></pre></td></tr></table></figure>
+<p>下面提供一个自己编写的generator.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">modules:</span></span><br><span class="line"><span class="attr">  ruijie_mib:</span></span><br><span class="line"><span class="attr">    walk:</span> </span><br><span class="line"><span class="bullet">      -</span> <span class="string">interfaces</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">ifXTable</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">sysUpTime</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">sysName</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">myMemoryPoolCurrentUtilization</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">myCPUUtilization5Sec</span></span><br><span class="line"><span class="attr">    timeout:</span> <span class="number">12</span><span class="string">s</span></span><br><span class="line"><span class="attr">    version:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">    auth:</span></span><br><span class="line"><span class="attr">      community:</span> <span class="string">Monitor@#@Jkj</span></span><br><span class="line"><span class="attr">    lookups:</span></span><br><span class="line"><span class="attr">      - source_indexes:</span> <span class="string">[ifIndex]</span></span><br><span class="line"><span class="attr">        lookup:</span> <span class="string">ifAlias</span></span><br><span class="line"><span class="attr">      - source_indexes:</span> <span class="string">[ifIndex]</span></span><br><span class="line"><span class="attr">        lookup:</span> <span class="string">ifDescr</span></span><br><span class="line"><span class="attr">      - source_indexes:</span> <span class="string">[ifIndex]</span></span><br><span class="line"><span class="attr">        lookup:</span> <span class="number">1.3</span><span class="number">.6</span><span class="number">.1</span><span class="number">.2</span><span class="number">.1</span><span class="number">.31</span><span class="number">.1</span><span class="number">.1</span><span class="number">.1</span><span class="number">.1</span> </span><br><span class="line"><span class="attr">    overrides:</span></span><br><span class="line"><span class="attr">      ifAlias:</span></span><br><span class="line"><span class="attr">        ignore:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">      ifDescr:</span></span><br><span class="line"><span class="attr">        ignore:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">      ifName:</span></span><br><span class="line"><span class="attr">        ignore:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">      ifType:</span></span><br><span class="line"><span class="attr">        type:</span> <span class="string">EnumAsInfo</span></span><br><span class="line"><span class="attr">      sysDescr:</span></span><br><span class="line"><span class="attr">        type:</span> <span class="string">DisplayString</span></span><br><span class="line"><span class="attr">      sysLocation:</span></span><br><span class="line"><span class="attr">        type:</span> <span class="string">DisplayString</span></span><br><span class="line"><span class="attr">      ifPhysAddress:</span></span><br><span class="line"><span class="attr">        type:</span> <span class="string">PhysAddress48</span></span><br><span class="line"><span class="attr">      sysName:</span></span><br><span class="line"><span class="attr">        type:</span> <span class="string">DisplayString</span></span><br></pre></td></tr></table></figure>
+<p>解释一下此配置的目的:</p>
+<ul>
+<li><p>模块名称 ruijie_mib  通过名字可以知道是作用锐捷设备</p>
+</li>
+<li><p>walk 中, 是需要获取的指标. 其中前四个是共有mib获取到的,后面是私有mib获取到的.</p>
+</li>
+<li><p>timeout 超时定义12秒</p>
+</li>
+<li><p>version snmp协议是v2 </p>
+</li>
+<li><p>auth 定义的团体名 </p>
+</li>
+<li><p>looksups 通过索引查找列表</p>
+</li>
+<li><p>overrides  前三个指标删除,后面几项是定义了他们的数据类型.</p>
+</li>
+</ul>
+<p>### </p>
+<ol start="4">
+<li><p>万事具备,只差执行.</p>
+<p>准备工作完成之后,就可以执行程序了. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> MIBDIRS=mibs</span><br><span class="line">./generator generate</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   执行后,可以看到snmp.yml.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>请我吃辣条吧？！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7b2CD.png" alt="aLong 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7bc4O.png" alt="aLong 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SNMP/" rel="tag"># SNMP</a>
+          
+            <a href="/tags/Prometheus/" rel="tag"># Prometheus</a>
+          
+            <a href="/tags/SNMP-Exporter/" rel="tag"># SNMP_Exporter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/04/Prometheus告警模板详解/" rel="next" title="Prometheus告警模板详解">
+                <i class="fa fa-chevron-left"></i> Prometheus告警模板详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aLong</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SNMP-Exporter"><span class="nav-number">1.</span> <span class="nav-text">SNMP Exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator-的操作步骤"><span class="nav-number">1.1.</span> <span class="nav-text">Generator 的操作步骤</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aLong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">77k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:10</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

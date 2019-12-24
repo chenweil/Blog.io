@@ -100,12 +100,13 @@
 <meta property="og:site_name" content="aLong">
 <meta property="og:description" content="SNMPSNMP(simple network management protocol)是因特网架构委员会IAB定义的一个应用层协议。SNMP广泛用于管理和监控网络设备，大多数专业的网络设备都有SNMP agent代理，这些代理被激活和配置后用于和SNMP管理 NMS(network management system)网络管理系统通信。 目的通过snmp_export,获取设备信息. 准备系统:">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2019/08/29/gjuSAc.png">
 <meta property="og:image" content="https://t1.picb.cc/uploads/2019/08/29/gjCvPF.png">
-<meta property="og:updated_time" content="2019-08-29T06:00:42.770Z">
+<meta property="og:updated_time" content="2019-12-24T09:25:10.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Prometheus-snmp_export部署">
 <meta name="twitter:description" content="SNMPSNMP(simple network management protocol)是因特网架构委员会IAB定义的一个应用层协议。SNMP广泛用于管理和监控网络设备，大多数专业的网络设备都有SNMP agent代理，这些代理被激活和配置后用于和SNMP管理 NMS(network management system)网络管理系统通信。 目的通过snmp_export,获取设备信息. 准备系统:">
-<meta name="twitter:image" content="https://t1.picb.cc/uploads/2019/08/29/gjCvPF.png">
+<meta name="twitter:image" content="https://t1.picb.cc/uploads/2019/08/29/gjuSAc.png">
 
 
 
@@ -386,12 +387,24 @@
                 
               
 
-              <time title="创建时间：2019-08-29 10:06:01 / 修改时间：14:00:42" itemprop="dateCreated datePublished" datetime="2019-08-29T10:06:01+08:00">2019-08-29</time>
+              <time title="创建时间：2019-08-29 10:06:01" itemprop="dateCreated datePublished" datetime="2019-08-29T10:06:01+08:00">2019-08-29</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-24 17:25:10" itemprop="dateModified" datetime="2019-12-24T17:25:10+08:00">2019-12-24</time>
               
             
           </span>
@@ -437,7 +450,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2k</span>
+                <span title="本文字数">1.9k</span>
               
 
               
@@ -480,12 +493,16 @@
 <ul>
 <li>配置snmp_export 配置文件 snmp.yml</li>
 </ul>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">auth:</span></span><br><span class="line"><span class="attr">  community:</span> <span class="string">**交换机设置的团体名**</span></span><br><span class="line"><span class="string">```</span> </span><br><span class="line"><span class="string">查找到if_mib</span> <span class="string">再此段结尾中加入</span> <span class="string">上面的配置(大概行数6199).</span></span><br><span class="line"></span><br><span class="line"><span class="string">![demo](https://t1.picb.cc/uploads/2019/08/29/gjuSAc.png)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 部署snmp_expor</span></span><br><span class="line"></span><br><span class="line"><span class="string">```bash</span></span><br><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="bullet">-d</span> <span class="bullet">--restart</span> <span class="string">always</span> <span class="string">\</span></span><br><span class="line"><span class="bullet">-</span><span class="string">v</span> <span class="string">/home/along/snmp.yml:/etc/snmp_exporter/snmp.yml</span> <span class="string">\</span></span><br><span class="line"><span class="bullet">-</span><span class="string">p</span> <span class="number">9116</span><span class="string">:9116</span> <span class="bullet">--name</span> <span class="string">snmp-exporter</span> <span class="string">prom/snmp-exporter</span> <span class="string">\</span> <span class="bullet">--config.file="/etc/snmp_exporter/snmp.yml"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">auth:</span></span><br><span class="line"><span class="attr">  community:</span> <span class="string">**交换机设置的团体名**</span></span><br></pre></td></tr></table></figure>
+<p>查找到if_mib 再此段结尾中加入 上面的配置(大概行数6199).</p>
+<p><img src="https://t1.picb.cc/uploads/2019/08/29/gjuSAc.png" alt="demo"></p>
+<h3 id="部署snmp-expor"><a href="#部署snmp-expor" class="headerlink" title="部署snmp_expor"></a>部署snmp_expor</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart always \</span><br><span class="line">-v /home/along/snmp.yml:/etc/snmp_exporter/snmp.yml \</span><br><span class="line">-p 9116:9116 --name snmp-exporter prom/snmp-exporter \ --config.file=<span class="string">"/etc/snmp_exporter/snmp.yml"</span></span><br></pre></td></tr></table></figure>
 <h3 id="配置华为s2700交换机"><a href="#配置华为s2700交换机" class="headerlink" title="配置华为s2700交换机"></a>配置华为s2700交换机</h3><p>自行查阅文档.懒得写了.</p>
 <h3 id="验证服务"><a href="#验证服务" class="headerlink" title="验证服务"></a>验证服务</h3><p>访问 <a href="http://IP:9116/metrics" target="_blank" rel="noopener">http://IP:9116/metrics</a> 能返回数据,snmp_export服务正常.</p>
 <p>测试是否能获取到目标设备的数据:<br>访问 <a href="http://IP:9116/snmp?target=DEVIP" target="_blank" rel="noopener">http://IP:9116/snmp?target=DEVIP</a><br>能获取到数据,配置成功.</p>
 <p><strong>注意防火墙 把需要的端口加入规则中,不然访问不到排查绕弯路</strong></p>
-<h3 id="配置promthues"><a href="#配置promthues" class="headerlink" title="配置promthues"></a>配置promthues</h3><p>修改 promthues.yml文件. 添加一个新的job.<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- job_name:</span> <span class="string">snmp</span></span><br><span class="line"><span class="attr">  honor_timestamps:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  params:</span></span><br><span class="line"><span class="attr">    module:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">if_mib</span></span><br><span class="line"><span class="attr">  scrape_interval:</span> <span class="number">15</span><span class="string">s</span></span><br><span class="line"><span class="attr">  scrape_timeout:</span> <span class="number">10</span><span class="string">s</span></span><br><span class="line"><span class="attr">  metrics_path:</span> <span class="string">/snmp</span></span><br><span class="line"><span class="attr">  scheme:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">  static_configs:</span></span><br><span class="line"><span class="attr">  - targets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">172.16</span><span class="number">.23</span><span class="number">.253</span></span><br><span class="line"><span class="attr">    labels:</span></span><br><span class="line"><span class="attr">      tag:</span> <span class="string">huawei-switch-s2700</span></span><br><span class="line"><span class="attr">  relabel_configs:</span></span><br><span class="line"><span class="attr">  - source_labels:</span> <span class="string">[__address__]</span></span><br><span class="line"><span class="attr">    separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">__param_target</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">  - source_labels:</span> <span class="string">[__param_target]</span></span><br><span class="line"><span class="attr">    separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">instance</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">  - separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">__address__</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="number">172.16</span><span class="number">.23</span><span class="number">.12</span><span class="string">:9116</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="配置promthues"><a href="#配置promthues" class="headerlink" title="配置promthues"></a>配置promthues</h3><p>修改 promthues.yml文件. 添加一个新的job.</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- job_name:</span> <span class="string">snmp</span></span><br><span class="line"><span class="attr">  honor_timestamps:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  params:</span></span><br><span class="line"><span class="attr">    module:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">if_mib</span></span><br><span class="line"><span class="attr">  scrape_interval:</span> <span class="number">15</span><span class="string">s</span></span><br><span class="line"><span class="attr">  scrape_timeout:</span> <span class="number">10</span><span class="string">s</span></span><br><span class="line"><span class="attr">  metrics_path:</span> <span class="string">/snmp</span></span><br><span class="line"><span class="attr">  scheme:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">  static_configs:</span></span><br><span class="line"><span class="attr">  - targets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">172.16</span><span class="number">.23</span><span class="number">.253</span></span><br><span class="line"><span class="attr">    labels:</span></span><br><span class="line"><span class="attr">      tag:</span> <span class="string">huawei-switch-s2700</span></span><br><span class="line"><span class="attr">  relabel_configs:</span></span><br><span class="line"><span class="attr">  - source_labels:</span> <span class="string">[__address__]</span></span><br><span class="line"><span class="attr">    separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">__param_target</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">  - source_labels:</span> <span class="string">[__param_target]</span></span><br><span class="line"><span class="attr">    separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">instance</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="string">$1</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br><span class="line"><span class="attr">  - separator:</span> <span class="string">;</span></span><br><span class="line"><span class="attr">    regex:</span> <span class="string">(.*)</span></span><br><span class="line"><span class="attr">    target_label:</span> <span class="string">__address__</span></span><br><span class="line"><span class="attr">    replacement:</span> <span class="number">172.16</span><span class="number">.23</span><span class="number">.12</span><span class="string">:9116</span></span><br><span class="line"><span class="attr">    action:</span> <span class="string">replace</span></span><br></pre></td></tr></table></figure>
 <p>之前部署prometheus 有一个参数是为了热加载配置的.<br>这里需要reload一下配置,<code>curl -X POST http://IP:9090/-/reload</code>,如果你没有就重启服务吧.</p>
 <h3 id="验证-Prometheus配置"><a href="#验证-Prometheus配置" class="headerlink" title="验证 Prometheus配置"></a>验证 Prometheus配置</h3><p>访问 <a href="http://IP:9090/" target="_blank" rel="noopener">http://IP:9090/</a><br>点击 Status-&gt;Target 可以看到监控的节点,之前我们是有一个,现在是两个节点了.</p>
 <p><img src="https://t1.picb.cc/uploads/2019/08/29/gjCvPF.png" alt></p>
@@ -643,7 +660,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -700,7 +717,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -775,7 +794,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -813,7 +834,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SNMP"><span class="nav-number">1.</span> <span class="nav-text">SNMP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">2.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">3.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署snmp-expoer"><span class="nav-number">4.</span> <span class="nav-text">部署snmp_expoer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置华为s2700交换机"><span class="nav-number">4.1.</span> <span class="nav-text">配置华为s2700交换机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证服务"><span class="nav-number">4.2.</span> <span class="nav-text">验证服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置promthues"><span class="nav-number">4.3.</span> <span class="nav-text">配置promthues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证-Prometheus配置"><span class="nav-number">4.4.</span> <span class="nav-text">验证 Prometheus配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SNMP"><span class="nav-number">1.</span> <span class="nav-text">SNMP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">2.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">3.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署snmp-expoer"><span class="nav-number">4.</span> <span class="nav-text">部署snmp_expoer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#部署snmp-expor"><span class="nav-number">4.1.</span> <span class="nav-text">部署snmp_expor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置华为s2700交换机"><span class="nav-number">4.2.</span> <span class="nav-text">配置华为s2700交换机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证服务"><span class="nav-number">4.3.</span> <span class="nav-text">验证服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置promthues"><span class="nav-number">4.4.</span> <span class="nav-text">配置promthues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证-Prometheus配置"><span class="nav-number">4.5.</span> <span class="nav-text">验证 Prometheus配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -846,7 +867,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">71k</span>
+    <span title="站点总字数">77k</span>
   
 
   
@@ -855,7 +876,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:04</span>
+    <span title="站点阅读时长">1:10</span>
   
 </div>
 
