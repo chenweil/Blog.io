@@ -16,33 +16,33 @@ tags:
 
 因为刚好所有通用的指标都取得通用的mib树. 在后期我搜集设备的信息需要一些私有mib的数据,这时候需要自己通过生成器来生成snmp.yml.
 
-### Generator 的操作步骤
+## Generator 的操作步骤
 
-1. 下载需要的程序
-   
-   ```
-   # Debian-based distributions.
-   sudo apt-get install unzip build-essential libsnmp-dev # Debian-based distros
-   # Redhat-based distributions.
-   sudo yum install gcc gcc-g++ make net-snmp net-snmp-utils net-snmp-libs net-snmp-devel # RHEL-based distros
-   
-   go get github.com/prometheus/snmp_exporter/generator
-   cd ${GOPATH-$HOME/go}/src/github.com/prometheus/snmp_exporter/generator
-   go build
-   make mibs(不建议直接make)
-   ```
-   
-   这里直接make mibs 可能会失败,他在make文件里设置的源有些已经不能访问了.
-   
-   我建议先下载好mibs ,我已经上传[github](https://github.com/prometheus/snmp_exporter).
-   
-   ***建议自行搜集mib 不执行make mibs会方便一些***
-   
-   把所有的mib放入mibs 目录下.
 
-2. 首先,我们需要准备好所有需要涉及到的mib文件. 除了公有的mib,我们还需要监控目标设备的私有mib.思科/华为之类的会提供这些mib,像锐捷这种需要和商务部联系.
-   
-   
+
+### 下载需要的程序
+
+```
+# Debian-based distributions.
+sudo apt-get install unzip build-essential libsnmp-dev # Debian-based distros
+# Redhat-based distributions.
+sudo yum install gcc gcc-g++ make net-snmp net-snmp-utils net-snmp-libs net-snmp-devel # RHEL-based distros
+
+go get github.com/prometheus/snmp_exporter/generator
+cd ${GOPATH-$HOME/go}/src/github.com/prometheus/snmp_exporter/generator
+go build
+make mibs(不建议直接make)
+```
+
+这里直接make mibs 可能会失败,他在make文件里设置的源有些已经不能访问了.
+
+我建议先下载好mibs ,我已经上传[github](https://github.com/prometheus/snmp_exporter).
+
+***建议自行搜集mib 不执行make mibs会方便一些***
+
+把所有的mib放入mibs 目录下.
+
+需要准备好所有需要涉及到的mib文件. 除了公有的mib,我们还需要监控目标设备的私有mib.思科/华为之类的会提供这些mib,像锐捷这种需要和商务部联系.
 
 ---
 
@@ -56,7 +56,7 @@ tags:
 
 ---
 
-3. 当我们准备好所有的mib后,需要编写一个generator.yml.
+### 当我们准备好所有的mib后,需要编写一个generator.yml.
 
 下面是一个翻译的官方文档(翻译比较烂,自行查阅[原文]([https://github.com/prometheus/snmp_exporter/tree/master/generator](https://github.com/prometheus/snmp_exporter/tree/master/generator))):
 
@@ -199,13 +199,13 @@ modules:
 
 * overrides  前三个指标删除,后面几项是定义了他们的数据类型.
 
-4. 万事具备,只差执行.
-   
-   准备工作完成之后,就可以执行程序了. 
-   
-   ```bash
-   export MIBDIRS=mibs
-   ./generator generate
-   ```
-   
-   执行后,可以看到snmp.yml.
+### 万事具备,只差执行.
+
+准备工作完成之后,就可以执行程序了. 
+
+```bash
+export MIBDIRS=mibs
+./generator generate
+```
+
+执行后,可以看到snmp.yml.
