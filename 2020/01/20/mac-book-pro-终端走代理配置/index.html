@@ -100,10 +100,13 @@
 <meta property="og:site_name" content="aLong">
 <meta property="og:description" content="mac 终端走ssr代理前提是你已经知道怎么使用shadowsocks软件，并且可以出去之后。 看下自己ssr 代理端口号是多少高级设置看下 本地Socks5监听端口记住这个端口号。后面：mac 现在默认终端是用的zsh编辑 vi ～/.zshrc在最后加入//alias 后面的名字自己可以按照习惯定义， 比如我定义proxy 是 ss。 每当我需要时候 ss 一下就可以了。 不需要的时候执行第二">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-20T00:17:30.878Z">
+<meta property="og:image" content="https://s2.ax1x.com/2020/01/20/1PYNKs.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/01/20/1PYabq.png">
+<meta property="og:updated_time" content="2020-01-20T01:43:26.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac book pro 终端走代理配置">
 <meta name="twitter:description" content="mac 终端走ssr代理前提是你已经知道怎么使用shadowsocks软件，并且可以出去之后。 看下自己ssr 代理端口号是多少高级设置看下 本地Socks5监听端口记住这个端口号。后面：mac 现在默认终端是用的zsh编辑 vi ～/.zshrc在最后加入//alias 后面的名字自己可以按照习惯定义， 比如我定义proxy 是 ss。 每当我需要时候 ss 一下就可以了。 不需要的时候执行第二">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/01/20/1PYNKs.png">
 
 
 
@@ -384,7 +387,7 @@
                 
               
 
-              <time title="创建时间：2020-01-20 08:13:10 / 修改时间：08:17:30" itemprop="dateCreated datePublished" datetime="2020-01-20T08:13:10+08:00">2020-01-20</time>
+              <time title="创建时间：2020-01-20 08:13:10 / 修改时间：09:43:26" itemprop="dateCreated datePublished" datetime="2020-01-20T08:13:10+08:00">2020-01-20</time>
             
 
             
@@ -470,7 +473,7 @@
 
       
         <h3 id="mac-终端走ssr代理"><a href="#mac-终端走ssr代理" class="headerlink" title="mac 终端走ssr代理"></a>mac 终端走ssr代理</h3><p><strong>前提是你已经知道怎么使用shadowsocks软件，并且可以出去之后。</strong></p>
-<p>看下自己ssr 代理端口号是多少<br>高级设置看下 本地Socks5监听端口<br>记住这个端口号。<br>后面：<br>mac 现在默认终端是用的zsh<br>编辑 <code>vi ～/.zshrc</code><br>在最后加入<br>//alias 后面的名字自己可以按照习惯定义， 比如我定义proxy 是 ss。 每当我需要时候 ss 一下就可以了。 不需要的时候执行第二句。</p>
+<p>看下自己ssr 代理端口号是多少<br>高级设置看下 本地Socks5监听端口<br><img src="https://s2.ax1x.com/2020/01/20/1PYNKs.png" alt="高级设置"><br><img src="https://s2.ax1x.com/2020/01/20/1PYabq.png" alt="端口号"><br>记住这个端口号。<br>后面：<br>mac 现在默认终端是用的zsh<br>编辑 <code>vi ～/.zshrc</code><br>在最后加入<br>//alias 后面的名字自己可以按照习惯定义， 比如我定义proxy 是 ss。 每当我需要时候 ss 一下就可以了。 不需要的时候执行第二句。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//端口按照你的来配置alias unproxy='unset all_proxy'</span><br><span class="line">alias proxy='export all_proxy=socks5://127.0.0.1:1086'</span><br></pre></td></tr></table></figure>
 <p>测试：<br>首先在没有走ss 的时候， <code>curl cip.cc</code> 得到一个国内的信息。<br>当使用ss之后， 再通过这个查询就可以看到变化了。</p>
 <p>为了便捷，我觉得这个命令也可以设置成别名方式。</p>
