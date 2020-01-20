@@ -15,6 +15,8 @@ tags:
 
 看下自己ssr 代理端口号是多少 
 高级设置看下 本地Socks5监听端口
+![高级设置](https://s2.ax1x.com/2020/01/20/1PYNKs.png)
+![端口号](https://s2.ax1x.com/2020/01/20/1PYabq.png)
 记住这个端口号。
 后面：
 mac 现在默认终端是用的zsh 
