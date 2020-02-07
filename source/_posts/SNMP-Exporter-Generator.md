@@ -36,7 +36,7 @@ make mibs(不建议直接make)
 
 这里直接make mibs 可能会失败,他在make文件里设置的源有些已经不能访问了.
 
-我建议先下载好mibs ,我已经上传[github](https://github.com/prometheus/snmp_exporter).
+我建议先下载好mibs ,我已经上传[github](https://github.com/chenweil/mibs).
 
 ***建议自行搜集mib 不执行make mibs会方便一些***
 
