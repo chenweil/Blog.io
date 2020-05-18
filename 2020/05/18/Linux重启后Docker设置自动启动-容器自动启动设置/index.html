@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="aLong">
 <meta property="og:description" content="Linux系统重启后Docker自动启动  系统重启后，如果docker没有启动，那么docker下所有的服务就都挂了。  配置过一次总是忘记命令，这里特意记录一下：  systemctl enable docker.service 容器自动启动配置容器配置好自动启动后，当docker运行后，容器也自动启动。这样能保证服务的稳定性。不用再登录到系统来操作各种容易启动问题。涉及到的参数为：--res">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-18T03:15:58.883Z">
+<meta property="og:updated_time" content="2020-05-18T03:18:41.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux重启后Docker设置自动启动&amp;容器自动启动设置">
 <meta name="twitter:description" content="Linux系统重启后Docker自动启动  系统重启后，如果docker没有启动，那么docker下所有的服务就都挂了。  配置过一次总是忘记命令，这里特意记录一下：  systemctl enable docker.service 容器自动启动配置容器配置好自动启动后，当docker运行后，容器也自动启动。这样能保证服务的稳定性。不用再登录到系统来操作各种容易启动问题。涉及到的参数为：--res">
@@ -384,7 +384,7 @@
                 
               
 
-              <time title="创建时间：2020-05-18 11:03:48 / 修改时间：11:15:58" itemprop="dateCreated datePublished" datetime="2020-05-18T11:03:48+08:00">2020-05-18</time>
+              <time title="创建时间：2020-05-18 11:03:48 / 修改时间：11:18:41" itemprop="dateCreated datePublished" datetime="2020-05-18T11:03:48+08:00">2020-05-18</time>
             
 
             
@@ -442,7 +442,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">511</span>
+                <span title="本文字数">502</span>
               
 
               
@@ -478,13 +478,18 @@
       
         <h2 id="Linux系统重启后Docker自动启动"><a href="#Linux系统重启后Docker自动启动" class="headerlink" title="Linux系统重启后Docker自动启动"></a>Linux系统重启后Docker自动启动</h2><p>  系统重启后，如果docker没有启动，那么docker下所有的服务就都挂了。<br>  配置过一次总是忘记命令，这里特意记录一下：<br>  <code>systemctl enable docker.service</code></p>
 <h2 id="容器自动启动配置"><a href="#容器自动启动配置" class="headerlink" title="容器自动启动配置"></a>容器自动启动配置</h2><p>容器配置好自动启动后，当docker运行后，容器也自动启动。这样能保证服务的稳定性。不用再登录到系统来操作各种容易启动问题。<br>涉及到的参数为：<br><code>--restart=always</code></p>
-<p>除always外，其他还有：<br>    no，默认策略，在容器退出时不重启容器</p>
-<pre><code>on-failure，在容器非正常退出时（退出状态非0），才会重启容器。例如：on-failure:3，在容器非正常退出时重启容器，最多重启3次
-
-always，在容器退出时总是重启容器
-
-unless-stopped，在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器
-</code></pre><h3 id="容器已存在更新重启配置"><a href="#容器已存在更新重启配置" class="headerlink" title="容器已存在更新重启配置"></a>容器已存在更新重启配置</h3><p>可能容器我们已经生成了，后面想实现always这个参数，可以用到下面的命令：<br><code>docker container update --restart=always 容器名XXX</code><br>这样就达到了想要的目的。</p>
+<p>参数有：</p>
+<ul>
+<li><p>no，默认策略，在容器退出时不重启容器</p>
+</li>
+<li><p>on-failure，在容器非正常退出时（退出状态非0），才会重启容器。例如：on-failure:3，在容器非正常退出时重启容器，最多重启3次</p>
+</li>
+<li><p>always，在容器退出时总是重启容器</p>
+</li>
+<li><p>unless-stopped，在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器</p>
+</li>
+</ul>
+<h3 id="容器已存在更新重启配置"><a href="#容器已存在更新重启配置" class="headerlink" title="容器已存在更新重启配置"></a>容器已存在更新重启配置</h3><p>可能容器我们已经生成了，后面想实现always这个参数，可以用到下面的命令：<br><code>docker container update --restart=always 容器名XXX</code><br>这样就达到了想要的目的。</p>
 
       
     </div>
