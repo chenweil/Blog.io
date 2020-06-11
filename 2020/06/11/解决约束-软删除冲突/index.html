@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="aLong">
 <meta property="og:description" content="约束&amp;amp;软删除冲突本咸鱼对数据库方面研究甚少。能存数据就没多考虑其他问题。尤其是在设计方面。都是按照接口或者业务推到一下就好了。这次考虑一个问题，学习了一个小问题的处理。就是标题所述 约束与软删除的冲突。 场景问题例子： 一表单 字段为： |:–|| id || name ||… || u_number || deleted_at | 考虑 u_number 唯一问题，添加 约束 UNIQU">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-11T03:43:48.685Z">
+<meta property="og:updated_time" content="2020-06-11T03:46:43.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决约束&amp;软删除冲突">
 <meta name="twitter:description" content="约束&amp;amp;软删除冲突本咸鱼对数据库方面研究甚少。能存数据就没多考虑其他问题。尤其是在设计方面。都是按照接口或者业务推到一下就好了。这次考虑一个问题，学习了一个小问题的处理。就是标题所述 约束与软删除的冲突。 场景问题例子： 一表单 字段为： |:–|| id || name ||… || u_number || deleted_at | 考虑 u_number 唯一问题，添加 约束 UNIQU">
@@ -384,7 +384,7 @@
                 
               
 
-              <time title="创建时间：2020-06-11 11:15:55 / 修改时间：11:43:48" itemprop="dateCreated datePublished" datetime="2020-06-11T11:15:55+08:00">2020-06-11</time>
+              <time title="创建时间：2020-06-11 11:15:55 / 修改时间：11:46:43" itemprop="dateCreated datePublished" datetime="2020-06-11T11:15:55+08:00">2020-06-11</time>
             
 
             
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">475</span>
+                <span title="本文字数">519</span>
               
 
               
@@ -473,13 +473,13 @@
 <p><em>场景问题例子：</em></p>
 <p>一表单 字段为：</p>
 <p>|:–|<br>| id |<br>| name |<br>|… |<br>| u_number |<br>| deleted_at |</p>
-<p>考虑 <code>u_number</code> 唯一问题，添加 约束 UNIQUE<code>。</code>u_number` 是可复用的一段唯一数据。</p>
+<p>考虑 <code>u_number</code> 唯一问题，添加 约束 <code>UNIQUE</code>。<br><code>u_number</code> 是可复用的一些唯一数据。</p>
 <p>那么问题来了：</p>
 <p>当操作软删除时候，deleted_at (类型 <code>datetime</code>) 填充删除时间后，我理想化数据已经被删除。当 <code>u_number</code> 被其他用户使用插入此表结果是失败的。</p>
 <h4 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h4><p><code>u_number</code> 因为唯一，导致后续使用此前删除的数据是不可行的，如果直接删前者数据也是不太有B格，不科学的事情。<br>通过 联合的约束来完善此事，<code>deleted_at</code> 正好是时间， 与其联合使用即解决此事。</p>
 <p>约束不再是单一约束 <code>u_number</code> 修改成 <code>u_number,deleted_at</code>。</p>
-<pre><code>-OK，完结。
-</code></pre>
+<p>-OK，完结。-                                            </p>
+
       
     </div>
 
@@ -558,6 +558,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/06/11/GORM-创建联合约束-索引/" rel="prev" title="GORM 创建联合约束/索引">
+                GORM 创建联合约束/索引 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -625,7 +629,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -690,7 +694,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">24</span>
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -785,7 +791,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">39</span>
+                      
+                    
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -856,7 +864,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">80k</span>
+    <span title="站点总字数">81k</span>
   
 
   
