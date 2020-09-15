@@ -1,5 +1,5 @@
 ---
-title: hexo博客安装与配置
+title: Hexo博客安装与配置
 date: 2019-04-01 17:59:31
 categories: Hexo
 tags: Hexo

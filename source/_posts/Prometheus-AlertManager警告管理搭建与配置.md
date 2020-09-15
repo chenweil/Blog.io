@@ -31,6 +31,7 @@ Prometheus->触发定义的警报规则->AlertManager->发送警报到指定通�
 ## 定义AlertManager通知配置
 
 ```yaml
+global:
   smtp_smarthost: 'smtp.163.com:25'               # 邮箱smtp服务器代理
   smtp_from: 'shitu-0071@163.com'                 # 发送邮箱名称
   resolve_timeout: 5m                             # 处理超时时间，默认为5min

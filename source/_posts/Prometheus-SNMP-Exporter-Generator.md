@@ -1,5 +1,5 @@
 ---
-title: SNMP_Exporter Generator
+title: Prometheus-SNMP_Exporter Generator
 date: 2019-12-24 15:26:33
 categories: SNMP
 tags:
@@ -8,7 +8,7 @@ tags:
 - Prometheus
 ---
 
-## SNMP Exporter
+## Prometheus-SNMP Exporter
 
 >  生成器从generator.yml读取并写入snmp.yml。
 

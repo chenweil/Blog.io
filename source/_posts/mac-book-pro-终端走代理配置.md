@@ -1,5 +1,5 @@
 ---
-title: mac book pro 终端走代理配置
+title: Mac book pro 终端走代理配置
 date: 2020-01-20 08:13:10
 categories: note
 tags:
