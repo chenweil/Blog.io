@@ -20,7 +20,7 @@ tags:
 
 
 
-### 下载需要的程序
+### 下载需要的程序(Docker方式跳过此步骤)
 
 ```
 # Debian-based distributions.
@@ -202,6 +202,7 @@ modules:
 ### 万事具备,只差执行.
 
 准备工作完成之后,就可以执行程序了. 
+#### bin执行
 
 ```bash
 export MIBDIRS=mibs
@@ -209,3 +210,21 @@ export MIBDIRS=mibs
 ```
 
 执行后,可以看到snmp.yml.
+
+#### Docker方式
+
+通过dicker方式时，除上面需要的 **mibs** 文件夹和 **generate.yml** 再生成一个容器就好了。
+
+pull镜像 
+
+`docker pull prom/snmp-exporter:latest`  (查看具体版本)[https://hub.docker.com/r/prom/snmp-exporter/tags]
+
+生成snmp.yml 
+
+`docker run -ti -v "/path/XXX:/opt/"  prom/snmp-generator generate
+` 
+
+此容器挂载了一个目录，此目录下包含之前准备的 **mibs** 文件夹和 **generate.yml**。 
+
+执行完毕会在目录中生成 snmp.yml 文件。
+
