@@ -34,7 +34,7 @@ go build
 make mibs(不建议直接make)
 ```
 
-这里直接make mibs 可能会失败,他在make文件里设置的源有些已经不能访问了.
+这里直接make mibs 可能会失败,在make文件里设置的源有些已经不能访问了或执行出现错误.
 
 我建议先下载好mibs ,我已经上传[github](https://github.com/chenweil/mibs).
 
@@ -219,12 +219,33 @@ pull镜像
 
 `docker pull prom/snmp-exporter:latest`  (查看具体版本)[https://hub.docker.com/r/prom/snmp-exporter/tags]
 
-生成snmp.yml 
+镜像通过挂在宿主机文件后，通过generate.yml生成snmp.yml
 
-`docker run -ti -v "/path/XXX:/opt/"  prom/snmp-generator generate
+目录结构：
+
+```
+   ./generate.yml
+   ./mibs
+```
+
+执行生成snmp.yml 
+
+`docker run -ti -v "${PWD}:/opt/"  prom/snmp-generator generate
 ` 
 
 此容器挂载了一个目录，此目录下包含之前准备的 **mibs** 文件夹和 **generate.yml**。 
 
 执行完毕会在目录中生成 snmp.yml 文件。
 
+出现错误排查：
+
+*generate* 命令改成 *parse_errors*
+
+通常这样使用：
+
+`docker run -ti -v "${PWD}:/opt/" snmp-generator parse_errors | head`
+
+### 生成出现问题两个方向：
+
+1. generate.yml 编写存在错误，格式 或者 指令。 可参考官方提供**[模版](https://github.com/prometheus/snmp_exporter/tree/master/generator/generator.yml)**测试。
+2. mib文件准备不足，缺少mib文件。可通过官方介绍提供的**[地址](https://github.com/prometheus/snmp_exporter/tree/master/generator#where-to-get-mibs)**。我在**[github](https://github.com/chenweil/mibs)**上分享了自己收集一些mib文件

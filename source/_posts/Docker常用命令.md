@@ -51,7 +51,7 @@ docker run  xx [COMMAND]
 在docker hub查询xxx 镜像
 
 #### docker pull 
-想不想git？ docker pull xx 可以下载xx镜像到本地。 （还能联想到 push 吧？ commit ？ 这些吧）
+像不像git？ docker pull xx 可以下载xx镜像到本地。 （还能联想到 push 吧？ commit ？ 这些吧）
 
 #### docker login 
 登陆docker hub

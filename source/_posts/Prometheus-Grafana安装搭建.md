@@ -144,8 +144,10 @@ scrape_configs:
 > Grafana最常用于因特网基础设施和应用分析，但在其他领域也有用到，比如：工业传感器、家庭自动化、过程控制等等。
 > Grafana支持热插拔控制面板和可扩展的数据源，目前已经支持Graphite、InfluxDB、OpenTSDB、Elasticsearch、Prometheus等
 
-`docker run -d -p 3000:3000 --name grafana grafana/grafana
-`
+官方：`docker run -d -p 3000:3000 --name grafana grafana/grafana`
+
+汉化：`docker run -d -p 3000:3000 --name grafana chenwl2016/grafana-chs:0.1.5`
+
 执行后,通过http:IP:3000 访问grafana.
 缺省账号密码admin
 
