@@ -1,8 +1,6 @@
 ---
 title: Centos5不升级内核更新
 date: 2019-08-23 17:37:03
-categories: Linux
-tags: Centos5
 ---
 
 ### 前提
