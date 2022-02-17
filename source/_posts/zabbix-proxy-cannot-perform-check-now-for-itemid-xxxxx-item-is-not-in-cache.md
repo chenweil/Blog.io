@@ -6,7 +6,9 @@ Tags: zabbix
 ---
 
 # zabbix proxy cannot perform check now for itemid [xxxxx]: item is not in cache
+
 ## 情况
+
 接上次做完容器部署proxy后，为其添加host进行添加任务。
 
 发现一直没有数据，就到item里面执行 `execute now`。
@@ -22,7 +24,9 @@ Server没一场，那问题就在proxy了吧。
 
 提示好像是去检查对应的itemid，然后说item不在还cache中。
 赶紧上网科普！
+
 ## 原因
+
 ![I5WWwc](https://gitee.com/chenweil/aLong_note/raw/master/upimg/I5WWwc.png)
 
 因为是主动的proxy，那他会定期去server要数据。
@@ -37,7 +41,6 @@ Host是1小时之后开始有数据的，也就是他同步后就开始执行监
 
     查询到的内容：
     [地址](https://subscription.packtpub.com/book/networking_and_servers/9781784399764/1/ch01lvl1sec10/understanding-the-zabbix-proxies-data-flow)
-
 
 ## 解决
 
@@ -58,7 +61,6 @@ docker run --name zbxproxy -d \
 --restart=always \
 zabbix/zabbix-proxy-sqlite3:alpine-trunk
 ```
-
 
 --祝好
 
