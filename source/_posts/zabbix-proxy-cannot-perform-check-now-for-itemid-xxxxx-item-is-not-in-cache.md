@@ -20,23 +20,23 @@ Emmm，看下log吧。
 Server没一场，那问题就在proxy了吧。
 
 连上proxy去看看：
-![uG8E7k](https://gitee.com/chenweil/aLong_note/raw/master/upimg/uG8E7k.png)
+![TQcfjq.png](https://s2.loli.net/2022/05/30/LSCEA9yqXHwiZmk.png)
 
 提示好像是去检查对应的itemid，然后说item不在还cache中。
 赶紧上网科普！
 
 ## 原因
 
-![I5WWwc](https://gitee.com/chenweil/aLong_note/raw/master/upimg/I5WWwc.png)
+![I5WWwc.png](https://s2.loli.net/2022/05/30/lorCR8jJaw1OAQ6.png)
 
 因为是主动的proxy，那他会定期去server要数据。
 
 这个3600就是配置的更新周期了。1个小时才去要一次，所以肯定是没监控了。
 
 为了验证，就等了1小时看看：
-![EWJu2V](https://gitee.com/chenweil/aLong_note/raw/master/upimg/EWJu2V.png)
+![EWJu2V.png](https://s2.loli.net/2022/05/30/jBIEmozFDgJ6dq5.png)
 实锤了，1小时。后面也就有了数据。
-![C0pDSl](https://gitee.com/chenweil/aLong_note/raw/master/upimg/C0pDSl.png)
+![C0pDSl.png](https://s2.loli.net/2022/05/30/oN5DvPXsLW6gyVQ.png)
 Host是1小时之后开始有数据的，也就是他同步后就开始执行监控项了。 
 
     查询到的内容：
