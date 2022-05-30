@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/long.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="AlertManager AlertManager处理由客户端应用程序（如Prometheus服务器）发送的警报。它负责重复数据消除、分组，并将它们路由到正确的接收器集成（如电子邮件、PagerDuty或OpsGenie）。它还负责消除和抑制警报。  通过翻译官方文档可以了解到,AlertManager是负责为Prometheus(本身不会发送警报)发送警报的工具.AlertManager不是简单">
+<meta name="keywords" content="Prometheus,AlertManager">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prometheus-AlertManager警告管理搭建与配置">
+<meta property="og:url" content="http://blog.51ai.vip/2019/10/19/Prometheus-AlertManager警告管理搭建与配置/index.html">
+<meta property="og:site_name" content="aLong">
+<meta property="og:description" content="AlertManager AlertManager处理由客户端应用程序（如Prometheus服务器）发送的警报。它负责重复数据消除、分组，并将它们路由到正确的接收器集成（如电子邮件、PagerDuty或OpsGenie）。它还负责消除和抑制警报。  通过翻译官方文档可以了解到,AlertManager是负责为Prometheus(本身不会发送警报)发送警报的工具.AlertManager不是简单">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KRVQMT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KRV1LF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KRVlsU.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KRV8Z4.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KR89WF.png">
+<meta property="og:updated_time" content="2020-07-13T06:04:58.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Prometheus-AlertManager警告管理搭建与配置">
+<meta name="twitter:description" content="AlertManager AlertManager处理由客户端应用程序（如Prometheus服务器）发送的警报。它负责重复数据消除、分组，并将它们路由到正确的接收器集成（如电子邮件、PagerDuty或OpsGenie）。它还负责消除和抑制警报。  通过翻译官方文档可以了解到,AlertManager是负责为Prometheus(本身不会发送警报)发送警报的工具.AlertManager不是简单">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/10/29/KRVQMT.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.51ai.vip/2019/10/19/Prometheus-AlertManager警告管理搭建与配置/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Prometheus-AlertManager警告管理搭建与配置 | aLong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aLong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">一个人总是可以善待他毫不在意的人。--王尔德</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/10/19/Prometheus-AlertManager警告管理搭建与配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aLong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aLong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Prometheus-AlertManager警告管理搭建与配置
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-19 09:40:15" itemprop="dateCreated datePublished" datetime="2019-10-19T09:40:15+08:00">2019-10-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-13 14:04:58" itemprop="dateModified" datetime="2020-07-13T14:04:58+08:00">2020-07-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Prometheus/" itemprop="url" rel="index"><span itemprop="name">Prometheus</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Prometheus/AlertManager/" itemprop="url" rel="index"><span itemprop="name">AlertManager</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">11k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">10 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="AlertManager"><a href="#AlertManager" class="headerlink" title="AlertManager"></a>AlertManager</h2><blockquote>
+<p>AlertManager处理由客户端应用程序（如Prometheus服务器）发送的警报。<br>它负责重复数据消除、分组，并将它们路由到正确的接收器集成（如电子邮件、PagerDuty或OpsGenie）。<br>它还负责消除和抑制警报。</p>
+</blockquote>
+<p>通过翻译官方文档可以了解到,AlertManager是负责为Prometheus(本身不会发送警报)发送警报的工具.<br>AlertManager不是简单发送警报,可以消除重复警报,分组,抑制警报功能.并支持多接收器.</p>
+<p>Prometheus-&gt;触发定义的警报规则-&gt;AlertManager-&gt;发送警报到指定通知渠道.</p>
+<p>为了能让Prometheus发送警报,我们需要:</p>
+<ol>
+<li>搭建AlertManager服务.</li>
+<li>定义AlertManager通知配置.</li>
+<li>定义Prometheus警报规则并引入.</li>
+<li>测试警报.</li>
+<li>定义通知模板.</li>
+</ol>
+<h2 id="定义AlertManager通知配置"><a href="#定义AlertManager通知配置" class="headerlink" title="定义AlertManager通知配置"></a>定义AlertManager通知配置</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line"><span class="attr">  smtp_smarthost:</span> <span class="string">'smtp.163.com:25'</span>               <span class="comment"># 邮箱smtp服务器代理</span></span><br><span class="line"><span class="attr">  smtp_from:</span> <span class="string">'shitu-0071@163.com'</span>                 <span class="comment"># 发送邮箱名称</span></span><br><span class="line"><span class="attr">  resolve_timeout:</span> <span class="number">5</span><span class="string">m</span>                             <span class="comment"># 处理超时时间，默认为5min</span></span><br><span class="line"><span class="attr">  smtp_auth_username:</span> <span class="string">'shitu-0071@163.com'</span>        <span class="comment"># 邮箱帐户</span></span><br><span class="line"><span class="attr">  smtp_auth_password:</span> <span class="string">'******'</span>                    <span class="comment"># 邮箱授权码(注意是授权码,不知道自己查一下)</span></span><br><span class="line"><span class="attr">  wechat_api_url:</span> <span class="string">'https://qyapi.weixin.qq.com/cgi-bin/'</span>   <span class="comment"># 企业微信地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义模板信心</span></span><br><span class="line"><span class="attr">templates:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">'template/*.tmpl'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义路由树信息</span></span><br><span class="line"><span class="attr">route:</span>   </span><br><span class="line"><span class="attr">  group_by:</span> <span class="string">['alertname',</span> <span class="string">'cluster'</span><span class="string">,</span> <span class="string">'service'</span><span class="string">]</span>        <span class="comment"># 报警分组依据,设置后会按照设定值分组,例如instance,alertname等</span></span><br><span class="line">                                                       <span class="comment"># 同标签警告会在作为一组警报发送</span></span><br><span class="line"><span class="attr">  group_wait:</span> <span class="number">10</span><span class="string">s</span>                                      <span class="comment"># 组内等待时间,触发阈值后,XXs后发送本组警报</span></span><br><span class="line"><span class="attr">  group_interval:</span> <span class="number">10</span><span class="string">s</span>                                  <span class="comment"># 每个组之前间隔时间(group_by设定的值划分的组)</span></span><br><span class="line"><span class="attr">  repeat_interval:</span> <span class="number">1</span><span class="string">m</span>                                  <span class="comment"># 重复发送警报的周期</span></span><br><span class="line">  <span class="string">(对于email配置中，此项不可以设置过低，否则将会由于邮件发送太多频繁，被smtp服务器拒绝)</span></span><br><span class="line"><span class="attr">  receiver:</span> <span class="string">'email'</span>                                    <span class="comment"># 发送警报的接收者的名称</span></span><br><span class="line">                                                       <span class="comment"># 以下receivers name的名称</span></span><br><span class="line"><span class="attr">  routes:</span></span><br><span class="line"><span class="attr">  - match:</span>                      <span class="comment"># 普通匹配</span></span><br><span class="line"><span class="attr">      serverity:</span> <span class="string">critical</span>       <span class="comment"># 警告级别critical</span></span><br><span class="line"><span class="attr">    receiver:</span> <span class="string">email</span>             <span class="comment"># 通过邮件发送</span></span><br><span class="line"><span class="attr">  - match_re:</span>                   <span class="comment"># 正则匹配</span></span><br><span class="line"><span class="attr">      severity:</span> <span class="string">^(warning)$</span>     <span class="comment"># 匹配警告级别为warning的</span></span><br><span class="line"><span class="attr">    receiver:</span> <span class="string">wechat</span>            <span class="comment"># 通过微信发送告警</span></span><br><span class="line"><span class="attr">  - receiver:</span> <span class="string">along</span>             <span class="comment"># 定义接收者</span></span><br><span class="line"><span class="attr">    match:</span>                      <span class="comment"># 匹配</span></span><br><span class="line"><span class="attr">      severity:</span> <span class="string">test</span>            <span class="comment"># 等级为test</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义警报接收者信息</span></span><br><span class="line"><span class="attr">receivers:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">'email'</span>               <span class="comment"># 警报</span></span><br><span class="line"><span class="attr">    email_configs:</span>              <span class="comment"># 邮箱配置</span></span><br><span class="line"><span class="attr">    - to:</span> <span class="string">'******@163.com'</span>      <span class="comment"># 接收警报的email配置</span></span><br><span class="line"><span class="attr">      html:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "test.html" . &#125;&#125;</span>'</span>      <span class="comment"># 设定邮箱的内容模板</span></span><br><span class="line"><span class="attr">      headers:</span> <span class="string">&#123;</span> <span class="attr">Subject:</span> <span class="string">"[WARN] 报警邮件"</span><span class="string">&#125;</span>     <span class="comment"># 接收邮件的标题</span></span><br><span class="line"><span class="attr">    webhook_configs:</span> <span class="comment"># webhook配置</span></span><br><span class="line"><span class="attr">    - url:</span> <span class="string">'http://127.0.0.1:5001'</span></span><br><span class="line"><span class="attr">    send_resolved:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">'wechat'</span></span><br><span class="line"><span class="attr">    wechat_configs:</span> <span class="comment"># 企业微信报警配置</span></span><br><span class="line"><span class="attr">    - send_resolved:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">      to_party:</span> <span class="string">'1'</span> <span class="comment"># 接收组的id</span></span><br><span class="line"><span class="attr">      agent_id:</span> <span class="string">'1000002'</span> <span class="comment"># (企业微信--&gt;自定应用--&gt;AgentId)</span></span><br><span class="line"><span class="attr">      corp_id:</span> <span class="string">'******'</span> <span class="comment"># 企业信息(我的企业--&gt;CorpId[在底部])</span></span><br><span class="line"><span class="attr">      api_secret:</span> <span class="string">'******'</span> <span class="comment"># 企业微信(企业微信--&gt;自定应用--&gt;Secret)</span></span><br><span class="line"><span class="attr">      message:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "test_wechat.html" . &#125;&#125;</span>'</span> <span class="comment"># 发送消息模板的设定</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个inhibition规则是在与另一组匹配器匹配的警报存在的条件下，</span></span><br><span class="line"><span class="comment"># 使匹配一组匹配器的警报失效的规则。两个警报必须具有一组相同的标签。 </span></span><br><span class="line"><span class="attr">inhibit_rules:</span> </span><br><span class="line"><span class="attr">  - source_match:</span> </span><br><span class="line"><span class="attr">     severity:</span> <span class="string">'critical'</span> </span><br><span class="line"><span class="attr">    target_match:</span> </span><br><span class="line"><span class="attr">     severity:</span> <span class="string">'critical'</span> </span><br><span class="line"><span class="attr">    equal:</span> <span class="string">['instance']</span></span><br><span class="line">    <span class="comment"># 已经发送的告警通知匹配到target_match和target_match_re规则，</span></span><br><span class="line">    <span class="comment"># 再有新的告警规则如果满足source_match</span></span><br><span class="line">    <span class="comment"># 或者定义的匹配规则，并且已发送的告警与新产生的告警中equal定义的标签完全相同，</span></span><br><span class="line">    <span class="comment"># 则启动抑制机制，新的告警不会发送。</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>以下是官方文档配置翻译的文档.供参考具体详细的配置介绍.不细看先略过到下个步骤.</p>
+<hr>
+<route>
+
+<p>路由块定义路由树中的节点及其子节点。如果未设置，则其可选配置参数将从其父节点继承。<br>每个警报都在配置的顶级路由处进入路由树，该路由树必须与所有警报匹配（即没有任何配置的匹配器）。<br>然后它遍历子节点。如果continue设置为false，则在第一个匹配的子级之后停止。<br>如果匹配节点上的continue为true，则警报将继续与后续同级节点匹配。<br>如果警报与节点的任何子节点不匹配（没有匹配的子节点，或者不存在），则基于当前节点的配置参数来处理警报。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[</span> <span class="attr">receiver:</span> <span class="string">&lt;string&gt;</span> <span class="string">]</span></span><br><span class="line"><span class="comment"># 用于将传入警报分组在一起的标签。 </span></span><br><span class="line"><span class="comment"># 例如，针对cluster = A和alertname = LatencyHigh的多个警报将被分为一个组。</span></span><br><span class="line"><span class="comment"># 要按所有可能的标签进行汇总，请使用特殊值'...'作为唯一的标签名称，例如：group_by：['...']</span></span><br><span class="line"><span class="comment"># 这样可以有效地完全禁用聚合，并按原样传递所有警报。 </span></span><br><span class="line"><span class="comment"># 除非您的警报量非常低或上游通知系统执行自己的分组，否则这不太可能是您想要的。</span></span><br><span class="line"><span class="string">[</span> <span class="attr">group_by:</span> <span class="string">'['</span> <span class="string">&lt;labelname&gt;,</span> <span class="string">...</span> <span class="string">']'</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 警报是否应继续匹配后续的同级节点</span></span><br><span class="line"><span class="string">[</span> <span class="attr">continue:</span> <span class="string">&lt;boolean&gt;</span> <span class="string">| default = false ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 警报必须满足的一组相等匹配器才能匹配节点。</span></span><br><span class="line"><span class="string"></span><span class="attr">match:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;labelname&gt;:</span> <span class="string">&lt;labelvalue&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 警报必须满足以匹配节点的一组正则表达式匹配器。</span></span><br><span class="line"><span class="attr">match_re:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;labelname&gt;:</span> <span class="string">&lt;regex&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最初等待为一组警报发送通知的时间。 </span></span><br><span class="line"><span class="comment"># 允许等待禁止警报到达或为同一组收集更多初始警报。 （通常〜0秒到几分钟。）</span></span><br><span class="line"><span class="string">[</span> <span class="attr">group_wait:</span> <span class="string">&lt;duration&gt;</span> <span class="string">| default = 30s ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 发送有关新警报的通知之前要等待的时间，</span></span><br><span class="line"><span class="string"># 该通知将添加到已为其发送了初始通知的一组警报中。 （通常〜5m或更多。）</span></span><br><span class="line"><span class="string">[ group_interval: &lt;duration&gt; | default = 5m ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 如果已成功发送警报，则等待多长时间才能再次发送通知。 （通常〜3h或更长时间）。</span></span><br><span class="line"><span class="string">[ repeat_interval: &lt;duration&gt; | default = 4h ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 零个或多个子路由。</span></span><br><span class="line"><span class="string"></span><span class="attr">routes:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;route&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br></pre></td></tr></table></figure>
+<p>&lt;inhibit_rule&gt;<br>当与另一组匹配器匹配的警报（源）存在时，禁止规则静默匹配匹配器集合的警报（目标）。<br>对于相等列表中的标签名称，目标和源警报必须具有相同的标签值。<br>从语义上讲，缺失的标签和空值的标签是一样的。<br>因此，如果源警报和目标警报中均缺少equal中列出的所有标签名称，则将应用抑制规则。<br>为了防止警报抑制自身，与规则的目标端和源端都匹配的警报不能被相同的警报（包括自身）抑制。<br>但是，我们建议选择目标和源匹配器时，警报不会同时匹配双方。这很容易推理，也不会引发这种特殊情况。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 必须在警报中完成的匹配项才能被禁用</span></span><br><span class="line"><span class="attr">target_match:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;labelname&gt;:</span> <span class="string">&lt;labelvalue&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"><span class="attr">target_match_re:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;labelname&gt;:</span> <span class="string">&lt;regex&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 匹配器必须具有一个或多个警报才能使抑制生效</span></span><br><span class="line"><span class="attr">source_match:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;labelname&gt;:</span> <span class="string">&lt;labelvalue&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"><span class="attr">source_match_re:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;labelname&gt;:</span> <span class="string">&lt;regex&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 必须在源警报和目标警报中具有相等值的标签才能使抑制生效</span></span><br><span class="line"><span class="string">[</span> <span class="attr">equal:</span> <span class="string">'['</span> <span class="string">&lt;labelname&gt;,</span> <span class="string">...</span> <span class="string">']'</span> <span class="string">]</span></span><br></pre></td></tr></table></figure>
+<receiver>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 接收者的唯一名称</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">&lt;string&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个通知集成的配置(这里只列出三个其他请看官网)</span></span><br><span class="line"><span class="attr">email_configs:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;email_config&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"><span class="attr">webhook_configs:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;webhook_config&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br><span class="line"><span class="attr">wechat_configs:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;wechat_config&gt;,</span> <span class="string">...</span> <span class="string">]</span></span><br></pre></td></tr></table></figure>
+<p>&lt;email_config&gt;<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否通知已解决的警报</span></span><br><span class="line"><span class="string">[</span> <span class="attr">send_resolved:</span> <span class="string">&lt;boolean&gt;</span> <span class="string">| default = false ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 要向其发送通知的电子邮件地址</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span><span class="attr">to:</span> <span class="string">&lt;tmpl_string&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发件人地址</span></span><br><span class="line"></span><br><span class="line"><span class="string">[</span> <span class="attr">from:</span> <span class="string">&lt;tmpl_string&gt;</span> <span class="string">| default = global.smtp_from ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 发送电子邮件的SMTP主机</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ smarthost: &lt;string&gt; | default = global.smtp_smarthost ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 要标识到SMTP服务器的主机名</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ hello: &lt;string&gt; | default = global.smtp_hello ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># SMTP身份验证信息.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ auth_username: &lt;string&gt; | default = global.smtp_auth_username ]</span></span><br><span class="line"><span class="string">[ auth_password: &lt;secret&gt; | default = global.smtp_auth_password ]</span></span><br><span class="line"><span class="string">[ auth_secret: &lt;secret&gt; | default = global.smtp_auth_secret ]</span></span><br><span class="line"><span class="string">[ auth_identity: &lt;string&gt; | default = global.smtp_auth_identity ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># SMTP TLS要求</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ require_tls: &lt;bool&gt; | default = global.smtp_require_tls ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># TLS配置</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span><span class="attr">tls_config:</span></span><br><span class="line">  <span class="string">[</span> <span class="string">&lt;tls_config&gt;</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 电子邮件通知的HTML正文</span></span><br><span class="line"></span><br><span class="line"><span class="string">[</span> <span class="attr">html:</span> <span class="string">&lt;tmpl_string&gt;</span> <span class="string">| default = '<span class="template-variable">&#123;&#123; template "email.default.html" . &#125;&#125;</span>' ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 电子邮件通知的正文</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ text: &lt;tmpl_string&gt; ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 更多标题电子邮件标题键/值对,重写通知实现以前设置的任何头</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 先前由通知实现设置的。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ headers: &#123; &lt;string&gt;: &lt;tmpl_string&gt;, ... &#125; ]</span></span><br></pre></td></tr></table></figure></p>
+<p>&lt;webhook_config&gt;<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否通知已解决的警报</span></span><br><span class="line"><span class="string">[</span> <span class="attr">send_resolved:</span> <span class="string">&lt;boolean&gt;</span> <span class="string">| default = true ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 要向其发送HTTP POST请求的终结点</span></span><br><span class="line"><span class="string"></span><span class="attr">url:</span> <span class="string">&lt;string&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># http客户端的配置</span></span><br><span class="line"><span class="string">[</span> <span class="attr">http_config:</span> <span class="string">&lt;http_config&gt;</span> <span class="string">| default = global.http_config ]</span></span><br></pre></td></tr></table></figure></p>
+<p>微信json 格式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"4"</span>,</span><br><span class="line">  "groupKey": &lt;string&gt;,    // 识别警报组的密钥（例如重复数据消除）</span><br><span class="line">  "status": "&lt;resolved|firing&gt;",</span><br><span class="line">  "receiver": &lt;string&gt;,</span><br><span class="line">  "groupLabels": &lt;object&gt;,</span><br><span class="line">  "commonLabels": &lt;object&gt;,</span><br><span class="line">  "commonAnnotations": &lt;object&gt;,</span><br><span class="line">  "externalURL": &lt;string&gt;,  // 指向AlertManager的反向链接</span><br><span class="line">  "alerts": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"status"</span>: <span class="string">"&lt;resolved|firing&gt;"</span>,</span><br><span class="line">      <span class="attr">"labels"</span>: &lt;object&gt;,</span><br><span class="line">      <span class="attr">"annotations"</span>: &lt;object&gt;,</span><br><span class="line">      <span class="attr">"startsAt"</span>: <span class="string">"&lt;rfc3339&gt;"</span>,</span><br><span class="line">      <span class="attr">"endsAt"</span>: <span class="string">"&lt;rfc3339&gt;"</span>,</span><br><span class="line">      <span class="attr">"generatorURL"</span>: &lt;string&gt; // 标识导致警报的实体</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+&lt;wechat_config&gt;
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否通知已解决的警报</span></span><br><span class="line"><span class="string">[</span> <span class="attr">send_resolved:</span> <span class="string">&lt;boolean&gt;</span> <span class="string">| default = false ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 与微信API通信时要使用的API密钥</span></span><br><span class="line"><span class="string">[ api_secret: &lt;secret&gt; | default = global.wechat_api_secret ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 微信api网址</span></span><br><span class="line"><span class="string">[ api_url: &lt;string&gt; | default = global.wechat_api_url ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 用于身份验证的公司ID</span></span><br><span class="line"><span class="string">[ corp_id: &lt;string&gt; | default = global.wechat_api_corp_id ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 微信API定义的API请求数据</span></span><br><span class="line"><span class="string">[ message: &lt;tmpl_string&gt; | default = '<span class="template-variable">&#123;&#123; template "wechat.default.message" . &#125;&#125;</span>' ]</span></span><br><span class="line"><span class="string">[ agent_id: &lt;string&gt; | default = '<span class="template-variable">&#123;&#123; template "wechat.default.agent_id" . &#125;&#125;</span>' ]</span></span><br><span class="line"><span class="string">[ to_user: &lt;string&gt; | default = '<span class="template-variable">&#123;&#123; template "wechat.default.to_user" . &#125;&#125;</span>' ]</span></span><br><span class="line"><span class="string">[ to_party: &lt;string&gt; | default = '<span class="template-variable">&#123;&#123; template "wechat.default.to_party" . &#125;&#125;</span>' ]</span></span><br><span class="line"><span class="string">[ to_tag: &lt;string&gt; | default = '<span class="template-variable">&#123;&#123; template "wechat.default.to_tag" . &#125;&#125;</span>' ]</span></span><br></pre></td></tr></table></figure>
+<h2 id="搭建AlertManager服务"><a href="#搭建AlertManager服务" class="headerlink" title="搭建AlertManager服务"></a>搭建AlertManager服务</h2><p>部署AlertManager可以通过官网<a href="https://prometheus.io/download/" target="_blank" rel="noopener">https://prometheus.io/download/</a>下载二进制文件.<br>这里演示docker部署AlertManager服务.其他方式请参考官网.</p>
+<p>docker部署前,需要先完成配置文件的工作.</p>
+<p>我在/home/along/下创建了一个配置文件 <code>touch alertmanager.yml</code><br>之后编辑 <code>vi alertmanager.yml</code>,具体看上文的配置介绍.</p>
+<p>启动容器:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9093:9093 --name alertmanagter</span><br><span class="line">-v /home/along/alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">quay.io/prometheus/alertmanager</span><br></pre></td></tr></table></figure>
+<p>如果加载模板的话需要挂在一下模板目录(模板在下面有介绍):<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9093:9093 --name alert9093</span><br><span class="line">-v /home/along/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml</span><br><span class="line">-v /home/along/alertmanager/template:/alertmanager/template</span><br><span class="line">quay.io/prometheus/alertmanager</span><br></pre></td></tr></table></figure></p>
+<p>服务端口9093,挂在刚才设定的配置文件.</p>
+<p>访问IP:9093 可以查看AlertManager的web界面(类似prometheus的web界面).</p>
+<h2 id="定义Prometheus警报规则并引入配置"><a href="#定义Prometheus警报规则并引入配置" class="headerlink" title="定义Prometheus警报规则并引入配置"></a>定义Prometheus警报规则并引入配置</h2><h3 id="配置警报规则文件"><a href="#配置警报规则文件" class="headerlink" title="配置警报规则文件"></a>配置警报规则文件</h3><p>警报规则文件顾名思义,你想监控的指标何时需要警报.<br>例如设备温度超过多少要警告.<br>创建alert.yml,<code>touch alert.yml</code><br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">metricsUp</span>                           <span class="comment"># 定义这组告警的组名</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="attr">  - alert:</span> <span class="string">监测对象挂了</span>                       <span class="comment"># 警报名 可理解为警告的标题 </span></span><br><span class="line"><span class="attr">    expr:</span> <span class="string">up&#123;instance="192.168.23.11:9090"&#125;</span> <span class="string">==</span> <span class="number">0</span>  <span class="comment"># 判断某值的规则</span></span><br><span class="line"><span class="attr">    for:</span> <span class="number">5</span><span class="string">m</span>                                 <span class="comment"># 上面规则持续5分钟为0进行告警,5分钟内触发是pending状态</span></span><br><span class="line"><span class="attr">    labels:</span>                                 <span class="comment"># 定义警报标签</span></span><br><span class="line"><span class="attr">      severity:</span> <span class="string">waring</span>                      <span class="comment"># 定义警报等级为 waring</span></span><br><span class="line"><span class="attr">    annotations:</span>                            <span class="comment"># 备注描述</span></span><br><span class="line"><span class="attr">      summary:</span> <span class="string">"设备: <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> 已断开5分钟"</span>   <span class="comment"># 警告中呈现的具体信息可以写在这里</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Prometheus引入配置"><a href="#Prometheus引入配置" class="headerlink" title="Prometheus引入配置"></a>Prometheus引入配置</h3><p>警报规则是Prometheus引入的文件.<br>Prometheus引入文件的方式:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rule_files:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">"/usr/local/prometheus/alert.yml"</span> <span class="comment"># 引入定义的警报规则</span></span><br></pre></td></tr></table></figure>
+<h2 id="测试警报"><a href="#测试警报" class="headerlink" title="测试警报"></a>测试警报</h2><p>我们上面配置好之后,需要各服务已经读取到相关配置文件了之后开始测试.<br>上面的规则是监测某个监控节点断开,手动断开一个节点.然后5分钟之后观察是否得到警报.</p>
+<p>当由警报时收到的邮件为:</p>
+<p><img src="https://s2.ax1x.com/2019/10/29/KRVQMT.png" alt></p>
+<p>访问AlertManager页面也可以看到告警信息:</p>
+<p><img src="https://s2.ax1x.com/2019/10/29/KRV1LF.png" alt></p>
+<p>这里图例有些是演示用,与其他可能不存在关系.(不是同时截图的业务,图片仅供参考)</p>
+<h3 id="静默操作演示"><a href="#静默操作演示" class="headerlink" title="静默操作演示"></a>静默操作演示</h3><p>如果有些警报是我们调试的,例如我这里设置值偏低来演示ping值警报,如果我们测时候不想看到警报,可以通过静默来不让他总是发送警报.</p>
+<p><img src="https://s2.ax1x.com/2019/10/29/KRVlsU.md.png" alt></p>
+<p><img src="https://s2.ax1x.com/2019/10/29/KRV8Z4.md.png" alt></p>
+<p>之后点击create 就可以创建此警报的静默操作.</p>
+<p><strong>也可以通过正则,警报组名,实例等来静默各种警报.</strong></p>
+<h2 id="定义通知模板"><a href="#定义通知模板" class="headerlink" title="定义通知模板"></a>定义通知模板</h2><p>默认模板我们看到了,他是默认的一个告警模板,在我们测试时候可以使用,如果面向用户使用者似乎这个模板不太友好.<br>而且在面对多数据展示时,此模板也显得不是很清晰.</p>
+<p>通过定义了模板,在触发不同警报可以通过AlertManager中,receivers选项来选择模板.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">templates:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">'template/*.tmpl'</span>           <span class="comment"># 定义模板中心</span></span><br><span class="line"><span class="attr">receivers:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">'email'</span>               <span class="comment"># 警报</span></span><br><span class="line"><span class="attr">    email_configs:</span>              <span class="comment"># 邮箱配置</span></span><br><span class="line"><span class="attr">    - to:</span> <span class="string">'******@163.com'</span>      <span class="comment"># 接收警报的email配置</span></span><br><span class="line"><span class="attr">      html:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "test.html" . &#125;&#125;</span>'</span>      <span class="comment"># 设定邮箱的内容模板</span></span><br><span class="line"><span class="attr">      headers:</span> <span class="string">&#123;</span> <span class="attr">Subject:</span> <span class="string">"[WARN] 报警邮件"</span><span class="string">&#125;</span>     <span class="comment"># 接收邮件的标题</span></span><br></pre></td></tr></table></figure>
+<p>这段配置中,可以看到警报通过test.html作为模板的.他的位置在上面的定义中可以看到是 template/test.html (<strong>如果模板定制有错误,警报可能为空板,不能正常显示内容</strong>)<br>现在来配置这个test.html </p>
+<p>在 /template/ 下创建 <code>touch test.html</code><br>模板基于Go的模板系统,<a href="http://golang.org/pkg/text/template" target="_blank" rel="noopener">详情点击这里</a><br>如果不想深入连接可以结合默认模板模仿一下语法,<a href="https://github.com/prometheus/alertmanager/blob/master/template/default.tmpl" target="_blank" rel="noopener">默认模板点击这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; define &quot;email.demo.html&quot; &#125;&#125;</span><br><span class="line">&lt;pre&gt;</span><br><span class="line">&lt;table border=&quot;1&quot; cellspacing=&quot;0&quot;&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;报警名&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;设备&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;发现时间&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;详情&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &#123;&#123; range $i, $alert := .Alerts &#125;&#125;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;&#123;&#123; index $alert.Labels &quot;alertname&quot; &#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&#123;&#123; $alert.Labels.instance &#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&#123;&#123; $alert.StartsAt.Format &quot;2006-01-02 15:04:05&quot; &#125;&#125;&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&#123;&#123; $alert.Annotations.summary &#125;&#125;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &#123;&#123; end &#125;&#125;</span><br><span class="line">&lt;/table&gt;</span><br><span class="line">&lt;/pre&gt;</span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>模板保存后,测试邮件接收情况:<br><img src="https://s2.ax1x.com/2019/10/29/KR89WF.png" alt></p>
+<h4 id="模板时区问题"><a href="#模板时区问题" class="headerlink" title="模板时区问题"></a>模板时区问题</h4><p>Prometheus中所有时间都是UTC时间,为了便于我们展示友好时间(东八区),我们需要计算一下时间.<br>修改模板时间:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;td&gt;&#123;&#123;</span> <span class="string">($alert.StartsAt.Add</span> <span class="number">28800e9</span><span class="string">).Format</span> <span class="string">"2006-01-02 15:04:05"</span> <span class="string">&#125;&#125;&lt;/td&gt;</span></span><br></pre></td></tr></table></figure>
+<p><em>参考</em><br><a href="http://www.ishenping.com/ArtInfo/1265281.html#Comment" target="_blank" rel="noopener">ishenping</a><br><a href="https://songjiayang.gitbooks.io/prometheus/content/alertmanager/email.html" target="_blank" rel="noopener">songjiayang</a><br><a href="https://prometheus.io/docs/alerting/alertmanager/" target="_blank" rel="noopener">prometheus.io</a></p>
+</receiver></route>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>请我吃辣条吧？！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7b2CD.png" alt="aLong 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7bc4O.png" alt="aLong 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Prometheus/" rel="tag"># Prometheus</a>
+          
+            <a href="/tags/AlertManager/" rel="tag"># AlertManager</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/15/windows10家庭版启用组策略gpedit-msc/" rel="next" title="windows10家庭版启用组策略gpedit.msc">
+                <i class="fa fa-chevron-left"></i> windows10家庭版启用组策略gpedit.msc
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/23/网络传输速度测试工具/" rel="prev" title="网络传输速度测试工具">
+                网络传输速度测试工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aLong</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AlertManager"><span class="nav-number">1.</span> <span class="nav-text">AlertManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义AlertManager通知配置"><span class="nav-number">2.</span> <span class="nav-text">定义AlertManager通知配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建AlertManager服务"><span class="nav-number">3.</span> <span class="nav-text">搭建AlertManager服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义Prometheus警报规则并引入配置"><span class="nav-number">4.</span> <span class="nav-text">定义Prometheus警报规则并引入配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置警报规则文件"><span class="nav-number">4.1.</span> <span class="nav-text">配置警报规则文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus引入配置"><span class="nav-number">4.2.</span> <span class="nav-text">Prometheus引入配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试警报"><span class="nav-number">5.</span> <span class="nav-text">测试警报</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静默操作演示"><span class="nav-number">5.1.</span> <span class="nav-text">静默操作演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义通知模板"><span class="nav-number">6.</span> <span class="nav-text">定义通知模板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模板时区问题"><span class="nav-number">6.0.1.</span> <span class="nav-text">模板时区问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aLong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">99k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:30</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
