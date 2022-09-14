@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/long.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Zabbix6 网络发现 功能 快速发现并添加主机  简单的管理  随着环境的改变而快速搭建系统   发现配置依据 IP地址段  基于服务(FTP、SSH、Web、POP3、IMAP、TCP…)的  从Zabbix-Agent接收到的信息  SNMP agent接收的信息   添加方式 创建 Discovery rule   Name：规则名称（唯一）  Discovery by proxy： 是">
+<meta name="keywords" content="zabbix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zabbix6 网络发现">
+<meta property="og:url" content="http://blog.51ai.vip/2022/01/14/Zabbix-网络发现/index.html">
+<meta property="og:site_name" content="aLong">
+<meta property="og:description" content="Zabbix6 网络发现 功能 快速发现并添加主机  简单的管理  随着环境的改变而快速搭建系统   发现配置依据 IP地址段  基于服务(FTP、SSH、Web、POP3、IMAP、TCP…)的  从Zabbix-Agent接收到的信息  SNMP agent接收的信息   添加方式 创建 Discovery rule   Name：规则名称（唯一）  Discovery by proxy： 是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.loli.net/2022/05/30/8kqFzeiKIAr6fDN.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/30/Y8R6VhGNgmFq7KS.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/30/8azsd4mVbDPU39L.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/30/NWKO1iMeCRHqAgp.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/30/W3ELpOmN2x5tU8e.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/30/mVhnrkE9f2tlBUp.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/30/DOEN57RnsWM8cmA.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/30/sExWG2UNDCO3ld1.png">
+<meta property="og:updated_time" content="2022-05-30T09:33:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zabbix6 网络发现">
+<meta name="twitter:description" content="Zabbix6 网络发现 功能 快速发现并添加主机  简单的管理  随着环境的改变而快速搭建系统   发现配置依据 IP地址段  基于服务(FTP、SSH、Web、POP3、IMAP、TCP…)的  从Zabbix-Agent接收到的信息  SNMP agent接收的信息   添加方式 创建 Discovery rule   Name：规则名称（唯一）  Discovery by proxy： 是">
+<meta name="twitter:image" content="https://s2.loli.net/2022/05/30/8kqFzeiKIAr6fDN.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.51ai.vip/2022/01/14/Zabbix-网络发现/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Zabbix6 网络发现 | aLong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aLong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">一个人总是可以善待他毫不在意的人。--王尔德</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2022/01/14/Zabbix-网络发现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aLong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aLong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Zabbix6 网络发现
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-01-14 10:15:53" itemprop="dateCreated datePublished" datetime="2022-01-14T10:15:53+08:00">2022-01-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2022-05-30 17:33:53" itemprop="dateModified" datetime="2022-05-30T17:33:53+08:00">2022-05-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Zabbix/" itemprop="url" rel="index"><span itemprop="name">Zabbix</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Zabbix6 网络发现</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><ul>
+<li><p>快速发现并添加主机</p>
+</li>
+<li><p>简单的管理</p>
+</li>
+<li><p>随着环境的改变而快速搭建系统</p>
+</li>
+</ul>
+<h3 id="发现配置依据"><a href="#发现配置依据" class="headerlink" title="发现配置依据"></a>发现配置依据</h3><ul>
+<li><p>IP地址段</p>
+</li>
+<li><p>基于服务(FTP、SSH、Web、POP3、IMAP、TCP…)的</p>
+</li>
+<li><p>从Zabbix-Agent接收到的信息</p>
+</li>
+<li><p>SNMP agent接收的信息</p>
+</li>
+</ul>
+<h3 id="添加方式"><a href="#添加方式" class="headerlink" title="添加方式"></a>添加方式</h3><ol>
+<li><p>创建 Discovery rule</p>
+<p><img src="https://s2.loli.net/2022/05/30/8kqFzeiKIAr6fDN.png" alt="3qoFJE.png"></p>
+<ul>
+<li><p>Name：规则名称（唯一）</p>
+</li>
+<li><p>Discovery by proxy： 是否由代理执行</p>
+</li>
+<li><p>IP range： IP地址范围</p>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>单个IP: 192.168.1.33<br>IP段: 192.168.1-10.1-255. 范围受限于覆盖地址的总数（小于64K）。<br>子网掩码: : 192.168.4.0/24<br>支持的子网掩码:<br>/16 - /30 for IPv4 addresses<br>/112 - /128 for IPv6 addresses\IP列表: 192.168.1.1-255, 192.168.2.1-100, 192.168.2.200, 192.168.4.0/24<br>Zabbix 3.0.0起，此字段支持空格，表格和多行。</p>
+</blockquote>
+<ul>
+<li><p>Update interval: Zabbix执行规则的频率</p>
+</li>
+<li><p>Checks: 发现的方式</p>
+<p><img src="https://s2.loli.net/2022/05/30/Y8R6VhGNgmFq7KS.png" alt="FTCW1e.png"></p>
+</li>
+<li><p>Device uniqueness criteria：设备唯一标识</p>
+</li>
+<li><p>Host name ： 主机名</p>
+</li>
+<li><p>Visible name：描述名</p>
+<p><img src="https://s2.loli.net/2022/05/30/8azsd4mVbDPU39L.png" alt="ohbmIZ.png"></p>
+<p> 这三个选项是根据，checks里面的相关类型出来的数据。基本上都有IP地址，当checks Type 选择了 SNMP或者zabbix agent时，下面选项可以提供这两种对应的数据作为选项。</p>
+<p>唯一标识可以通过IP(默认)，或者SNMP的取值，或者zabbix agent取值。重复的名称不会处理。</p>
+<p>Host name 和 Visible name选项类似。Host name肯定是要唯一的。</p>
+</li>
+</ul>
+<ol start="2">
+<li><p>创建 Discovery actions</p>
+<p>action配置：<br><img src="https://s2.loli.net/2022/05/30/NWKO1iMeCRHqAgp.png" alt="UnF5zk.png"></p>
+<p>Name ： action 名称</p>
+<p>Conditions：action的条件</p>
+<p>Enabled: action的开关</p>
+<p>条件详情：</p>
+<p><img src="https://s2.loli.net/2022/05/30/W3ELpOmN2x5tU8e.png" alt="mbUrYY.png"></p>
+<p>Type多个方式：</p>
+<p><img src="https://s2.loli.net/2022/05/30/mVhnrkE9f2tlBUp.png" alt="T7qbkT.png"></p>
+<p>可以通过多种类型适配条件。</p>
+<p>根据选择的Type类型，下面的Operator是根据Type来配置的选项。</p>
+<p>Operator： 基本就是 等于或不等于。</p>
+<p>第三个选项是动态的，当选择 Type 是Discovery check，下面是配置 Discovery check的名称。</p>
+<p>如果Type 是Host IP，那么第三个选项就变成了Value。</p>
+<p>配置Operations：</p>
+<p>配置这个Operations 的意思是，当通过前面action条件匹配的到数据后续的操作内容。例如加入/移除设备组、关联/取消模版、发送通知等操作。</p>
+<p><img src="https://s2.loli.net/2022/05/30/DOEN57RnsWM8cmA.png" alt="yUO3dE.png"></p>
+<h3 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h3><p>我上面截图的例子中：</p>
+<p>actions 配置的内容为，通过icmp ping 发现负责此条件的设备，把这些设备分配到xxx网络摄像头的设备组里；并把主机关联的模版是icmp ping。</p>
+<p>发现之后的结果就是：</p>
+<p>在内网找到很多摄像头</p>
+<p><img src="https://s2.loli.net/2022/05/30/sExWG2UNDCO3ld1.png" alt="aj6697.png"></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>请我吃辣条吧？！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7b2CD.png" alt="aLong 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7bc4O.png" alt="aLong 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/zabbix/" rel="tag"># zabbix</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/11/linux环境redis开机启动/" rel="next" title="linux环境redis开机启动">
+                <i class="fa fa-chevron-left"></i> linux环境redis开机启动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/02/17/新年新体验hugo/" rel="prev" title="新年新体验hugo">
+                新年新体验hugo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aLong</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#功能"><span class="nav-number">1.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发现配置依据"><span class="nav-number">2.</span> <span class="nav-text">发现配置依据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加方式"><span class="nav-number">3.</span> <span class="nav-text">添加方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证结果"><span class="nav-number">4.</span> <span class="nav-text">验证结果</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aLong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">99k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:30</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

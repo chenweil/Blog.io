@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/long.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Docker-compose目前集成很多Exporter，加上grafana的image-renderer，后面又加上ping-exporter，很多东西加起来发现操作一次docker 很烦啊。 科普之后感觉自己对k8s还有有些发怵的。从简单的一个入手吧，选择了docker-compose。    Docker-Compose项目是Docker官方的开源项目，负责实现对Docker容器集群的快速编">
+<meta name="keywords" content="Grafana,Prometheus,AlertManager,Node-Exporter,Snmp-Exporter,Black-Exporter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker-compose编排搭建prometheus+grafana+alertmanager+node-exporter+snmp-exporter">
+<meta property="og:url" content="http://blog.51ai.vip/2020/11/17/docker-compose编排搭建prometheus-grafana-alertmanager-node-exporter-snmp-exporter/index.html">
+<meta property="og:site_name" content="aLong">
+<meta property="og:description" content="Docker-compose目前集成很多Exporter，加上grafana的image-renderer，后面又加上ping-exporter，很多东西加起来发现操作一次docker 很烦啊。 科普之后感觉自己对k8s还有有些发怵的。从简单的一个入手吧，选择了docker-compose。    Docker-Compose项目是Docker官方的开源项目，负责实现对Docker容器集群的快速编">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-11-17T06:31:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker-compose编排搭建prometheus+grafana+alertmanager+node-exporter+snmp-exporter">
+<meta name="twitter:description" content="Docker-compose目前集成很多Exporter，加上grafana的image-renderer，后面又加上ping-exporter，很多东西加起来发现操作一次docker 很烦啊。 科普之后感觉自己对k8s还有有些发怵的。从简单的一个入手吧，选择了docker-compose。    Docker-Compose项目是Docker官方的开源项目，负责实现对Docker容器集群的快速编">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.51ai.vip/2020/11/17/docker-compose编排搭建prometheus-grafana-alertmanager-node-exporter-snmp-exporter/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>docker-compose编排搭建prometheus+grafana+alertmanager+node-exporter+snmp-exporter | aLong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aLong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">一个人总是可以善待他毫不在意的人。--王尔德</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2020/11/17/docker-compose编排搭建prometheus-grafana-alertmanager-node-exporter-snmp-exporter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aLong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aLong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">docker-compose编排搭建prometheus+grafana+alertmanager+node-exporter+snmp-exporter
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-11-17 13:02:50 / 修改时间：14:31:23" itemprop="dateCreated datePublished" datetime="2020-11-17T13:02:50+08:00">2020-11-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">4.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">4 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Docker-compose"><a href="#Docker-compose" class="headerlink" title="Docker-compose"></a>Docker-compose</h2><p>目前集成很多Exporter，加上grafana的image-renderer，后面又加上ping-exporter，很多东西加起来发现操作一次docker 很烦啊。</p>
+<p>科普之后感觉自己对k8s还有有些发怵的。从简单的一个入手吧，选择了docker-compose。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Docker-Compose项目是Docker官方的开源项目，负责实现对Docker容器集群的快速编排。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装方式看了一下，我选择直接下载bin文件方式：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://get.daocloud.io/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` &gt; /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"></span><br><span class="line">chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose```</span><br></pre></td></tr></table></figure>
+<p>通过 <code>docker-compose version</code>  看到版本信息算是安装完成。</p>
+<h3 id="编写docker-compose-yml"><a href="#编写docker-compose-yml" class="headerlink" title="编写docker-compose.yml"></a>编写docker-compose.yml</h3><ol>
+<li>目录结构：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">├── docker-compose.yaml</span><br><span class="line">├── prometheus</span><br><span class="line">│   ├── rules </span><br><span class="line">│   │   └── *(rules).yaml/json</span><br><span class="line">│   ├── nodes</span><br><span class="line">│   │   └── *(nodes).yaml</span><br><span class="line">│   ├── data</span><br><span class="line">│   │   └── ... # 挂载prom的data数据</span><br><span class="line">│   └── prometheus.yaml</span><br><span class="line">├── alertmanager</span><br><span class="line">│   ├── templates</span><br><span class="line">│   │   └── *.tmpl</span><br><span class="line">│   └── alertmanager.yaml</span><br><span class="line">├── grafana</span><br><span class="line">│   ├── data</span><br><span class="line">│   │   ├── plugins #插件目录</span><br><span class="line">│   │   ├── png     </span><br><span class="line">│   │   └── grafana.db</span><br><span class="line">│   └── grafana.ini</span><br><span class="line">├── snmp(snmp_exporter)</span><br><span class="line">│   └── snmp.yml</span><br><span class="line">└── blackbox(balck box-exporter)</span><br><span class="line">    └── blackbox.yml</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>根据结构编写</li>
+</ol>
+   <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.8"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">    monitor:</span></span><br><span class="line"><span class="attr">        driver:</span> <span class="string">bridge</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  snmp-exporter:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">prom/snmp-exporter:v0.19.0</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">snmp</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    expose:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">9116</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"./snmp/snmp.yml:/etc/snmp_exporter/snmp.yml"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">monitor</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  node-exporter:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">prom/node-exporter:v1.0.1</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">node-exporter</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/proc:/host/proc:ro</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/sys:/host/sys:ro</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/:/rootfs:ro</span></span><br><span class="line"><span class="attr">    command:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">'--path.procfs=/host/proc'</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">'--path.rootfs=/rootfs'</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">'--path.sysfs=/host/sys'</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">'--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    expose:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">9100</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">monitor</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  blackbox-exporter:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">prom/blackbox-exporter:v0.18.0</span></span><br><span class="line"><span class="attr">    expose:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">9115</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">blackbox</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"./blackbox/:/config"</span></span><br><span class="line"><span class="attr">    command:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"--config.file=/config/blackbox.yml"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">monitor</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  cadvisor:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">google/cadvisor:v0.33.0</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">cadvisor</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/:/rootfs:ro</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/var/run:/var/run:rw</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/sys:/sys:ro</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/var/lib/docker:/var/lib/docker:ro</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">unless-stopped</span></span><br><span class="line"><span class="attr">    expose:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">monitor</span></span><br><span class="line"><span class="attr">    depends_on:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">prometheus</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  prometheus:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">prom/prometheus:v2.22.1</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">prom</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">"0"</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"9090:9090"</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"./prometheus/:/prometheus"</span></span><br><span class="line"><span class="attr">    command:</span> </span><br><span class="line"><span class="bullet">      -</span> <span class="string">"--storage.tsdb.retention.time=60d"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"--config.file=/prometheus/prometheus.yml"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"--web.enable-lifecycle"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">monitor</span></span><br><span class="line"><span class="attr">    depends_on:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">blackbox-exporter</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">node-exporter</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">snmp-exporter</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  alertmanager:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">prom/alertmanager:v0.21.0</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">alert</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./alertmanager/:/alert</span>      </span><br><span class="line"><span class="attr">    command:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">'--config.file=/alert/alertmanager.yml'</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">'--storage.path=/alert'</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"9093:9093"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">monitor</span></span><br><span class="line"><span class="attr">    depends_on:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">prometheus</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  grafana:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">chenwl2016/grafana-chs:0.1.4</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">grafana</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">"0"</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"3000:3000"</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"GF_SECURITY_ADMIN_PASSWORD=helloGf"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"GF_RENDERING_SERVER_URL=http://renderer:8081/render"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"GF_RENDERING_CALLBACK_URL=http://grafana:3000/"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"GF_LOG_FILTERS=rendering:debug"</span></span><br><span class="line"><span class="attr">    volumes:</span>  </span><br><span class="line"><span class="bullet">      -</span> <span class="string">./grafana/:/grafana</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./grafana/data/:/var/lib/grafana</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">monitor</span></span><br><span class="line"><span class="attr">    depends_on:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">prometheus</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">renderer</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  renderer:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">grafana/grafana-image-renderer:latest</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">renderer</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"8081:8081"</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"ENABLE_METRICS=true"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"RENDERING_MODE=clustered"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"RENDERING_CLUSTERING_MODE=context"</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"RENDERING_CLUSTERING_MAX_CONCURRENCY=5"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">monitor</span></span><br></pre></td></tr></table></figure>
+<p>​      <strong>当前的配置，主要是文件存储到宿主机上。通过容器挂载卷到容器内部。存储到宿主机目录时prometheus与grafana 会有权限问题。 配置中我是在user: “0”账户下，挂载目录 prometheus/grafana 都是 root:root。如果你不是root 需要根据uid:gid进行对应的配置。</strong></p>
+<p>prometheus 目录下的nodes是file_sd的配置文件，结合实际考虑docker-compose 的具体细节。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>请我吃辣条吧？！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7b2CD.png" alt="aLong 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7bc4O.png" alt="aLong 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Grafana/" rel="tag"># Grafana</a>
+          
+            <a href="/tags/Prometheus/" rel="tag"># Prometheus</a>
+          
+            <a href="/tags/AlertManager/" rel="tag"># AlertManager</a>
+          
+            <a href="/tags/Node-Exporter/" rel="tag"># Node-Exporter</a>
+          
+            <a href="/tags/Snmp-Exporter/" rel="tag"># Snmp-Exporter</a>
+          
+            <a href="/tags/Black-Exporter/" rel="tag"># Black-Exporter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/13/关闭mac的Microsoft-AutoUpdate/" rel="next" title="关闭Mac的Microsoft AutoUpdate">
+                <i class="fa fa-chevron-left"></i> 关闭Mac的Microsoft AutoUpdate
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/30/Grafana插件Plugin中文汉化/" rel="prev" title="Grafana插件Plugin中文汉化">
+                Grafana插件Plugin中文汉化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aLong</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-compose"><span class="nav-number">1.</span> <span class="nav-text">Docker-compose</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写docker-compose-yml"><span class="nav-number">1.2.</span> <span class="nav-text">编写docker-compose.yml</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aLong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">99k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:30</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

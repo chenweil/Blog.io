@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/long.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico?v=7.1.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。（如果没有梯子，最好安装下cnpm）cnpm 安装 npm install -g cnpm --registry=https://registry.npm.taobao.org安装完cnpm，下面所有npm操作替换cnpm 执行即可。 进入项目，初始化（npm init） 项目安装g">
+<meta name="keywords" content="gulp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gulp笔记">
+<meta property="og:url" content="http://blog.51ai.vip/2019/04/22/gulp笔记/index.html">
+<meta property="og:site_name" content="aLong">
+<meta property="og:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。（如果没有梯子，最好安装下cnpm）cnpm 安装 npm install -g cnpm --registry=https://registry.npm.taobao.org安装完cnpm，下面所有npm操作替换cnpm 执行即可。 进入项目，初始化（npm init） 项目安装g">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-14T06:55:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gulp笔记">
+<meta name="twitter:description" content="gulpgulp.js是一个前端构建工具。 安装 npm 安装全局gulp，npm install -g gulp。（如果没有梯子，最好安装下cnpm）cnpm 安装 npm install -g cnpm --registry=https://registry.npm.taobao.org安装完cnpm，下面所有npm操作替换cnpm 执行即可。 进入项目，初始化（npm init） 项目安装g">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.51ai.vip/2019/04/22/gulp笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>gulp笔记 | aLong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">aLong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">一个人总是可以善待他毫不在意的人。--王尔德</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.51ai.vip/2019/04/22/gulp笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aLong">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="aLong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">gulp笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-22 18:08:54" itemprop="dateCreated datePublished" datetime="2019-04-22T18:08:54+08:00">2019-04-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-04-14 14:55:05" itemprop="dateModified" datetime="2020-04-14T14:55:05+08:00">2020-04-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">4.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">4 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h3><p>gulp.js是一个前端构建工具。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li>npm</li>
+<li>安装全局gulp，<code>npm install -g gulp</code>。（如果没有梯子，最好安装下cnpm）<br>cnpm 安装 <code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code><br>安装完cnpm，下面所有npm操作替换cnpm 执行即可。</li>
+<li>进入项目，初始化（npm init）</li>
+<li>项目安装gulp，项目文件夹下，<code>npm install --save-dev gulp</code>。 (–save-dev 加入此项目依赖中，不需要可取消这个参数)</li>
+<li>项目根创建gulpfile.js文件，文件内创建任务测试。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var gulp = require(&apos;gulp&apos;);</span><br><span class="line">gulp.task(&apos;default&apos;,function()&#123;</span><br><span class="line">    console.log(&apos;hello world!&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>运行 <code>gulp</code>，可以看到默认执行，输出 hello world! 。测试成功。</li>
+</ol>
+<h3 id="gulp-API"><a href="#gulp-API" class="headerlink" title="gulp API"></a>gulp API</h3><pre><code>上面运行 gulp 执行default ，这个是gulp API。 [文档](https://www.gulpjs.com.cn/docs/api/) 
+</code></pre><h4 id="gulp工作方式"><a href="#gulp工作方式" class="headerlink" title="gulp工作方式"></a>gulp工作方式</h4><p><code>gulp.src</code> 获取文件流,通过<code>pipe</code>方法导入到插件，插件处理的流通过<code>pipe</code>方法导入 <code>gulp.dest</code>中, <code>gulp.dest</code> 输出目标文件。</p>
+<ul>
+<li><p>gulp src<br><code>gulp.src(globs[, options])</code></p>
+<blockquote>
+<p>输出（Emits）符合所提供的匹配模式（glob）或者匹配模式的数组（array of globs）的文件。 将返回一个 Vinyl files 的 stream 它可以被 piped 到别的插件中。</p>
+</blockquote>
+</li>
+</ul>
+<p>文档这意思看着有点费劲，理解为获取文件路径。gulp通过这个方法获取到处理的文件流。</p>
+<p>参数： </p>
+<pre><code>globs 文件匹配模式，匹配文件路径，文件名。
+类型： string array
+
+options  额外可选参数
+类型： object
+额外参数需要看手册
+</code></pre><ul>
+<li><p>gulp.dest<br><code>gulp.dest(path[, options])</code></p>
+<blockquote>
+<p>能被 pipe 进来，并且将会写文件。并且重新输出（emits）所有数据，因此你可以将它 pipe 到多个文件夹。如果某文件夹不存在，将会自动创建它。</p>
+</blockquote>
+</li>
+</ul>
+<p>理解为写文件，写入path路径文件。</p>
+<p>参数：</p>
+<pre><code>path 文件写入路径
+类型：string function
+
+options 额外可选参数
+类型：object
+</code></pre><ul>
+<li><p>gulp.task<br><code>gulp.task(name[, deps], fn)</code></p>
+<blockquote>
+<p>定义一个使用 Orchestrator 实现的任务（task）。</p>
+</blockquote>
+</li>
+</ul>
+<p>用来定义任务，内部使用的是Orchestrator。</p>
+<p>参数：</p>
+<pre><code>name 任务名字
+
+deps 是当前任务需要的其他任务，一个数组。依赖任务，先于此任务执行。
+类型：array
+
+fn  该函数定义任务所要执行的一些操作，把任务要执行的代码写在里面。
+</code></pre><ul>
+<li>gulp.watch<br><code>gulp.watch(glob[, opts], tasks)</code><br><code>gulp.watch(glob[, opts, cb])</code></li>
+</ul>
+<blockquote>
+<p>监视文件，并且可以在文件发生改动时候做一些事情。</p>
+</blockquote>
+<p>参数：</p>
+<pre><code>glob 文件匹配模式
+类型 string array
+
+opts 可选配置
+类型 object
+
+tasks 文件变动后执行的任务
+类型 array
+
+cb 一个函数，文件发生变化时调用的函数。
+类型 function
+</code></pre><p><em>Glob</em> 匹配模式  <a href="https://github.com/isaacs/node-glob" target="_blank" rel="noopener">(node-glob）参考语法</a> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">匹配符                             说明</span><br><span class="line">      *                               匹配文件路径中的0个或多个字符，但不会匹配路径分割符，</span><br><span class="line">                                      除非分隔符出现在末尾</span><br><span class="line"></span><br><span class="line">      **                              匹配路径的0个会多个目录 及子目录 需要单独出现，</span><br><span class="line">                                      即他左右不能有其他的东西了如果出现在末尾，也能匹配文件</span><br><span class="line"></span><br><span class="line">      ？                              匹配文件路径中的一个字符（不能匹配路径分割符/）</span><br><span class="line"></span><br><span class="line">      [...]                           匹配方括号中 出现字符的任意一个，当方括号中第一个字符为^或!时，</span><br><span class="line">                                      则表示不匹配方括号中出现字符中的任意一个，</span><br><span class="line">                                      类似于js中正则表达式中的用法</span><br><span class="line"></span><br><span class="line">      !(pattern|pattern|pattern)      匹配任何与括号中给定的任意模式都不匹配</span><br><span class="line">      ？(pattern|pattern|pattern)     匹配括号中给定的任意模式0次或1次</span><br><span class="line">      +(pattern|pattern|pattern)      匹配括号中的至少一次</span><br><span class="line">      *(pattern|pattern|pattern)      匹配括号中给定的任意模式0次或多次</span><br><span class="line">      @(pattern|pattern|pattern)      匹配括号中 给定的任意模式一次</span><br><span class="line"></span><br><span class="line">    eg：glob 匹配</span><br><span class="line">      |能匹配 a.js,x.y,abc,abc/,但不能匹配a/b.js|</span><br><span class="line">      |.*   a.js,style.css,a.b,x.y</span><br><span class="line">      //*.js    能匹配 a/b/c.js,x/y/z.js,不能匹配a/b.js,a/b/c/d.js</span><br><span class="line">      **    能匹配 abc,a/b.js,a/b/c.js,x/y/z,x/y/z/a.b,能用来匹配所有的目录和文件</span><br><span class="line">      a/**/z    能匹配 a/z,a/b/z,a/b/c/z,a/d/g/h/j/k/z</span><br><span class="line">      a/**b/z   能匹配 a/b/z,a/sb/z,但不能匹配a/x/sb/z,因为只有单**单独出现才能匹配多级目录</span><br><span class="line">      ?.js  能匹配 a.js,b.js,c.js</span><br><span class="line">      a??   能匹配 a.b,abc,但不能匹配ab/,因为它不会匹配路径分隔符</span><br><span class="line">      [xyz].js  只能匹配 x.js,y.js,z.js,不会匹配xy.js,xyz.js等,整个中括号只代表一个字符</span><br><span class="line">      [^xyz].js 能匹配 a.js,b.js,c.js等,不能匹配x.js,y.js,z.js</span><br></pre></td></tr></table></figure>
+<p>多种匹配模式时，使用数组<br><code>gulp.src([&#39;js/*.js&#39;,&#39;css/*.css&#39;,&#39;*.html&#39;])</code></p>
+<p>数组中可以用 <code>！</code> 排除<em>(放在数组第一个无效)</em><br><code>gulp.src([*.js,&#39;!b*.js&#39;])</code></p>
+<h3 id="编写一个任务"><a href="#编写一个任务" class="headerlink" title="编写一个任务"></a>编写一个任务</h3><p>常用到压缩，写个压缩demo。<br>目录，根目录下有两个文件夹，dist空文件，src目录,src/js文件夹2个文件，common.js,demo.js。<br>任务目标，将js目录下的.js文件，压缩合并为new.min.js。之后将合并压缩的文件保存到dist/js/。</p>
+<ol>
+<li>我们在初始化后的项目中，先安装所需插件，gulp-rename（重命名插件）,gulp-uglify（压缩js插件），gulp-concat（合并文件插件）。<br>npm install gulp-rename gulp-uglify gulp-concat –save-dev</li>
+<li>编辑gulpfile.js </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var gulp=require(&apos;gulp&apos;); </span><br><span class="line">var  rename= require(&apos;gulp-rename&apos;);  //引入插件</span><br><span class="line">var  uglify= require(&apos;gulp-uglify&apos;);</span><br><span class="line">var  concat= require(&apos;gulp-concat&apos;);</span><br><span class="line"></span><br><span class="line"> gulp.task(&apos;js&apos;, function()&#123;                   //创建名为 js的任务</span><br><span class="line">     return gulp.src(&apos;src/js/*.js&apos;)           //读取文件流           </span><br><span class="line">     .pipe(concat())                             //合并</span><br><span class="line">     .pipe(uglify())                              //压缩</span><br><span class="line">     .pipe(rename(&#123;suffix: &apos;.min&apos;&#125;))     //重命名</span><br><span class="line">     .pipe(gulp.dest(&apos;dist/js/&apos;))          //输出到指定路径</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p>文件保存后，命令行执行任务： <code>gulp js</code> 。<br>可以看到Finshed时间，去dist目录可以看到合并压缩的文件已在里面。</p>
+<h3 id="gulp插件"><a href="#gulp插件" class="headerlink" title="gulp插件"></a>gulp插件</h3><ul>
+<li>CSS压缩 gulp-minify-css</li>
+<li>Js压缩 gulp-uglify</li>
+<li>重命名 gulp-rename</li>
+<li>文件合并 gulp-concat</li>
+<li>自动加载 gulp-load-plugins</li>
+<li>less编译 gulp-less</li>
+<li>sass编译 gulp-sass</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>请我吃辣条吧？！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7b2CD.png" alt="aLong 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="https://s2.ax1x.com/2019/04/11/A7bc4O.png" alt="aLong 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gulp/" rel="tag"># gulp</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/19/Centos7时间设置/" rel="next" title="Centos7时间设置">
+                <i class="fa fa-chevron-left"></i> Centos7时间设置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/25/redis笔记/" rel="prev" title="redis笔记">
+                redis笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">aLong</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp"><span class="nav-number">1.</span> <span class="nav-text">gulp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-API"><span class="nav-number">3.</span> <span class="nav-text">gulp API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gulp工作方式"><span class="nav-number">3.1.</span> <span class="nav-text">gulp工作方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写一个任务"><span class="nav-number">4.</span> <span class="nav-text">编写一个任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp插件"><span class="nav-number">5.</span> <span class="nav-text">gulp插件</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aLong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">99k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">1:30</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
