@@ -1,3 +1,0 @@
-* ## My blog 
-* ## hexo blog 
-
